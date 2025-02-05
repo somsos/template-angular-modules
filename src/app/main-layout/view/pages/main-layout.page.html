@@ -1,0 +1,31 @@
+<div>
+
+  @if (loading$ | async; as req) {
+    @switch (req.status) {
+      @case ('loading') {
+        <div id='overlay'>
+          <p>Loading...</p>
+        </div>
+      }
+    }
+  }
+
+  <header>
+    <h1>Main</h1>
+    <a [routerLink]="['/products']">products</a>
+    <br />
+    <a [routerLink]="['/login']">login</a>
+  </header>
+
+  <main>
+    <router-outlet />
+  </main>
+
+  <footer>
+    Footer
+    @if (error$ | async; as error) {
+      <p style='color: brown;'>Error: {{error.message}}</p>
+    }
+  </footer>
+
+</div>
