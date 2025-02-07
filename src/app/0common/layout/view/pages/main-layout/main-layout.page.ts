@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { debounceTime } from 'rxjs';
 import { CommonModule, Location } from '@angular/common';
-import { LoadingService } from '../../../loadings/internals/LoadingService';
-import { ErrorStateService } from '../../../errors/internals/ErrorStateService';
-import IAuthService from '../../../../auth/common/IAuthService';
-import AuthService from '../../../../auth/domain/AuthService';
-import AuthDto from '../../../../auth/common/AuthDto';
-import { ILoadingService } from '../../../loadings/ILoadingService';
-import { IErrorStateService } from '../../../errors/IErrorStateService';
+import AuthDto from '../../../../../auth/common/AuthDto';
+import IAuthService from '../../../../../auth/common/IAuthService';
+import AuthService from '../../../../../auth/domain/AuthService';
+import { IErrorStateService } from '../../../../errors/IErrorStateService';
+import { ErrorStateService } from '../../../../errors/internals/ErrorStateService';
+import { ILoadingService } from '../../../../loadings/ILoadingService';
+import { LoadingService } from '../../../../loadings/internals/LoadingService';
 
 @Component({
   selector: 'main-layout-root',
