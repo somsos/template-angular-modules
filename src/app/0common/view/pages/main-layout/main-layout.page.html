@@ -12,9 +12,14 @@
 
   <header>
     <h1>Main</h1>
-    <a [routerLink]="['/products']">products</a>
-    <br />
-    <a [routerLink]="['/login']">login</a>
+    <ul>
+      <li><a [routerLink]="['/products']">Products</a></li>
+      @if (authUser) {
+        <li>Hi {{authUser.username}} <a (click)="logout()" href='#'>Logout</a></li>
+      } @else {
+        <li><a [routerLink]="['/login']">login</a></li>
+      }
+    </ul>
   </header>
 
   <main>

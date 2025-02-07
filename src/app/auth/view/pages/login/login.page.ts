@@ -18,12 +18,19 @@ export class LoginPage {
   public userAuth = this._observeLoginSuccess();
 
   onSubmitMario1() {
-    const toAuth = new AuthDto(1, 'mario1', 'mario1p', '', []);
+    const toAuth = new AuthDto();
+    toAuth.id = 1;
+    toAuth.username = 'mario1';
+    toAuth.password = 'mario1p';
     this._authSrv.login(toAuth);
   }
 
   onSubmitError() {
-    const toAuth = new AuthDto(1, 'marioError', 'marioErrorp', '', []);
+    const toAuth = new AuthDto();
+    toAuth.id = 111;
+    toAuth.username = 'marioError';
+    toAuth.password = 'marioErrorp';
+
     this._authSrv.login(toAuth);
   }
 
@@ -33,7 +40,6 @@ export class LoginPage {
       first(),
       tap({
         complete: () => {
-          console.debug('successful login');
           this._router.navigateByUrl('products');
         },
       }),

@@ -11,18 +11,20 @@ import {
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
-import { AppError } from '../../0common/errors/internals/AppError';
+import { AppError } from '../../0common/errors/AppError';
+import AuthDto from '../common/AuthDto';
 
 // array in local storage for registered users
 const usersKey = 'mock-auth';
-let users: any[] = JSON.parse(localStorage.getItem(usersKey)!) || [];
+let allUsers: any[] = JSON.parse(localStorage.getItem(usersKey)!) || [];
 
 export function fakeAuthApiDao(
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> {
-  console.debug('interceptor to fake backend');
   const { url, method, headers, body } = req;
+
+  createUsersIfNotExists();
 
   return handleRoute();
 
@@ -51,51 +53,39 @@ export function fakeAuthApiDao(
   function authenticate() {
     const { username, password } = body;
 
-    const user = users.find(
+    const userFound = allUsers.find(
       (x) => x.username === username && x.password === password
     );
 
-    console.debug(
-      'all users:',
-      user,
-      'user to find:',
-      body,
-      'user-found:',
-      user
-    );
-
-    if (!user) {
+    if (!userFound) {
       return error('Username or password is incorrect');
     }
 
-    return ok({
-      ...basicDetails(user),
-      token: 'fake-jwt-token',
-    });
+    return ok(userFound);
   }
 
   function register() {
     const user = body;
 
-    if (users.find((x) => x.username === user.username)) {
+    if (allUsers.find((x) => x.username === user.username)) {
       return error('Username "' + user.username + '" is already taken');
     }
 
-    user.id = users.length ? Math.max(...users.map((x) => x.id)) + 1 : 1;
-    users.push(user);
-    localStorage.setItem(usersKey, JSON.stringify(users));
+    user.id = allUsers.length ? Math.max(...allUsers.map((x) => x.id)) + 1 : 1;
+    allUsers.push(user);
+    localStorage.setItem(usersKey, JSON.stringify(allUsers));
     return ok();
   }
 
   function getUsers() {
     if (!isLoggedIn()) return unauthorized();
-    return ok(users.map((x) => basicDetails(x)));
+    return ok(allUsers.map((x) => basicDetails(x)));
   }
 
   function getUserById() {
     if (!isLoggedIn()) return unauthorized();
 
-    const user = users.find((x) => x.id === idFromUrl());
+    const user = allUsers.find((x) => x.id === idFromUrl());
     return ok(basicDetails(user));
   }
 
@@ -103,7 +93,7 @@ export function fakeAuthApiDao(
     if (!isLoggedIn()) return unauthorized();
 
     let params = body;
-    let user = users.find((x) => x.id === idFromUrl());
+    let user = allUsers.find((x) => x.id === idFromUrl());
 
     // only update password if entered
     if (!params.password) {
@@ -112,7 +102,7 @@ export function fakeAuthApiDao(
 
     // update and save user
     Object.assign(user, params);
-    localStorage.setItem(usersKey, JSON.stringify(users));
+    localStorage.setItem(usersKey, JSON.stringify(allUsers));
 
     return ok();
   }
@@ -120,12 +110,25 @@ export function fakeAuthApiDao(
   function deleteUser() {
     if (!isLoggedIn()) return unauthorized();
 
-    users = users.filter((x) => x.id !== idFromUrl());
-    localStorage.setItem(usersKey, JSON.stringify(users));
+    allUsers = allUsers.filter((x) => x.id !== idFromUrl());
+    localStorage.setItem(usersKey, JSON.stringify(allUsers));
     return ok();
   }
 
   // helper functions
+
+  function createUsersIfNotExists(): void {
+    if (!localStorage.getItem(usersKey)) {
+      const n1User = new AuthDto();
+      n1User.id = 1;
+      n1User.username = 'mario1';
+      n1User.password = 'mario1p';
+      n1User.token = 'fake-token';
+      n1User.roles = ['admin_users', 'admin_products'];
+      allUsers.push(n1User);
+      localStorage.setItem(usersKey, JSON.stringify(allUsers));
+    }
+  }
 
   function ok(body?: any) {
     return of(new HttpResponse({ status: 200, body })).pipe(delay(500)); // delay observable to simulate server api call

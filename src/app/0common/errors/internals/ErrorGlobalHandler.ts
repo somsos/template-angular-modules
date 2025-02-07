@@ -1,8 +1,8 @@
 import { ErrorHandler, inject, Injectable } from '@angular/core';
-import { AppError } from './AppError';
+import { AppError } from '../AppError';
 import { ErrorStateService } from './ErrorStateService';
-import { ErrorDto } from './ErrorDto';
-import { ErrorType } from './ErrorType';
+import { ErrorDto } from '../ErrorDto';
+import { ErrorType } from '../ErrorType';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,10 @@ export class ErrorGlobalHandler implements ErrorHandler {
         cause
       );
       this.errorStateService.setError(err);
+      if (error.stack) {
+        console.log(error.stack);
+      }
+      throw error;
     }
   }
 

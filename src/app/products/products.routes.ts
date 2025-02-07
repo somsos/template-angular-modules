@@ -7,6 +7,13 @@ const routes: Routes = [
     path: '',
     component: ProductsListPage,
   },
+  {
+    path: 'add',
+    loadComponent: () =>
+      import('./view/pages/product-form/product-form.page').then(
+        (m) => m.ProductFormPage
+      ),
+  },
 ];
 
 @NgModule({
