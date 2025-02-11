@@ -9,11 +9,17 @@ import { IErrorStateService } from '../../../../errors/IErrorStateService';
 import { ErrorStateService } from '../../../../errors/internals/ErrorStateService';
 import { ILoadingService } from '../../../../loadings/ILoadingService';
 import { LoadingService } from '../../../../loadings/internals/LoadingService';
+import { DialogConfirmationComponent } from '../../components/dialog-confirmation/dialog-confirmation.component';
 
 @Component({
   selector: 'main-layout-root',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, CommonModule],
+  imports: [
+    RouterOutlet,
+    RouterModule,
+    CommonModule,
+    DialogConfirmationComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './main-layout.page.html',
   styleUrl: './main-layout.page.scss',

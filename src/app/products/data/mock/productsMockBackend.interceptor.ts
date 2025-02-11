@@ -14,6 +14,7 @@ import { delay, materialize, dematerialize } from 'rxjs/operators';
 import { AppError } from '../../../0common/errors/AppError';
 import { ProductDao } from '../ProductDao';
 import { ProductDto } from '../../commons/ProductDto';
+import { StringUtils } from '../../../0common/utils/StringUtils';
 
 // array in local storage for registered users
 const productsKeyStore = 'productsKeyStore';
@@ -32,10 +33,15 @@ export function productsMockBackend(
 
   function handleRoute() {
     switch (true) {
-      case url.endsWith(ProductDao.pathAll) && method === 'GET':
+      case url.endsWith(ProductDao.pathRoot) && method === 'GET':
         return getAll();
-      case url.endsWith(ProductDao.pathSave) && method === 'POST':
+      case url.endsWith(ProductDao.pathRoot) && method === 'POST':
         return save();
+      case StringUtils.compareUrls(ProductDao.pathId, url) && method === 'GET':
+        return getById();
+      case StringUtils.compareUrls(ProductDao.pathId, url) &&
+        method === 'DELETE':
+        return deleteById();
       default:
         // pass through any requests not handled above
         return next(req);
@@ -44,7 +50,7 @@ export function productsMockBackend(
 
   // route functions
 
-  function getAll(): Observable<HttpResponse<any>> {
+  function getAll(): Observable<HttpResponse<ProductDto>> {
     //const { username, password } = body;
     if (!allProducts || allProducts.length == 0) {
       return ok([]);
@@ -52,15 +58,47 @@ export function productsMockBackend(
     return ok(allProducts);
   }
 
-  function save(): Observable<HttpResponse<any>> {
-    body.id = allProducts.length + 1;
+  function save(): Observable<HttpResponse<ProductDto>> {
+    body.id = getBiggestId() + 1;
     allProducts.unshift(body);
     const newStore = JSON.stringify(allProducts);
     localStorage.setItem(productsKeyStore, newStore);
     return ok(body);
   }
 
+  function getById(): Observable<HttpResponse<ProductDto>> {
+    const id = getPathId();
+    const found = allProducts.find((p) => p.id === id);
+    if (!found) {
+      return error('producto no encontrado');
+    }
+    return ok(found);
+  }
+
+  function deleteById(): Observable<HttpResponse<ProductDto>> {
+    const id = getPathId();
+    const found = allProducts.find((p) => p.id === id);
+    if (!found) {
+      return error('producto no encontrado');
+    }
+    allProducts = allProducts.filter((p) => p.id !== found.id);
+    localStorage.setItem(productsKeyStore, JSON.stringify(allProducts));
+    return ok(found);
+  }
+
   // helper functions
+
+  function getPathId(): number {
+    const pathId = url.substring(url.lastIndexOf('/') + 1, url.length);
+    const id = StringUtils.toNumber(pathId);
+    return id;
+  }
+
+  function getBiggestId(): number {
+    const ids = allProducts.map((p) => p.id);
+    const higherId = Math.max.apply(Math, ids);
+    return higherId;
+  }
 
   function createProductsStoreIfNotExists() {
     const store = localStorage.getItem(productsKeyStore);

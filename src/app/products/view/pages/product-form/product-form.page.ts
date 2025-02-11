@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-form',
-  standalone: true,
-  imports: [],
   templateUrl: './product-form.page.html',
   styleUrl: './product-form.page.scss',
 })
@@ -16,13 +14,8 @@ export class ProductFormPage {
   private readonly _router = inject(Router);
 
   onAdd() {
-    const random = Math.floor(Math.random() * 1000 + 1);
-    const productForm = ProductDto.toAdd(
-      'name' + random,
-      random,
-      'des' + random
-    );
-    const addReq: Observable<ProductDto> = this._productSrv.save(productForm);
+    const newOnForm = ProductDto.createRandomProductToSave();
+    const addReq: Observable<ProductDto> = this._productSrv.save(newOnForm);
     this._observeSuccess(addReq);
   }
 

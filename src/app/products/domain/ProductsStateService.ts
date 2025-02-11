@@ -14,4 +14,12 @@ export class ProductsService {
   save(toAdd: ProductDto): Observable<ProductDto> {
     return this._dao.save(toAdd);
   }
+
+  getById(idInPath: number): Observable<ProductDto> {
+    return this._dao.getById(idInPath);
+  }
+
+  deleteById(id: number): Observable<ProductDto> {
+    return this._dao.deleteById(id);
+  }
 }

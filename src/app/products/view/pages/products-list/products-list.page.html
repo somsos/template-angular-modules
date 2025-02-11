@@ -1,15 +1,24 @@
 <section>
-  <button (click)="goToAdd()">Agregar</button>
+  <h2>Productos</h2>
+  <button (click)="goToAdd()">Crear</button>
   @if (productsList$ | async; as products) {
     @for (p of products; track p.id) {
-      <article>
+      <article class='product-item'>
         <header>
           <h2>{{p.name}}: <span class='price'>${{p.price}}.00</span></h2>
         </header>
         <div>
-          <p>{{p.description}}</p>
+          <p class='description'>{{p.description}}</p>
         </div>
+        <footer>
+          <div class='actions'>
+            <button (click)="onClickDelete(p.id)">Eliminar</button> |
+            <a routerLink="details/{{p.id}}" class='button'>Ver detalles</a>
+          </div>
+
+        </footer>
       </article>
+      <hr />
     } @empty {
       <p>No hay productos a mostrar</p>
     }

@@ -1,3 +1,23 @@
 .price {
   color: darkgray;
 }
+
+.product-item {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  .description {
+    max-width: 90%;
+  }
+
+  footer {
+    display: flex;
+    justify-content: end;
+
+    .actions {
+      display: flex;
+      column-gap: 0.5rem;
+    }
+  }
+}

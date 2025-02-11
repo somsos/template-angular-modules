@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  overflow-wrap: break-word;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  width: 100%;  //or 100vw
+
+  /* if you want to add some gaps between the edge of the screen, use padding instead */
+  padding-left: 2px;
+}
+
+.button {
+  font: bold 11px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsListPage } from './view/pages/products-list/products-list.page';
+import { ProductFormPage } from './view/pages/product-form/product-form.page';
+import { ProductDetailsPage } from './view/pages/product-details/product-details.page';
 
 const routes: Routes = [
   {
@@ -9,10 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'add',
-    loadComponent: () =>
-      import('./view/pages/product-form/product-form.page').then(
-        (m) => m.ProductFormPage
-      ),
+    component: ProductFormPage,
+  },
+  {
+    path: 'details/:id',
+    component: ProductDetailsPage,
   },
 ];
 

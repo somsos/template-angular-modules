@@ -4,10 +4,12 @@ import { ErrorGlobalHandler } from './errors/internals/ErrorGlobalHandler';
 import { ErrorStateService } from './errors/internals/ErrorStateService';
 import { LoadingService } from './loadings/internals/LoadingService';
 import { LoadingsInterceptor } from './loadings/internals/loadingsInterceptor';
+import { LayoutService } from './layout';
 
 export const commonsNames = {
   ErrorService: 'ErrorService',
   LoadingsService: 'LoadingsService',
+  LayoutService: 'LayoutService',
 };
 
 @NgModule({
@@ -18,6 +20,8 @@ export const commonsNames = {
     //loadings
     { provide: commonsNames.LoadingsService, useClass: LoadingService },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingsInterceptor, multi: true },
+    //layout
+    { provide: commonsNames.LayoutService, useClass: LayoutService },
   ],
 })
 export class CommonsModule {}
