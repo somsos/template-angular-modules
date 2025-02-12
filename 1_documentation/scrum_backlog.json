@@ -1,0 +1,70 @@
+[
+  {
+    "Id": "¬1",
+    "Module": "Tags",
+    "As User": "Public",
+    "I Want": "Be able to create a tag",
+    "For": "So I can add it when I create a post",
+    "Acceptance Terms": [
+      "Only logged public users must be able to create a new tag",
+      "Must be in the form to create new post",
+      "Must be inside of an main category",
+      "Main categories must not be allowed to be created",
+      "Must be capable to add the new tag to any post"
+    ],
+    "Team info": {
+      "Responsibles": [
+        {
+          "Area": "FrontEnd",
+          "Person": "Mario1"
+        }
+      ],
+      "Created at": "2024-03-23",
+      "Finished at": "0000-00-00"
+    }
+  },
+  {
+    "Id": "¬2",
+    "Module": "Tags",
+    "As User": "Public",
+    "I Want": "Delete a tag",
+    "For": "Undo a tag I do not want",
+    "Acceptance Terms": [
+      "Can only delete those tags I created",
+      "Can only delete those tags are not in use in some post"
+    ],
+    "Team Info": {
+      "Break Change":false,
+      "Responsibles": [
+        {
+          "Area": "FrontEnd",
+          "Person": "Mario1"
+        }
+      ],
+      "Created at": "2024-03-23",
+      "Finished at": "0000-00-00"
+    }
+  },
+  {
+    "Id": "¬3",
+    "Module": "Tags",
+    "As User": "Public",
+    "I Want": "See post filtered by tag",
+    "For": "See only those tags that include a determinated tag",
+    "Acceptance Terms": [
+      "Can only delete those tags I created",
+      "Can only delete those tags are not in use in some post"
+    ],
+    "Team Info": {
+      "Break Change":false,
+      "Responsibles": [
+        {
+          "Area": "FrontEnd",
+          "Person": "Mario1"
+        }
+      ],
+      "Created at": "2024-03-23",
+      "Finished at": "0000-00-00"
+    }
+  }
+]
