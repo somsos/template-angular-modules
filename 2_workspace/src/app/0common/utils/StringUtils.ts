@@ -1,4 +1,5 @@
-import { AppError } from '../errors/AppError';
+import { AppError } from '../errors/externals/AppError';
+import { Endpoint } from '../types/Endpoint';
 
 export abstract class StringUtils {
   public static randomString(length: number): string {

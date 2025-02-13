@@ -1,4 +1,4 @@
-import { StringUtils } from '../../0common/utils/StringUtils';
+import { StringUtils } from '../../0common';
 
 export class ProductDto {
   public id: number = 0;

@@ -11,7 +11,7 @@ import {
   switchMap,
 } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StringUtils } from '../../../../0common/utils/StringUtils';
+import { StringUtils } from '../../../../0common';
 
 @Component({
   selector: 'product-details',

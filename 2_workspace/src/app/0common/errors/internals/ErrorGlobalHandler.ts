@@ -1,8 +1,8 @@
 import { ErrorHandler, inject, Injectable } from '@angular/core';
-import { AppError } from '../AppError';
+import { AppError } from '../externals/AppError';
 import { ErrorStateService } from './ErrorStateService';
-import { ErrorDto } from '../ErrorDto';
-import { ErrorType } from '../ErrorType';
+import { ErrorDto } from '../externals/ErrorDto';
+import { ErrorType } from '../externals/ErrorType';
 
 @Injectable({
   providedIn: 'root',

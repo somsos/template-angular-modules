@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IErrorStateService } from '../IErrorStateService';
+import { IErrorStateService } from '../externals/IErrorStateService';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { ErrorDto } from '../ErrorDto';
+import { ErrorDto } from '../externals/ErrorDto';
 
 @Injectable({
   providedIn: 'root',

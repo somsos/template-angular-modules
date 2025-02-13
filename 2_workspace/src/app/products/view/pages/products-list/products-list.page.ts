@@ -1,10 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { ProductsService } from '../../../domain/ProductsStateService';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ProductDto } from '../../../commons/ProductDto';
 import { Router } from '@angular/router';
-import { LayoutService } from '../../../../0common/layout/domain/LayoutService';
-import { ILayoutService } from '../../../../0common/layout/common/ILayoutService';
+import { commonsNames, ILayoutService } from '../../../../0common';
 
 @Component({
   selector: 'app-products-list',
@@ -14,9 +13,12 @@ import { ILayoutService } from '../../../../0common/layout/common/ILayoutService
 export class ProductsListPage {
   private readonly _productsStateSrv = inject(ProductsService);
   private readonly _route = inject(Router);
-  private readonly _layoutSrv: ILayoutService = inject(LayoutService);
 
   public productsList$: Observable<ProductDto[]> = this._observeProductsList();
+
+  constructor(
+    @Inject(commonsNames.ILayoutService) private _layoutSrv: ILayoutService
+  ) {}
 
   private _observeProductsList(): Observable<ProductDto[]> {
     return this._productsStateSrv.getAll();

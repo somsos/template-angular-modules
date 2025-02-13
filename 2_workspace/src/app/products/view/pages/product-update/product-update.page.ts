@@ -11,7 +11,7 @@ import {
   switchMap,
 } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StringUtils } from '../../../../0common/utils/StringUtils';
+import { StringUtils } from '../../../../0common';
 
 @Component({
   selector: 'product-update-page',
@@ -34,7 +34,7 @@ export class ProductUpdatePage {
     );
   }
 
-  onBack() {
+  goToProductsRoute() {
     this._router.navigateByUrl('products');
   }
 
@@ -42,6 +42,7 @@ export class ProductUpdatePage {
     const sub = this._productSrv.update(newInfo).subscribe({
       complete: () => {
         console.debug('update successful completed');
+        this.goToProductsRoute();
         sub.unsubscribe();
       },
     });

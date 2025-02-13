@@ -1,20 +1,16 @@
-import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpResponse,
-  HttpHandler,
   HttpEvent,
-  HttpInterceptor,
-  HTTP_INTERCEPTORS,
   HttpHandlerFn,
   HttpStatusCode,
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
-import { AppError } from '../../../0common/errors/AppError';
+import { AppError } from '../../../0common';
 import { ProductDao } from '../ProductDao';
 import { ProductDto } from '../../commons/ProductDto';
-import { StringUtils } from '../../../0common/utils/StringUtils';
+import { StringUtils } from '../../../0common';
 
 // array in local storage for registered users
 const productsKeyStore = 'productsKeyStore';
@@ -66,6 +62,10 @@ export function productsMockBackend(
   }
 
   function save(): Observable<HttpResponse<ProductDto>> {
+    const jwt = headers.get("Authorization");
+    if(!jwt) {
+      return unauthorized();
+    }
     body.id = getBiggestId() + 1;
     allProducts.unshift(body);
     const newStore = JSON.stringify(allProducts);
@@ -137,7 +137,7 @@ export function productsMockBackend(
     const error = new AppError(message, HttpStatusCode.Forbidden);
     const errorResponse = throwError(() => error).pipe(
       materialize(),
-      delay(500),
+      delay(1000),
       dematerialize()
     ); // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648);
     return errorResponse;
@@ -147,7 +147,7 @@ export function productsMockBackend(
     const error = new AppError('Unauthorized', HttpStatusCode.Forbidden);
     return throwError(() => error).pipe(
       materialize(),
-      delay(500),
+      delay(1000),
       dematerialize()
     );
   }

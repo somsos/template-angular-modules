@@ -19,6 +19,9 @@ export class ProductsFormComponent implements OnInit {
   @Input()
   p!: ProductDto;
 
+  @Input()
+  btnSubmitLabel!: string;
+
   @Output()
   readonly onSubmit = new EventEmitter<ProductDto>();
 

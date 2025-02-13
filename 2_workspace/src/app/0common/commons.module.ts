@@ -5,23 +5,23 @@ import { ErrorStateService } from './errors/internals/ErrorStateService';
 import { LoadingService } from './loadings/internals/LoadingService';
 import { LoadingsInterceptor } from './loadings/internals/loadingsInterceptor';
 import { LayoutService } from './layout';
-
-export const commonsNames = {
-  ErrorService: 'ErrorService',
-  LoadingsService: 'LoadingsService',
-  LayoutService: 'LayoutService',
-};
+import { JwtInterceptor } from './auth/internals/JwtInterceptor';
+import { AuthBackendService } from './auth/internals/AuthBackendService';
+import { commonsNames } from '.';
 
 @NgModule({
   providers: [
     //errors
     { provide: ErrorHandler, useClass: ErrorGlobalHandler },
-    { provide: commonsNames.ErrorService, useClass: ErrorStateService },
+    { provide: commonsNames.IErrorStateService, useClass: ErrorStateService },
+    // auth
+    { provide: commonsNames.IAuthBackendService, useClass: AuthBackendService },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //loadings
-    { provide: commonsNames.LoadingsService, useClass: LoadingService },
+    { provide: commonsNames.ILoadingService, useClass: LoadingService },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingsInterceptor, multi: true },
     //layout
-    { provide: commonsNames.LayoutService, useClass: LayoutService },
+    { provide: commonsNames.ILayoutService, useClass: LayoutService },
   ],
 })
 export class CommonsModule {}

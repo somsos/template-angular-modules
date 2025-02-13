@@ -1,15 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, inject } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { debounceTime } from 'rxjs';
+import { debounceTime, Observable } from 'rxjs';
 import { CommonModule, Location } from '@angular/common';
 import AuthDto from '../../../../../auth/common/AuthDto';
 import IAuthService from '../../../../../auth/common/IAuthService';
 import AuthService from '../../../../../auth/domain/AuthService';
-import { IErrorStateService } from '../../../../errors/IErrorStateService';
-import { ErrorStateService } from '../../../../errors/internals/ErrorStateService';
-import { ILoadingService } from '../../../../loadings/ILoadingService';
-import { LoadingService } from '../../../../loadings/internals/LoadingService';
 import { DialogConfirmationComponent } from '../../components/dialog-confirmation/dialog-confirmation.component';
+import { commonsNames, ErrorDto, IErrorStateService, ILoadingService, RequestDto } from '../../../..';
 
 @Component({
   selector: 'main-layout-root',
@@ -27,27 +24,26 @@ import { DialogConfirmationComponent } from '../../components/dialog-confirmatio
 export class MainLayoutPage {
   //private readonly _cdRef = inject(ChangeDetectorRef);
   private readonly _location = inject(Location);
-  private readonly _loadingSrv: ILoadingService = inject(LoadingService);
-  private readonly _errorStateSrv: IErrorStateService =
-    inject(ErrorStateService);
   private readonly _authSrv: IAuthService = inject(AuthService);
 
-  public readonly loading$ = this._loadingSrv
-    .getRequest()
-    .pipe(debounceTime(50));
+  public readonly loading$: Observable<RequestDto>;
 
-  public readonly error$ = this._errorStateSrv
-    .getError()
-    .pipe(debounceTime(50));
+  public readonly error$: Observable<ErrorDto | undefined>;
 
   public authUser?: AuthDto;
 
-  constructor() {
+  constructor(
+    @Inject(commonsNames.ILoadingService) private _loadingSrv: ILoadingService,
+    @Inject(commonsNames.IErrorStateService) private _errorStateSrv: IErrorStateService
+  ) {
     this._authSrv.getUserLogged().subscribe({
       next: (u) => {
         this.authUser = u;
       },
     });
+
+    this.loading$ = this._loadingSrv.getRequest().pipe(debounceTime(50));
+    this.error$ = this._errorStateSrv.getError().pipe(debounceTime(50));
   }
 
   logout() {

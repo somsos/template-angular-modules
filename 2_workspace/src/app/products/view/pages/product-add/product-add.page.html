@@ -1,0 +1,9 @@
+<div>
+  <button (click)="onAdd()">Regresar</button>
+  <h2>Agregar producto</h2>
+  <products-form
+    [p]='productOnForm'
+    btnSubmitLabel='Guardar'
+    (onSubmit)='onAdd()'
+  />
+</div>
