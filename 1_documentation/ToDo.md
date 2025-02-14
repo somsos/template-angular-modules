@@ -11,7 +11,7 @@
   - [ ] Add owner to product
 
 - [ ] Users CRUD prototype
-  - [ ] List
+  - [>] List
   - [ ] Add
   - [ ] Delete
   - [ ] Update

@@ -7,7 +7,11 @@
 
     @for (u of users$ | async; track u.id) {
       <article class='user'>
-        <p>Usuario: {{u.name}}</p>
+        <header class='user-header'>
+          <img src='/img/yellow.png?id={{u.pictureId}}' alt='{{u.name}} {{u.lastName}}' />
+          <p>{{u.name}} {{u.lastName}}</p>
+        </header>
+
         <footer>
           <div class='actions'>
             <a routerLink="delete">Eliminar</a>
@@ -15,6 +19,7 @@
             <a routerLink="details">Detalles</a>
           </div>
         </footer>
+        <hr />
       </article>
     } @empty {
       <p>Sin usuarios a mostrar</p>
