@@ -14,6 +14,7 @@ import { fakeAuthApiDao } from './auth';
 import { productsMockBackend } from './products/data/mock/productsMockBackend.interceptor';
 import { AuthModule } from './auth/auth.module';
 import { CommonsModule } from './0common/commons.module';
+import { MockUsersBackend } from './users/externals';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(mainRoutes),
     importProvidersFrom(CommonsModule),
     importProvidersFrom(AuthModule),
+    MockUsersBackend,
     provideHttpClient(
       withInterceptorsFromDi(),
       withInterceptors([fakeAuthApiDao, productsMockBackend])

@@ -32,6 +32,7 @@ export function fakeAuthApiDao(
     switch (true) {
       case url.endsWith('/api/auth/login') && method === 'POST':
         return authenticate();
+      /*
       case url.endsWith('/users/register') && method === 'POST':
         return register();
       case url.endsWith('/users') && method === 'GET':
@@ -42,6 +43,7 @@ export function fakeAuthApiDao(
         return updateUser();
       case url.match(/\/users\/\d+$/) && method === 'DELETE':
         return deleteUser();
+      */
       default:
         // pass through any requests not handled above
         return next(req);

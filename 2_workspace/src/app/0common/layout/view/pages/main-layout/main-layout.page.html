@@ -14,6 +14,7 @@
     <h1>Main</h1>
     <ul>
       <li><a [routerLink]="['/products']">Products</a></li>
+      <li><a [routerLink]="['/users']">Usuarios</a></li>
       @if (authUser) {
         <li>Hi {{authUser.username}} <a (click)="logout()" href='#'>Logout</a></li>
       } @else {

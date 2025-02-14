@@ -9,6 +9,12 @@ export const mainRoutes: Routes = [
       import('./products/products.module').then((m) => m.ProductsModule),
   },
 
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./users/externals/users.module').then((m) => m.UsersModule),
+  },
+
   { path: 'login', component: LoginPage },
 
   { path: '', pathMatch: 'full', redirectTo: 'products' },

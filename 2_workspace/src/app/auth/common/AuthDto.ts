@@ -40,3 +40,10 @@ export default class AuthDto {
     return undefined;
   }
 }
+
+/*
+export type AuthViewModel = Pick<AuthDto, | 'id' | 'username' | 'roles'>;
+const myDto = new AuthDto();
+const myView: AuthViewModel = myDto;
+console.log(myView.password); // <-- Error
+*/

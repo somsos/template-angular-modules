@@ -1,0 +1,25 @@
+<main>
+  <header>
+    <h2>Usuarios</h2>
+    <a routerLink="add">Crear</a>
+  </header>
+  <section class='users'>
+
+    @for (u of users$ | async; track u.id) {
+      <article class='user'>
+        <p>Usuario: {{u.name}}</p>
+        <footer>
+          <div class='actions'>
+            <a routerLink="delete">Eliminar</a>
+            <a routerLink="update">Actualizar</a>
+            <a routerLink="details">Detalles</a>
+          </div>
+        </footer>
+      </article>
+    } @empty {
+      <p>Sin usuarios a mostrar</p>
+    }
+  </section>
+
+
+</main>

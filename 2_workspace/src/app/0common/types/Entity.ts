@@ -1,3 +1,3 @@
-export abstract class Entity {
-  id: number = 0;
+export interface Entity {
+  id: number;
 }
