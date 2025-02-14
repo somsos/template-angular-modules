@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, inject } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { debounceTime, Observable } from 'rxjs';
+import { debounceTime, Observable, tap } from 'rxjs';
 import { CommonModule, Location } from '@angular/common';
 import AuthDto from '../../../../../auth/common/AuthDto';
 import IAuthService from '../../../../../auth/common/IAuthService';
@@ -42,7 +42,10 @@ export class MainLayoutPage {
       },
     });
 
-    this.loading$ = this._loadingSrv.getRequest().pipe(debounceTime(50));
+    this.loading$ = this._loadingSrv.getRequest().pipe(
+      debounceTime(50),
+      tap((v) => console.log('new value', v) )
+    );
     this.error$ = this._errorStateSrv.getError().pipe(debounceTime(50));
   }
 

@@ -1,7 +1,19 @@
 # ToDo
 
-- [ ] Products
+- [ ] Fixes
+  - [ ] Fix show loading
+
+- [X] Products CRUD prototype
   - [X] List
   - [X] Add
   - [X] Delete
-  - [>] Update
+  - [X] Update
+  - [ ] Add owner to product
+
+- [ ] Users CRUD prototype
+  - [ ] List
+  - [ ] Add
+  - [ ] Delete
+  - [ ] Update
+
+- [ ] Add manifest of architecture and coding

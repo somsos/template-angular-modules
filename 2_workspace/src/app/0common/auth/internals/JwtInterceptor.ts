@@ -13,7 +13,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const requiereAuth = this._authBackSrv.reqRequireToken(req);
-    console.log("commons, auth, interceptor, requiereAuth: ", requiereAuth);
+    //console.log("commons, auth, interceptor, requiereAuth: ", requiereAuth);
     if(requiereAuth) {
       const reqWithAuth = this._authBackSrv.addAuth(req);
       return next.handle(reqWithAuth);

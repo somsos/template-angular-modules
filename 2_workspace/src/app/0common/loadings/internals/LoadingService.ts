@@ -11,20 +11,12 @@ export class LoadingService implements ILoadingService {
   private _currentRequest = new RequestDto();
   private _loadings = new Subject<RequestDto>();
 
-  public instance: number;
-
-  constructor() {
-    this.instance = Math.floor(Math.random() * 100 + 1);
-  }
-
-  // for external modules
   public getRequest(): Observable<RequestDto> {
     return this._loadings;
   }
 
-  //for module internals
-
   start(url: string): void {
+    console.log("started", url);
     this._currentRequest.url = url;
     this._currentRequest.status = 'loading';
     this._loadings.next(this._currentRequest);

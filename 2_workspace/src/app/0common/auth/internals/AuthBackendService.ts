@@ -9,7 +9,7 @@ export class AuthBackendService implements IAuthBackendService {
   private readonly _endpoints: Endpoint[] = [];
 
   addRoutes(newEps: Endpoint[]): void {
-    console.log("adding routes");
+    //console.log("adding routes");
     this._endpoints.push(...newEps);
   }
 
