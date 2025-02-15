@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUserDto } from '../commons/IUserDto';
 import { UsersDao } from '../data/UsersDao';
+import { UserAdd } from '../commons/UserAdd';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UsersService {
     return this._dao.getById(id);
   }
 
-  save(toAdd: IUserDto): Observable<IUserDto> {
+  save(toAdd: UserAdd): Observable<IUserDto> {
     return this._dao.save(toAdd);
   }
 

@@ -35,4 +35,10 @@ export class LoadingService implements ILoadingService {
     this._currentRequest.error = error;
     this._loadings.next(this._currentRequest);
   }
+
+  clearLoadings() {
+    this._currentRequest.status = 'failed';
+    this._loadings.next(this._currentRequest);
+  }
+
 }

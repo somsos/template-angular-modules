@@ -11,9 +11,10 @@
   - [ ] Add owner to product
 
 - [ ] Users CRUD prototype
-  - [>] List
-  - [ ] Add
-  - [ ] Delete
+  - [X] List
+  - [X] Add
+    - [ ] Save Image
+  - [>] Delete
   - [ ] Update
 
 - [ ] Add manifest of architecture and coding

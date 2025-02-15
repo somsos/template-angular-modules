@@ -1,1 +1,25 @@
 <p>Fomulario de usuario: {{type}}</p>
+
+<form [formGroup]="uForm" (ngSubmit)="submit()">
+
+  <div class="form-group">
+    <label for="name">Nombre</label>
+    <input type="text" id="name" formControlName="name">
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Apellidos</label>
+    <input type="text" id="lastName" formControlName="lastName">
+  </div>
+
+  <div class="form-group">
+    <label for="image">Imagen</label>
+    <app-file-upload (fileChange)='onFileChange($event)' />
+  </div>
+
+  <div class='actions'>
+    <button type="submit">Guardar</button>
+  </div>
+
+
+</form>

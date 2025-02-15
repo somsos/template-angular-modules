@@ -44,7 +44,6 @@ export class MainLayoutPage {
 
     this.loading$ = this._loadingSrv.getRequest().pipe(
       debounceTime(50),
-      tap((v) => console.log('new value', v) )
     );
     this.error$ = this._errorStateSrv.getError().pipe(debounceTime(50));
   }

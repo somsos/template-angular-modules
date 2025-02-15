@@ -2,7 +2,11 @@
   <header>
     <h2>Crear Usuario</h2>
   </header>
-  <user-form type='create' />
+  <user-form
+    type='create'
+    [user]='userToAdd'
+    (userChange)='onUserChanged($event)'
+  />
 
 
 </main>

@@ -3,6 +3,7 @@ import { IUserDto } from '../commons/IUserDto';
 import { first, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Endpoint } from '../../../0common';
+import { UserAdd } from '../commons/UserAdd';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class UsersDao {
     return this._http.request<IUserDto>(method, urlWithVal).pipe(first());
   }
 
-  save(toAdd: IUserDto): Observable<IUserDto> {
+  save(toAdd: UserAdd): Observable<IUserDto> {
     const { method, url } = UsersDao.endPoints.get("save")!;
     const options = { body: toAdd };
     return this._http.request<IUserDto>(method, url, options).pipe(first());
