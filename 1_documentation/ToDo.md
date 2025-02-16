@@ -14,7 +14,7 @@
   - [X] List
   - [X] Add
     - [ ] Save Image
-  - [>] Delete
-  - [ ] Update
+  - [X] Delete
+  - [>] Update
 
 - [ ] Add manifest of architecture and coding

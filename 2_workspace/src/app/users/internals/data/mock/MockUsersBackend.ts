@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { IUserDto } from "../../commons/IUserDto";
 import { UsersDao } from "../UsersDao";
 import { MockUsersBackendUtils } from "../../../../0common/utils/MockUsersBackendUtils";
+import { StringUtils } from "../../../../0common";
 
 const keyStoreU = 'users';
 const storeString = localStorage.getItem(keyStoreU)!;
@@ -22,10 +23,15 @@ class MockUsersBackendImpl implements HttpInterceptor {
   private _handleRoute(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const { url, method, headers, body } = req;
     switch (true) {
+
       case url == UsersDao.endPoints.get("getAll")!.url && method === 'GET':
         return this._getAll();
+
       case url == UsersDao.endPoints.get("save")!.url && method === 'POST':
         return this._save(body, headers);
+
+      case StringUtils.compareUrls(UsersDao.endPoints.get("deleteById")!.url, url) && method === 'DELETE':
+        return this._deleteById(url, headers);
 
       default:
         // pass through any requests not handled above
@@ -41,6 +47,14 @@ class MockUsersBackendImpl implements HttpInterceptor {
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
     MockUsersBackendUtils.addEntity(keyStoreU, newP, allUsers);
     return MockUsersBackendUtils.ok(newP);
+  }
+
+  private _deleteById(url: string, headers: HttpHeaders): Observable<HttpEvent<any>> {
+    console.log('deleteById');
+    MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
+    const id = MockUsersBackendUtils.getPathId(url);
+    const toDelete = MockUsersBackendUtils.deleteById(keyStoreU, id, allUsers);
+    return MockUsersBackendUtils.ok(toDelete);
   }
 
   public static generateMockData(): IUserDto[] {

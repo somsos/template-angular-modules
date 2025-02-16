@@ -74,5 +74,14 @@ export abstract class MockUsersBackendUtils {
     return MockUsersBackendUtils.error('Error desconocido');
   }
 
+  static deleteById(keyStoreU: string, id: number, allE: Entity[]): Entity {
+    const index = allE.findIndex((p) => p.id === id);
+    const toDelete = allE[index];
+    allE.splice(index, 1);
+    const newStore = JSON.stringify(allE);
+    localStorage.setItem(keyStoreU, newStore);
+    return toDelete;
+  }
+
 }
 

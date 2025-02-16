@@ -12,7 +12,7 @@ body {
   padding-left: 2px;
 }
 
-.button {
+.link-as-button {
   font: 12px;
   text-decoration: none;
   background-color: #EEEEEE;
@@ -22,4 +22,15 @@ body {
   border-right: 1px solid #333333;
   border-bottom: 1px solid #333333;
   border-left: 1px solid #CCCCCC;
+}
+
+
+.button-as-link {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font-size: 16px;
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
 }

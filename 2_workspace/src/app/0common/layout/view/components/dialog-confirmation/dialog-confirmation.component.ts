@@ -1,14 +1,12 @@
 import {
   Component,
-  ElementRef,
-  inject,
+  Inject,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import {} from '@angular/core';
-import { LayoutService } from '../../../domain/LayoutService';
 import { ILayoutService } from '../../../common/ILayoutService';
 import { tap } from 'rxjs';
+import { commonsNames } from '../../../..';
 
 @Component({
   selector: 'dialog-confirmation',
@@ -18,8 +16,11 @@ import { tap } from 'rxjs';
 })
 export class DialogConfirmationComponent implements OnInit {
   private _dialogRef: any;
-  private _dialogSrv: ILayoutService = inject(LayoutService);
   public msg = '';
+
+  constructor(
+      @Inject(commonsNames.ILayoutService) private _layoutSrv: ILayoutService
+  ) {}
 
   ngOnInit() {
     this._dialogRef = document.getElementById('dialog-element');
@@ -28,7 +29,7 @@ export class DialogConfirmationComponent implements OnInit {
 
   private _observeIfUserWantsToShowConfirmation(): void {
     this._dialogRef.close();
-    this._dialogSrv
+    this._layoutSrv
       .showConfirmation()
       .pipe(
         tap((msg) => {
@@ -44,12 +45,12 @@ export class DialogConfirmationComponent implements OnInit {
   }
 
   onClickClose() {
-    this._dialogSrv.confirm(false);
+    this._layoutSrv.confirm(false);
     this._dialogRef.close();
   }
 
   onClickConfirm() {
-    this._dialogSrv.confirm(true);
+    this._layoutSrv.confirm(true);
     this._dialogRef.close();
   }
 }

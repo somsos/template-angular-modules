@@ -32,9 +32,10 @@ export class ProductsListPage {
     const msg = '¿Realmente quieres eliminar este producto?';
     const sub = this._layoutSrv.askConfirmation(msg).subscribe((confirm) => {
       if (confirm) {
-        this._productsStateSrv.deleteById(id).subscribe({
+        const sub2 = this._productsStateSrv.deleteById(id).subscribe({
           complete: () => {
             this.productsList$ = this._observeProductsList();
+            sub2.unsubscribe();
           },
         });
       }
