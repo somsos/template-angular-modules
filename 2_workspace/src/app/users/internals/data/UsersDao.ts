@@ -20,7 +20,7 @@ export class UsersDao {
       [ "getById", {method: 'GET', url: UsersDao.pathId, auth: false} ],
       [ "save", {method: 'POST', url: UsersDao.pathRoot, auth: true} ],
       [ "deleteById", {method: 'DELETE', url: UsersDao.pathId, auth: true} ],
-      [ "update", {method: 'PUT', url: UsersDao.pathRoot, auth: true} ],
+      [ "update", {method: 'PUT', url: UsersDao.pathId, auth: true} ],
   ]);
 
   getAll(): Observable<IUserDto[]> {

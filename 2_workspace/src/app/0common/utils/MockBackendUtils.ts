@@ -6,6 +6,7 @@ import { Entity } from "../types/Entity";
 
 export abstract class MockUsersBackendUtils {
 
+
   static ok(body?: any): Observable<HttpResponse<any>> {
     const resp = of(new HttpResponse({ status: 200, body })).pipe(delay(500)); // delay observable to simulate server api call
     return resp;
@@ -49,6 +50,18 @@ export abstract class MockUsersBackendUtils {
     localStorage.setItem(storeName, newStore);
   }
 
+  static updateEntity(storeName: string, newInfo: Entity, all: Array<Entity>): Entity {
+    const index = all.findIndex((p) => p.id === newInfo.id);
+    const oldInfo = all[index];
+    if(!oldInfo) {
+      throw new AppError('Id no encontrado', HttpStatusCode.NotFound);
+    }
+    all[index] = newInfo;
+    const newStore = JSON.stringify(all);
+    localStorage.setItem(storeName, newStore);
+    return oldInfo;
+  }
+
   static mustBeAuthenticatedOrThrow(headers: HttpHeaders): void {
     const jwt = headers.get("Authorization");
     if (!jwt) {
@@ -81,6 +94,15 @@ export abstract class MockUsersBackendUtils {
     const newStore = JSON.stringify(allE);
     localStorage.setItem(keyStoreU, newStore);
     return toDelete;
+  }
+
+  static notFoundError(msg: string): Observable<HttpEvent<any>> {
+    const error = new AppError(msg, HttpStatusCode.NotFound);
+    return throwError(() => error).pipe(
+      materialize(),
+      delay(2000),
+      dematerialize()
+    );
   }
 
 }

@@ -13,8 +13,13 @@
 - [ ] Users CRUD prototype
   - [X] List
   - [X] Add
-    - [ ] Save Image
   - [X] Delete
-  - [>] Update
+  - [X] Update
+  - [ ] Roles
+    - [ ] {Current} Add Roles
+    - [ ] Update Roles
+  - [ ] Images
+    - [ ] Add Image
+    - [ ] Update Image
 
 - [ ] Add manifest of architecture and coding

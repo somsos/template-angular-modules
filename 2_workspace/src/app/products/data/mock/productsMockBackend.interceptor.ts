@@ -11,7 +11,7 @@ import { AppError } from '../../../0common';
 import { ProductDao } from '../ProductDao';
 import { ProductDto } from '../../commons/ProductDto';
 import { StringUtils } from '../../../0common';
-import { MockUsersBackendUtils } from '../../../0common/utils/MockUsersBackendUtils';
+import { MockUsersBackendUtils } from '../../../0common/utils/MockBackendUtils';
 
 // array in local storage for registered users
 const keyStoreP = 'keyStoreP';

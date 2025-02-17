@@ -9,4 +9,9 @@ export class UserAdd implements IUserAdd {
     public active: boolean = true,
     public picture: File | null = null
   ) {}
+
+  static fromDto(dto: IUserDto): UserAdd {
+    return new UserAdd(dto.name, dto.lastName, dto.active, dto.pictureFile);
+  }
+
 }

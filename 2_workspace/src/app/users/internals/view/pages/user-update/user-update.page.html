@@ -2,7 +2,16 @@
   <header>
     <h2>Actualizar Usuario</h2>
   </header>
-  <user-form type='update' />
+  @if (found$ | async; as user) {
+    <user-form
+      type='update'
+      btnSubmitLabel='Actualizar'
+      [user]='user'
+      (userSubmit)='onUserSubmit($event)'
+    />
+  } @else {
+    <p>Sin usuario a mostrar</p>
+  }
 
 
 </main>

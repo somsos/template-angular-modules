@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { UserAdd } from '../../../commons/UserAdd';
 import { UsersService } from '../../../domain/UsersService';
-import { Router } from '@angular/router';
+import { emptyUser, IUserDto } from '../../../commons/IUserDto';
+import { UserUIHelper } from '../../helpers/UserUIHelper';
 
 @Component({
   selector: 'user-add-page',
@@ -11,18 +12,16 @@ import { Router } from '@angular/router';
 export class UserAddPage {
 
   private readonly usersSrv = inject(UsersService);
-  private readonly _router = inject(Router);
 
-  userToAdd = new UserAdd("", "");
+  private readonly _uiHelper = inject(UserUIHelper);
 
-  onUserChanged($event: UserAdd) {
-    this.usersSrv.save($event).subscribe({complete: () => {
-      this._goToUsers();
+  userToAdd: IUserDto = emptyUser();
+
+  onUserSubmit(userForm: IUserDto) {
+    const toAdd = UserAdd.fromDto(userForm);
+    this.usersSrv.save(toAdd).subscribe({complete: () => {
+      this._uiHelper.goToUsers();
     }});
-  }
-
-  private _goToUsers() {
-    this._router.navigate(['/users']);
   }
 
 }

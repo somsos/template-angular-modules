@@ -1,5 +1,3 @@
-<p>Fomulario de usuario: {{type}}</p>
-
 <form [formGroup]="uForm" (ngSubmit)="submit()">
 
   <div class="form-group">
@@ -18,7 +16,7 @@
   </div>
 
   <div class='actions'>
-    <button type="submit">Guardar</button>
+    <button type="submit">{{btnSubmitLabel}}</button>
   </div>
 
 

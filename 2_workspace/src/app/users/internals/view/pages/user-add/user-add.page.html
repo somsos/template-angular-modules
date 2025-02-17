@@ -4,8 +4,9 @@
   </header>
   <user-form
     type='create'
+    btnSubmitLabel='Actualizar'
     [user]='userToAdd'
-    (userChange)='onUserChanged($event)'
+    (userSubmit)='onUserSubmit($event)'
   />
 
 

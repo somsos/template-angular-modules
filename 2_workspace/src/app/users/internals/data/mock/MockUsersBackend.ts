@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IUserDto } from "../../commons/IUserDto";
 import { UsersDao } from "../UsersDao";
-import { MockUsersBackendUtils } from "../../../../0common/utils/MockUsersBackendUtils";
+import { MockUsersBackendUtils } from "../../../../0common/utils/MockBackendUtils";
 import { StringUtils } from "../../../../0common";
 
 const keyStoreU = 'users';
@@ -33,6 +33,12 @@ class MockUsersBackendImpl implements HttpInterceptor {
       case StringUtils.compareUrls(UsersDao.endPoints.get("deleteById")!.url, url) && method === 'DELETE':
         return this._deleteById(url, headers);
 
+      case StringUtils.compareUrls(UsersDao.endPoints.get("getById")!.url, url) && method === 'GET':
+        return this._getById(url);
+
+      case StringUtils.compareUrls(UsersDao.endPoints.get("update")!.url, url) && method === 'PUT':
+        return this._update(url, body, headers);
+
       default:
         // pass through any requests not handled above
         return next.handle(req);
@@ -41,6 +47,17 @@ class MockUsersBackendImpl implements HttpInterceptor {
 
   private _getAll(): Observable<HttpResponse<IUserDto>> {
     return MockUsersBackendUtils.ok(allUsers);
+  }
+
+  private _getById(url: string): Observable<HttpEvent<any>> {
+    const id = MockUsersBackendUtils.getPathId(url);
+    const found = allUsers.find(u => u.id === id);
+    if (!found) {
+      const msg = "Usuario no encontrado";
+      return MockUsersBackendUtils.notFoundError(msg);
+    }
+    return MockUsersBackendUtils.ok(found);
+
   }
 
   private _save(newP: IUserDto, headers: HttpHeaders): Observable<HttpResponse<IUserDto>> {
@@ -57,7 +74,15 @@ class MockUsersBackendImpl implements HttpInterceptor {
     return MockUsersBackendUtils.ok(toDelete);
   }
 
-  public static generateMockData(): IUserDto[] {
+  private _update(url: string, body: any, headers: HttpHeaders): Observable<HttpEvent<any>> {
+    MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
+    const newInfo = body as IUserDto;
+    const id = MockUsersBackendUtils.getPathId(url);
+    const updated = MockUsersBackendUtils.updateEntity(keyStoreU, newInfo, allUsers);
+    return MockUsersBackendUtils.ok(updated);
+  }
+
+  public static generateMockData(): Partial<IUserDto>[] {
     return [
       { id: 1, name: "Mario", lastName: "Marquez", active: true, pictureId: 1, createdAt: new Date('2024-02-14') },
       { id: 2, name: "Luigi", lastName: "Bianchi", active: true, pictureId: 2, createdAt: new Date('2024-05-20') },
