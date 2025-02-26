@@ -41,7 +41,7 @@ export class LoadingsInterceptor implements HttpInterceptor {
 
   constructor(
     @Inject(commonsNames.ILoadingService) private _loadingSrv: LoadingService,
-  ) { }
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

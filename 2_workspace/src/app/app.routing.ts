@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AuthModule } from './auth/auth.module';
 import { LoginPage } from './auth/view/pages/login/login.page';
 
 export const mainRoutes: Routes = [

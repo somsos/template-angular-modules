@@ -1,18 +1,13 @@
-import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpResponse,
-  HttpHandler,
   HttpEvent,
-  HttpInterceptor,
-  HTTP_INTERCEPTORS,
   HttpHandlerFn,
   HttpStatusCode,
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
-import AuthDto from '../common/AuthDto';
-import { AppError } from '../../0common';
+import { AppError, AuthDto } from '../../0common';
 
 // array in local storage for registered users
 const usersKey = 'mock-auth';

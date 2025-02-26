@@ -13,7 +13,13 @@ export type { ILoadingService } from './loadings/externals/ILoadingService';
 //others
 export type { Endpoint } from './types/Endpoint';
 export type { IAuthBackendService } from './auth/externals/IAuthBackendService';
-export type { ILayoutService } from './layout/common/ILayoutService';
+export type { ILayoutService } from './layout/ILayoutService';
+
+//auth
+export { AuthDto } from './auth/externals/AuthDto';
+export type { IAuthService } from './auth/externals/IAuthService';
+
+
 
 export const commonsNames = {
   IErrorStateService: 'IErrorStateService',

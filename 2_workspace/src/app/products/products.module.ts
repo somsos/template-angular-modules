@@ -1,4 +1,4 @@
-import { Inject, inject, NgModule, OnInit } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductsListPage } from './view/pages/products-list/products-list.page';
@@ -20,9 +20,8 @@ import { commonsNames, IAuthBackendService } from '../0common';
     ProductAddPage,
     ProductUpdatePage,
   ],
-  providers: [ProductsService],
+  providers: [ProductDao, ProductsService],
   imports: [CommonModule, ProductsRoutingModule, ReactiveFormsModule],
-  exports: [RouterModule],
 })
 export class ProductsModule {
 

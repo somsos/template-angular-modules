@@ -4,13 +4,11 @@ import {
   OnInit,
 } from '@angular/core';
 import {} from '@angular/core';
-import { ILayoutService } from '../../../common/ILayoutService';
 import { tap } from 'rxjs';
-import { commonsNames } from '../../../..';
+import { commonsNames, ILayoutService } from '../../../../0common';
 
 @Component({
   selector: 'dialog-confirmation',
-  standalone: true,
   templateUrl: './dialog-confirmation.component.html',
   styleUrl: './dialog-confirmation.component.scss',
 })

@@ -1,7 +1,8 @@
 
 
+
 //* Read to know how to plug-in
-export { MockUsersBackend } from '../internals/data/mock/MockUsersBackend';
+export { usersMockBackendInterceptor } from '../internals/data/mock/usersMockBackend.interceptor';
 /* Included in
 export const appConfig: ApplicationConfig = {
   providers: [

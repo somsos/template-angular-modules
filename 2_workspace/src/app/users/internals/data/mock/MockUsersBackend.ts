@@ -1,5 +1,4 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpResponse, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpRequest, HttpEvent, HttpResponse, HttpHeaders, HttpHandlerFn } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { IUserDto } from "../../commons/IUserDto";
 import { UsersDao } from "../UsersDao";
@@ -9,10 +8,9 @@ import { StringUtils } from "../../../../0common";
 const keyStoreU = 'users';
 const storeString = localStorage.getItem(keyStoreU)!;
 
-@Injectable()
-class MockUsersBackendImpl implements HttpInterceptor {
+export class MockUsersBackendImpl {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     try {
       return this._handleRoute(req, next);
     } catch (error) {
@@ -20,7 +18,7 @@ class MockUsersBackendImpl implements HttpInterceptor {
     }
   }
 
-  private _handleRoute(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private _handleRoute(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const { url, method, headers, body } = req;
     switch (true) {
 
@@ -41,7 +39,7 @@ class MockUsersBackendImpl implements HttpInterceptor {
 
       default:
         // pass through any requests not handled above
-        return next.handle(req);
+        return next(req) //.handle(req);
     }
   }
 
@@ -101,8 +99,3 @@ class MockUsersBackendImpl implements HttpInterceptor {
 
 let allUsers: IUserDto[] = JSON.parse(storeString) || MockUsersBackendImpl.generateMockData();
 
-export const MockUsersBackend = {
-  provide: HTTP_INTERCEPTORS,
-  useClass: MockUsersBackendImpl,
-  multi: true
-}

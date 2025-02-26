@@ -1,5 +1,5 @@
 import { first, map, Observable, Subject, switchMap } from 'rxjs';
-import { ILayoutService } from '../common/ILayoutService';
+import { ILayoutService } from '../../0common/layout/ILayoutService';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })

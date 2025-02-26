@@ -1,7 +1,12 @@
 # ToDo
 
-- [ ] Fixes
-  - [ ] Fix show loading
+- Add styling
+  - [X] Add material
+  - [X] Add Dark theme
+  - [X] Add light theme
+
+- [X] Fixes
+  - [X] Fix show loading
 
 - [X] Products CRUD prototype
   - [X] List

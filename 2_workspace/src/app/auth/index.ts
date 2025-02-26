@@ -1,7 +1,7 @@
-import { IAuthServiceName } from './common/IAuthService';
+import { IAuthServiceName } from '../0common/auth/externals/IAuthService';
 import AuthService from './domain/AuthService';
 
-export * from './common/AuthDto';
+export * from '../0common/auth/externals/AuthDto';
 
 export { fakeAuthApiDao } from './data/FakeAuthApiDao';
 

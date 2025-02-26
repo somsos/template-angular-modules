@@ -12,6 +12,7 @@ import { UserFormComponent } from '../internals/view/components/user-form/user-f
 import { InputFileComponent } from '../internals/view/components/input-file/input-file.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { commonsNames, IAuthBackendService } from '../../0common';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { commonsNames, IAuthBackendService } from '../../0common';
     CommonModule,
     UsersRoutingModule,
     ReactiveFormsModule,
-  ]
+  ],
 })
 export class UsersModule {
 

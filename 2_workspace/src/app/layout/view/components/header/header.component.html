@@ -1,0 +1,37 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="onOpenDrawerClicked()">
+    <mat-icon *ngIf='sideMenuOpened'>close</mat-icon>
+    <mat-icon *ngIf='!sideMenuOpened'>menu</mat-icon>
+    <mat-icon></mat-icon>
+  </button>
+  <span>My App</span>
+
+  <span class="my-spacer"></span>
+
+  <div class='menu-items'>
+    @if (auth) {
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    } @else {
+      <a mat-button [routerLink]="['/login']" >Login</a>
+    }
+    <button mat-icon-button (click)="onChangeTheme()">
+      <mat-icon *ngIf='!darkTheme'>light_mode</mat-icon>
+      <mat-icon *ngIf='darkTheme'>dark_mode</mat-icon>
+    </button>
+  </div>
+
+</mat-toolbar>
+
+
+
+<!-- overlap -->
+
+<mat-menu #userMenu="matMenu">
+  @if (auth) {
+    <button mat-menu-item>{{auth.username}}</button>
+    <button mat-menu-item (click)="onLogoutClicked()">Logout</button>
+  }
+</mat-menu>
+

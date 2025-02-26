@@ -1,15 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$blue-palette,
+  ),
+
+  typography: (
+    brand-family: 'Comic Sans',
+    bold-weight: 900
+  ),
+
+  density: (
+    scale: -1
+  )
+));
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette,
+  ),
+
+  typography: (
+    brand-family: 'Comic Sans',
+    bold-weight: 900
+  ),
+
+  density: (
+    scale: -1
+  )
+));
+
+
+html [data-theme="light"] {
+  @include mat.core-color($light-theme);
+  @include mat.all-component-colors($light-theme);
+}
+
+html [data-theme="dark"] {
+  @include mat.core-theme($dark-theme);
+  @include mat.all-component-colors($dark-theme);
+}
+
+html, body {
+  background-color: var(--mat-app-background-color);
+  color: var(--mat-app-text-color);
+}
+
+//-------------------------
+
 * {
   overflow-wrap: break-word;
 }
 
-body {
+html, body {
   margin: 0;
   overflow-x: hidden;
-  width: 100%;  //or 100vw
-
-  /* if you want to add some gaps between the edge of the screen, use padding instead */
-  padding-left: 2px;
+  width: 100%;
 }
 
 .link-as-button {
@@ -33,4 +83,14 @@ body {
   color: #069;
   text-decoration: underline;
   cursor: pointer;
+}
+
+
+.mat-display-large, .mat-typography .mat-display-large, .mat-typography h1  {
+  font: 400 0px Roboto, sans-serif;
+}
+
+
+.mat-display-medium, .mat-typography .mat-display-medium, .mat-typography h2 {
+  font: 400 1.3rem Roboto, sans-serif;
 }

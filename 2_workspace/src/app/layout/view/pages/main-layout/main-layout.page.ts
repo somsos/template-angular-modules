@@ -1,36 +1,29 @@
-import { ChangeDetectionStrategy, Component, Inject, inject } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { debounceTime, Observable, tap } from 'rxjs';
-import { CommonModule, Location } from '@angular/common';
-import AuthDto from '../../../../../auth/common/AuthDto';
-import IAuthService from '../../../../../auth/common/IAuthService';
-import AuthService from '../../../../../auth/domain/AuthService';
-import { DialogConfirmationComponent } from '../../components/dialog-confirmation/dialog-confirmation.component';
-import { commonsNames, ErrorDto, IErrorStateService, ILoadingService, RequestDto } from '../../../..';
+import { ChangeDetectionStrategy, Component, Inject, inject, ViewChild } from '@angular/core';
+import { debounceTime, Observable } from 'rxjs';
+import { Location } from '@angular/common';
+import { MatSidenav } from '@angular/material/sidenav';
+import { RequestDto, ErrorDto, commonsNames, ILoadingService, IErrorStateService, IAuthService, AuthDto } from '../../../../0common';
+import AuthService from '../../../../auth/domain/AuthService';
 
 @Component({
   selector: 'main-layout-root',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    RouterModule,
-    CommonModule,
-    DialogConfirmationComponent,
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './main-layout.page.html',
   styleUrl: './main-layout.page.scss',
 })
 export class MainLayoutPage {
-  //private readonly _cdRef = inject(ChangeDetectorRef);
   private readonly _location = inject(Location);
   private readonly _authSrv: IAuthService = inject(AuthService);
+  //private readonly _cdr = inject(ChangeDetectorRef);
+
+  @ViewChild('sidenav')
+  sidenav!: MatSidenav;
 
   public readonly loading$: Observable<RequestDto>;
 
   public readonly error$: Observable<ErrorDto | undefined>;
 
-  public authUser?: AuthDto;
+  public auth?: AuthDto;
 
   constructor(
     @Inject(commonsNames.ILoadingService) private _loadingSrv: ILoadingService,
@@ -38,7 +31,8 @@ export class MainLayoutPage {
   ) {
     this._authSrv.getUserLogged().subscribe({
       next: (u) => {
-        this.authUser = u;
+        this.auth = u;
+        //this._cdr.markForCheck();
       },
     });
 
@@ -48,8 +42,18 @@ export class MainLayoutPage {
     this.error$ = this._errorStateSrv.getError().pipe(debounceTime(50));
   }
 
-  logout() {
+  onLogoutClicked() {
     this._authSrv.logout();
     this._location.go(this._location.path());
   }
+
+  onThemeSwitchChange(ev: boolean) {
+    const theme = ev ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', theme);
+  }
+
+  closeSideMenu() {
+    this.sidenav.close();
+  }
+
 }

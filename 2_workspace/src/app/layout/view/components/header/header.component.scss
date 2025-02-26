@@ -1,0 +1,15 @@
+.menu-items {
+  display: flex;
+  align-items: center;
+
+  .theme-toggle {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.my-spacer {
+  flex: 1 1 auto;
+}

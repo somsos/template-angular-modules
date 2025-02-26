@@ -1,9 +1,9 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import AuthService from '../../../domain/AuthService';
-import AuthDto from '../../../common/AuthDto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, first, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthDto } from '../../../../0common';
 
 @Component({
   selector: 'page-login',

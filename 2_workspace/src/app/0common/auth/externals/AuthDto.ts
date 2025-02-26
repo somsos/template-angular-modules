@@ -1,6 +1,6 @@
-import { AppError, ErrorType } from "../../0common";
+import { AppError, ErrorType } from "../..";
 
-export default class AuthDto {
+export class AuthDto {
   id?: number;
   username?: string;
   password?: string;
