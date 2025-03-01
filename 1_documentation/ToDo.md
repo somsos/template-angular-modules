@@ -6,7 +6,7 @@
   - [X] Add light theme
 
 - [X] Fixes
-  - [X] Fix show loading
+  - [X] Fix show loading in users
 
 - [X] Products CRUD prototype
   - [X] List
@@ -20,11 +20,11 @@
   - [X] Add
   - [X] Delete
   - [X] Update
-  - [ ] Roles
-    - [ ] {Current} Add Roles
+  - [>] Roles
+    - [X] Add Roles
     - [ ] Update Roles
   - [ ] Images
-    - [ ] Add Image
+    - [X] Add Image
     - [ ] Update Image
 
 - [ ] Add manifest of architecture and coding

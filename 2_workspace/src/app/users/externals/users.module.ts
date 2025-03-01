@@ -1,6 +1,5 @@
 import { Inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UsersRoutingModule } from '../internals/users-routing.module';
 import { UsersDao } from '../internals/data/UsersDao';
 import { UsersService } from '../internals/domain/UsersService';
@@ -10,9 +9,9 @@ import { UserUpdatePage } from '../internals/view/pages/user-update/user-update.
 import { UsersListPage } from '../internals/view/pages/users-list/users-list.page';
 import { UserFormComponent } from '../internals/view/components/user-form/user-form.component';
 import { InputFileComponent } from '../internals/view/components/input-file/input-file.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { commonsNames, IAuthBackendService } from '../../0common';
-import { RouterModule } from '@angular/router';
+import { MaterialModule } from '../../0common/material.module';
+import { MaterialForms } from '../../0common/MaterialForms.module';
 
 
 @NgModule({
@@ -31,7 +30,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     UsersRoutingModule,
-    ReactiveFormsModule,
+    MaterialModule,
+    MaterialForms,
   ],
 })
 export class UsersModule {

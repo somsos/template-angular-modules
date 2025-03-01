@@ -7,8 +7,8 @@ import { UsersListPage } from './view/pages/users-list/users-list.page';
 
 const routes: Routes = [
   { path: '', component: UsersListPage, },
+  { path: 'add', component: UserAddPage, },
   { path: 'details/:id', component: UserDetailsPage, },
-  { path: 'add/:id', component: UserAddPage, },
   { path: 'update/:id', component: UserUpdatePage, },
 ];
 

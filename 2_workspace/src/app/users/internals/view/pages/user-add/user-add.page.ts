@@ -17,7 +17,7 @@ export class UserAddPage {
 
   userToAdd: IUserDto = emptyUser();
 
-  onUserSubmit(userForm: IUserDto) {
+  onUserSubmit(userForm: IUserDto): void {
     const toAdd = UserAdd.fromDto(userForm);
     this.usersSrv.save(toAdd).subscribe({complete: () => {
       this._uiHelper.goToUsers();

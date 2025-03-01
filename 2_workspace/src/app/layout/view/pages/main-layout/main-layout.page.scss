@@ -30,6 +30,7 @@
 #overlay {
   opacity:0.7;
   background-color: var(--mat-app-text-color);
+  filter: brightness(60%);
   color: var(--mat-app-background-color);
   position:fixed;
   width:100%;

@@ -1,11 +1,18 @@
-import { AppError, ErrorType } from "../..";
+import { AppError, Entity, ErrorType } from "../..";
+import { IRoleDto } from "./IRoleDto";
 
-export class AuthDto {
-  id?: number;
+export class AuthDto implements Entity {
+  id: number = -1;
   username?: string;
   password?: string;
   token?: string;
-  roles?: string[];
+  roles: Partial<IRoleDto>[] = [];
+
+  active?: boolean;
+
+  createdAt?: Date;
+
+  updatedAt?: Date;
 
   static fromAny(arg0: unknown): AuthDto {
     let cause = AuthDto.hasSomeError(arg0);

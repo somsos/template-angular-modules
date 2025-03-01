@@ -17,8 +17,8 @@
       <a mat-button [routerLink]="['/login']" >Login</a>
     }
     <button mat-icon-button (click)="onChangeTheme()">
-      <mat-icon *ngIf='!darkTheme'>light_mode</mat-icon>
-      <mat-icon *ngIf='darkTheme'>dark_mode</mat-icon>
+      <mat-icon *ngIf='!lightTheme'>light_mode</mat-icon>
+      <mat-icon *ngIf='lightTheme'>dark_mode</mat-icon>
     </button>
   </div>
 

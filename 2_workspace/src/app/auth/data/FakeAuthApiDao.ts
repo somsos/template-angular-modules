@@ -121,7 +121,7 @@ export function fakeAuthApiDao(
       n1User.username = 'mario1';
       n1User.password = 'mario1p';
       n1User.token = 'fake-token';
-      n1User.roles = ['admin_users', 'admin_products'];
+      n1User.roles = [{id: 1, authority: 'admin_users'}, {id: 2, authority: 'admin_products'}];
       allUsers.push(n1User);
       localStorage.setItem(usersKey, JSON.stringify(allUsers));
     }

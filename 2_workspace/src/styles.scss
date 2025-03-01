@@ -85,6 +85,17 @@ html, body {
   cursor: pointer;
 }
 
+.my-form-field {
+  width: 90%;
+  padding: 0 1rem; //sides
+  margin-bottom: 1rem;
+}
+
+
+
+
+
+// Material customizations
 
 .mat-display-large, .mat-typography .mat-display-large, .mat-typography h1  {
   font: 400 0px Roboto, sans-serif;
@@ -94,3 +105,12 @@ html, body {
 .mat-display-medium, .mat-typography .mat-display-medium, .mat-typography h2 {
   font: 400 1.3rem Roboto, sans-serif;
 }
+
+.mat-accent.mat-mdc-checkbox {
+  --mat-checkbox-label-text-color: var(--mat-app-text-color);
+}
+
+html {
+  --mdc-filled-text-field-input-text-color: #999;
+}
+

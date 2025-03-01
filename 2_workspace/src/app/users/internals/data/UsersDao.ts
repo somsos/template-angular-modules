@@ -37,6 +37,7 @@ export class UsersDao {
   save(toAdd: UserAdd): Observable<IUserDto> {
     const { method, url } = UsersDao.endPoints.get("save")!;
     const options = { body: toAdd };
+    console.log("uploading file", toAdd.picture);
     return this._http.request<IUserDto>(method, url, options).pipe(first());
   }
 

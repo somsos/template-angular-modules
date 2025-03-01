@@ -1,23 +1,50 @@
 <form [formGroup]="uForm" (ngSubmit)="submit()">
 
-  <div class="form-group">
-    <label for="name">Nombre</label>
-    <input type="text" id="name" formControlName="name">
+  <div class='my-form-field'>
+    <mat-checkbox formControlName="active">Activo: </mat-checkbox>
   </div>
 
-  <div class="form-group">
-    <label for="lastName">Apellidos</label>
-    <input type="text" id="lastName" formControlName="lastName">
+  <mat-form-field class='my-form-field'>
+    <mat-label>Nombre</mat-label>
+    <input
+      matInput
+      type="text"
+      placeholder="Pedro"
+      formControlName="name"
+    />
+  </mat-form-field>
+
+  <mat-form-field class='my-form-field'>
+    <mat-label>Apellidos</mat-label>
+    <input
+      matInput
+      type="text"
+      placeholder="Sanches"
+      formControlName="lastName"
+    />
+  </mat-form-field>
+
+  <div class='my-form-field'>
+    Roles:
+    <div style='display: flex;'>
+      <!--              ... id; let i = $index -->
+      @for (o of roles; track o.id) {
+        <mat-checkbox
+          [value]="o.id + '' "
+          [checked]="o.selected"
+          (change)="onRoleChanged($event)"
+        >{{o.label}}</mat-checkbox>
+      }
+    </div>
   </div>
 
-  <div class="form-group">
+  <div class='my-form-field'>
     <label for="image">Imagen</label>
     <app-file-upload (fileChange)='onFileChange($event)' />
   </div>
 
   <div class='actions'>
-    <button type="submit">{{btnSubmitLabel}}</button>
+    <button mat-flat-button type="submit">{{btnSubmitLabel}}</button>
   </div>
-
 
 </form>

@@ -20,7 +20,7 @@ export class HeaderComponent {
   @Output()
   public readonly changeTheme = new EventEmitter<boolean>();
 
-  darkTheme = true;
+  lightTheme = false;
 
   @Input()
   sideMenuOpened = false;
@@ -35,8 +35,8 @@ export class HeaderComponent {
   }
 
   onChangeTheme() {
-    this.darkTheme = !this.darkTheme;
-    this.changeTheme.emit(this.darkTheme);
+    this.lightTheme = !this.lightTheme;
+    this.changeTheme.emit(this.lightTheme);
   }
 
 }
