@@ -25,6 +25,10 @@
     - [ ] Update Roles
   - [ ] Images
     - [X] Add Image
+    - [X] Add case on image upload error
     - [ ] Update Image
+
+- [ ] MainLayout
+  - [ ] Add snackbar to show notifications
 
 - [ ] Add manifest of architecture and coding

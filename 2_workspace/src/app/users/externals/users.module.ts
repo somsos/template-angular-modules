@@ -12,10 +12,12 @@ import { InputFileComponent } from '../internals/view/components/input-file/inpu
 import { commonsNames, IAuthBackendService } from '../../0common';
 import { MaterialModule } from '../../0common/material.module';
 import { MaterialForms } from '../../0common/MaterialForms.module';
+import { UsersFileDao } from '../internals/data/UsersFileDao';
 
 
 @NgModule({
   providers: [
+    UsersFileDao,
     UsersDao,
     UsersService,
   ],

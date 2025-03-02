@@ -1,3 +1,4 @@
+import { from, Observable } from 'rxjs';
 import { AppError } from '../errors/externals/AppError';
 import { Endpoint } from '../types/Endpoint';
 
@@ -58,4 +59,26 @@ export abstract class StringUtils {
     const regex = new RegExp(`^${routePattern}(\\?.*)?$`);
     return regex.test(requestedUrl);
   }
+
+  static toUrlBase64(file: File): Observable<string> {
+    const imgProm = new Promise<string>((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = (error) => reject(error)
+    });
+
+    return from(imgProm);
+  }
+
+  static getIdsFromPath(path: string): number[] {
+    const regex = /\/(\d+)/g;
+    const ids: number[] = [];
+    let match;
+    while ((match = regex.exec(path)) !== null) {
+      ids.push(parseInt(match[1]));
+    }
+    return ids;
+  }
+
 }

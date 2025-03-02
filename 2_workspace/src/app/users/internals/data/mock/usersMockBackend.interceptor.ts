@@ -5,5 +5,5 @@ import { MockUsersBackendImpl } from "./MockUsersBackend";
 const aa = new MockUsersBackendImpl();
 
 export function usersMockBackendInterceptor(req: HttpRequest<any>, next: HttpHandlerFn ): Observable<HttpEvent<unknown>> {
-  return aa.intercept(req, req.body);
+  return aa.intercept(req, next);
 }

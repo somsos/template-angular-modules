@@ -8,7 +8,10 @@
     @for (u of users$ | async; track u.id) {
       <article class='user'>
         <header class='user-header'>
-          <img src='/img/yellow.png?id={{u.pictureId}}' alt='{{u.name}} {{u.lastName}}' />
+          <img
+            [src]='getBase64UrlByUserId(u.id)'
+            alt='{{u.name}} {{u.lastName}}'
+          />
           <p>{{u.name}} {{u.lastName}}</p>
         </header>
 

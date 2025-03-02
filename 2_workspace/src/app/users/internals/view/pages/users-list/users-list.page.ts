@@ -1,7 +1,8 @@
 import { Component, Inject, inject } from '@angular/core';
 import { UsersService } from '../../../domain/UsersService';
 import { commonsNames, ILayoutService } from '../../../../../0common';
-import { take, retry } from 'rxjs';
+import { retry } from 'rxjs';
+import { UsersImagesStore } from '../../../data/mock/UsersImagesStore';
 
 @Component({
   selector: 'users-list-page',
@@ -32,6 +33,10 @@ export class UsersListPage {
       }
       sub.unsubscribe();
     });
+  }
+
+  getBase64UrlByUserId(id: number): string {
+    return UsersImagesStore.getUrlByUser(id);
   }
 
 

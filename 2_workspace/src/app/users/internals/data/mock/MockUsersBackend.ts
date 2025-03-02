@@ -1,9 +1,10 @@
 import { HttpRequest, HttpEvent, HttpResponse, HttpHeaders, HttpHandlerFn } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, switchMap } from "rxjs";
 import { IUserDto } from "../../commons/IUserDto";
 import { UsersDao } from "../UsersDao";
 import { MockUsersBackendUtils } from "../../../../0common/utils/MockBackendUtils";
-import { StringUtils } from "../../../../0common";
+import { AppError, StringUtils } from "../../../../0common";
+import { UsersImagesStore } from "./UsersImagesStore";
 
 const keyStoreU = 'users';
 const storeString = localStorage.getItem(keyStoreU)!;
@@ -36,6 +37,9 @@ export class MockUsersBackendImpl {
 
       case StringUtils.compareUrls(UsersDao.endPoints.get("update")!.url, url) && method === 'PUT':
         return this._update(url, body, headers);
+
+        case StringUtils.compareUrls(UsersDao.endPoints.get("uploadImage")!.url, url) && method === 'POST':
+          return this._uploadFile(req);
 
       default:
         // pass through any requests not handled above
@@ -78,6 +82,19 @@ export class MockUsersBackendImpl {
     const id = MockUsersBackendUtils.getPathId(url);
     const updated = MockUsersBackendUtils.updateEntity(keyStoreU, newInfo, allUsers);
     return MockUsersBackendUtils.ok(updated);
+  }
+
+  private _uploadFile(req: HttpRequest<any>): Observable<HttpEvent<any>> {
+    MockUsersBackendUtils.mustBeAuthenticatedOrThrow(req.headers);
+    const picture = (req.body as FormData).get("picture") as File | null;
+    if(!picture) {
+      throw new AppError("picture not found");
+    }
+    const idUser = StringUtils.getIdsFromPath(req.url)[0];
+    return UsersImagesStore.saveFileOrThrow(idUser, picture)
+      .pipe(switchMap(id => {
+      return MockUsersBackendUtils.ok(id);
+    }));
   }
 
   public static generateMockData(): Partial<IUserDto>[] {

@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { IUserDto } from '../commons/IUserDto';
-import { first, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { first, Observable, of, switchMap, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Endpoint } from '../../../0common';
 import { UserAdd } from '../commons/UserAdd';
+import { UsersFileDao } from './UsersFileDao';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { UserAdd } from '../commons/UserAdd';
 export class UsersDao {
 
   private readonly _http = inject(HttpClient);
+  private readonly _usersFileDao = inject(UsersFileDao);
 
     public static readonly pathRoot = 'api/v1/users';
     public static readonly pathId = 'api/v1/users/${id}';
@@ -21,6 +23,7 @@ export class UsersDao {
       [ "save", {method: 'POST', url: UsersDao.pathRoot, auth: true} ],
       [ "deleteById", {method: 'DELETE', url: UsersDao.pathId, auth: true} ],
       [ "update", {method: 'PUT', url: UsersDao.pathId, auth: true} ],
+      [ "uploadImage", { method: 'POST', url: UsersDao.pathId + "/pictures", auth: true } ],
   ]);
 
   getAll(): Observable<IUserDto[]> {
@@ -37,8 +40,21 @@ export class UsersDao {
   save(toAdd: UserAdd): Observable<IUserDto> {
     const { method, url } = UsersDao.endPoints.get("save")!;
     const options = { body: toAdd };
-    console.log("uploading file", toAdd.picture);
-    return this._http.request<IUserDto>(method, url, options).pipe(first());
+    const req = this._http.request<IUserDto>(method, url, options);
+    return req.pipe(
+      first(),
+      switchMap((saved => {
+        if(toAdd.picture == null) {
+          console.debug("No image to upload");
+          return of(saved);
+        }
+        return this._usersFileDao.uploadImage(saved.id, toAdd.picture)
+          .pipe(switchMap((idImage => {
+            saved.pictureId = idImage;
+            return of(saved);
+          })));
+      }))
+    );
   }
 
   update(newInfo: IUserDto): Observable<IUserDto> {

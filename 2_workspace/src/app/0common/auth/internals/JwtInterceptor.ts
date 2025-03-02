@@ -12,11 +12,17 @@ export class JwtInterceptor implements HttpInterceptor {
   ){}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    /**
+     * Do NOT forget that to find out if it requires jwt ot not you must add the
+     * rutes to AuthBackendService on the module start up.
+     */
     const requiereAuth = this._authBackSrv.reqRequireToken(req);
-    //console.log("commons, auth, interceptor, requiereAuth: ", requiereAuth);
     if(requiereAuth) {
+      console.debug("Adding JWT: ", req.url);
       const reqWithAuth = this._authBackSrv.addAuth(req);
       return next.handle(reqWithAuth);
+    } else {
+      console.debug("JWT not required: ", req.url);
     }
     return next.handle(req);
   }

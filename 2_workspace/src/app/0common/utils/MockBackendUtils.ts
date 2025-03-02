@@ -39,6 +39,9 @@ export abstract class MockUsersBackendUtils {
 
   static getBiggestId(all: Array<Entity>): number {
     const ids = all.map((p) => p.id);
+    if(ids.length == 0) {
+      return 1;
+    }
     const higherId = Math.max.apply(Math, ids);
     return higherId;
   }
