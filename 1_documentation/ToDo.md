@@ -23,10 +23,10 @@
   - [>] Roles
     - [X] Add Roles
     - [ ] Update Roles
-  - [ ] Images
+  - [X] Images
     - [X] Add Image
     - [X] Add case on image upload error
-    - [ ] Update Image
+    - [X] Update Image
 
 - [ ] MainLayout
   - [ ] Add snackbar to show notifications

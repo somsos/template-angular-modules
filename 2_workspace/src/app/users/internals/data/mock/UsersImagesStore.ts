@@ -1,6 +1,9 @@
-import { first, Observable, of, switchMap } from "rxjs";
+import { first, Observable, of, switchMap, throwError } from "rxjs";
 import { Entity, StringUtils } from "../../../../0common";
 import { MockUsersBackendUtils } from "../../../../0common/utils/MockBackendUtils";
+import { UserPreferences } from "typescript";
+import { HttpErrorResponse } from "@angular/common/http";
+import { UsersDao } from "../UsersDao";
 
 interface UserPicture extends Entity {
 
@@ -31,26 +34,44 @@ export class UsersImagesStore {
     return StringUtils.toUrlBase64(picture).pipe(
       first(),
       switchMap(newUrlBase64 => {
+        //Common
         const pictures = UsersImagesStore._getPicturesFromStore();
         const newId = MockUsersBackendUtils.getBiggestId(pictures) + 1;
         const newPicture = buildToSaveInLocalStore(newId, idUser, newUrlBase64);
-        pictures.push(newPicture);
-        UsersImagesStore._overridePictures(pictures);
-        //return throwError(() => new HttpErrorResponse({ url: UsersDao.endPoints.get("uploadImage")!.url }))
+
+        const failRequest = false;
+        if(failRequest) {
+          return throwError(() => new HttpErrorResponse({ url: UsersDao.endPoints.get("uploadImage")!.url }))
+        }
+
+        const found = this._getUserImageIndex(idUser);
+        if(found.index == -1) { //Create
+          pictures.push(newPicture);
+        } else { //Update
+          pictures[found.index] = newPicture;
+        }
+        UsersImagesStore._overridePicturesStore(pictures);
         return of(newPicture.id);
       }))
   }
 
   public static getUrlByUser(idUser: number): string {
-    const pictures = UsersImagesStore._getPicturesFromStore();
-    const indexFound = pictures.findIndex(p => p.idUser == idUser);
-    if(indexFound == -1) {
+    const found = UsersImagesStore._getUserImageIndex(idUser);
+    if(found.index == -1) {
       return "/img/404.png";
     }
-    return pictures[indexFound].urlBase64;
+    return found.picture.urlBase64;
   }
 
-  private static _overridePictures(pictures: UserPicture[]) {
+  //always ask if index is different to -1
+  private static _getUserImageIndex(idUser: number): {index: number, picture: UserPicture} {
+    const pictures = UsersImagesStore._getPicturesFromStore();
+    const indexFound = pictures.findIndex(p => p.idUser == idUser);
+    const pictureFound = pictures[indexFound];
+    return {index: indexFound, picture: pictureFound};
+  }
+
+  private static _overridePicturesStore(pictures: UserPicture[]) {
     const newSt = JSON.stringify(pictures);
     localStorage.setItem(UsersImagesStore._keyS, newSt);
   }

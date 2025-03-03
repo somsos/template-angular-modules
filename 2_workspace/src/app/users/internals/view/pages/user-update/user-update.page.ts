@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs';
+import { first, tap } from 'rxjs';
 import { IUserDto } from '../../../commons/IUserDto';
 import { UsersService } from '../../../domain/UsersService';
 import { UserUIHelper } from '../../helpers/UserUIHelper';
@@ -15,7 +15,8 @@ export class UserUpdatePage {
   private readonly _uiHelper = inject(UserUIHelper);
   private readonly _srv = inject(UsersService);
 
-  public readonly found$ = this._uiHelper.findUserByIdParam(this._activatedRoute);
+  public readonly found$ = this._uiHelper.findUserByIdParam(this._activatedRoute)
+    .pipe(tap((f) => { console.log("found", f) }));
 
 
   onUserSubmit(newInfo: IUserDto) {

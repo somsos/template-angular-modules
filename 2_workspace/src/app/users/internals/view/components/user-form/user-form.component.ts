@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { IUserDto } from '../../../commons/IUserDto';
 import { AppError, StringUtils } from '../../../../../0common';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { UsersImagesStore } from '../../../data/mock/UsersImagesStore';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -58,21 +59,20 @@ export class UserFormComponent implements OnInit {
   }
 
   submit() {
-    const mappedFormForm = this._extractUser();
-    this.userSubmit.emit(mappedFormForm);
+    this._extractUser();
+    this.userSubmit.emit(this.user);
   }
 
-  private _extractUser(): IUserDto {
+  private _extractUser(): void {
     const onForm = this.uForm.value as IUserDto;
-    onForm.pictureFile = this._file;
     onForm.id = this.user.id;
     const rolesSelected = this.roles
       .filter(o => o.selected)
       .map(o => ({ id: o.id, authority: '', }) as any)
     onForm.roles = rolesSelected;
-    console.log("onForm", onForm);
 
-    return onForm;
+    this.user = onForm;
+    this.user.pictureFile = this._file;
   }
 
   onRoleChanged($event: MatCheckboxChange): void {
@@ -82,6 +82,10 @@ export class UserFormComponent implements OnInit {
       return ;
     }
     this.roles[indexChanged].selected = $event.checked;
+  }
+
+  getUrlPicture(userId: number): string {
+    return UsersImagesStore.getUrlByUser(userId);
   }
 
 }

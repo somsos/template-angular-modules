@@ -69,7 +69,26 @@ modularize this complexity.
 In my case I wanted to use binding functionality of angular reactive forms, and
 <!-- users/internals/view/components/user-form/user-form.component.ts -->
 at the end, to convert from the array of permissions of the form, to the array
-of permissions of the users it end up being pretty complicated or the use 
+of permissions of the users it end up being pretty complicated or the use
 of pretty specific API of the framework.
 
-## VS Code sime times do not show the 
+## Log javascript File is tricky
+
+I had a problem of thinking I was not getting the File, but resulted that the
+browser console don't print the file, for example i had.
+
+```js
+console.log("newInfo", newInfo);
+//and I got printed this
+{ "name": "Fofo", ... "pictureFile": null }
+
+// But when I did this
+console.log("newInfo", newInfo);
+console.log("file", newInfo.pictureFile?.name);
+//I got this
+{ "name": "Fofo", ... "pictureFile": null }
+file:  small_black.png
+```
+
+So here I understood that it was problem of the logger of the browser, not that
+the file wasn't there.

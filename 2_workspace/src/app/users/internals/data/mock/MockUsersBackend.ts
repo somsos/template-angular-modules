@@ -64,6 +64,7 @@ export class MockUsersBackendImpl {
 
   private _save(newP: IUserDto, headers: HttpHeaders): Observable<HttpResponse<IUserDto>> {
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
+    newP.pictureFile = null;
     MockUsersBackendUtils.addEntity(keyStoreU, newP, allUsers);
     return MockUsersBackendUtils.ok(newP);
   }
@@ -80,6 +81,7 @@ export class MockUsersBackendImpl {
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
     const newInfo = body as IUserDto;
     const id = MockUsersBackendUtils.getPathId(url);
+    newInfo.pictureFile = null;
     const updated = MockUsersBackendUtils.updateEntity(keyStoreU, newInfo, allUsers);
     return MockUsersBackendUtils.ok(updated);
   }

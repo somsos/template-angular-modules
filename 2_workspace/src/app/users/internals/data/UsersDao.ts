@@ -44,11 +44,11 @@ export class UsersDao {
     return req.pipe(
       first(),
       switchMap((saved => {
-        if(toAdd.picture == null) {
+        if(toAdd.pictureFile == null) {
           console.debug("No image to upload");
           return of(saved);
         }
-        return this._usersFileDao.uploadImage(saved.id, toAdd.picture)
+        return this._usersFileDao.uploadImage(saved.id, toAdd.pictureFile)
           .pipe(switchMap((idImage => {
             saved.pictureId = idImage;
             return of(saved);
@@ -61,7 +61,24 @@ export class UsersDao {
     const { method, url } = UsersDao.endPoints.get("update")!;
     const urlWithVal = url.replace('${id}', newInfo.id + '');
     const options = { body: newInfo };
-    return this._http.request<IUserDto>(method, urlWithVal, options).pipe(first());
+    const picture = newInfo.pictureFile; // not remove, I don't know why yet
+    return this._http.request<IUserDto>(method, urlWithVal, options)
+      .pipe(
+        first(),
+        switchMap(uUpdated => {
+          if(!picture) {
+            return of(uUpdated).pipe(first());
+          } else {
+            console.log("File to update: " + picture?.name);
+            return this._usersFileDao.uploadImage(newInfo.id, picture)
+              .pipe(first(), switchMap((idImage => {
+                uUpdated.pictureId = idImage;
+                return of(uUpdated);
+              })));
+          }
+        })
+      )
+    ;
   }
 
   deleteById(id: number): Observable<IUserDto> {

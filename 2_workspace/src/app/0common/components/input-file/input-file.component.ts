@@ -20,15 +20,19 @@ export class InputFileComponent {
 }
 */
 
-import { Component, signal, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, signal, ViewChild, ElementRef, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './input-file.component.html',
   styleUrl: './input-file.component.scss',
+  standalone: true,
+  imports: [ MatIconModule, CommonModule ]
 })
-export class InputFileComponent {
+export class InputFileComponent implements OnInit {
   imageName = signal('');
   fileSize = signal(0);
   uploadProgress = signal(0);
@@ -41,7 +45,18 @@ export class InputFileComponent {
   @Output()
   fileChange = new EventEmitter<File | null>();
 
+  @Input()
+  urlImage?: string;
+
   constructor(private snackBar: MatSnackBar) {}
+
+  ngOnInit(): void {
+    if(this.urlImage) {
+      this.imagePreview.set(this.urlImage);
+      this.imageName.set("Image already settled");
+    }
+
+  }
 
   // Handler for file input change
   onFileChange(event: any): void {

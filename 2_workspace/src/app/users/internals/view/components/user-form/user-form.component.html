@@ -40,7 +40,10 @@
 
   <div class='my-form-field'>
     <label for="image">Imagen</label>
-    <app-file-upload (fileChange)='onFileChange($event)' />
+    <app-file-upload
+      [urlImage]='getUrlPicture(user.id)'
+      (fileChange)='onFileChange($event)'
+    />
   </div>
 
   <div class='actions'>
