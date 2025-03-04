@@ -1,26 +1,36 @@
 <main>
-  <header>
+  <header class='list-actions'>
     <h2>Usuarios</h2>
-    <a routerLink="add">Crear</a>
+    <a mat-flat-button routerLink="add">Crear</a>
   </header>
   <section class='users'>
 
     @for (u of users$ | async; track u.id) {
       <article class='user'>
         <header class='user-header'>
-          <img
-            [src]='getBase64UrlByUserId(u.id)'
-            alt='{{u.name}} {{u.lastName}}'
-          />
-          <p>{{u.name}} {{u.lastName}}</p>
-        </header>
-
-        <footer>
-          <div class='actions'>
-            <button class='button-as-link' (click)="deleteById(u.id)">Eliminar</button>
-            <a routerLink="update/{{u.id}}">Actualizar</a>
-            <a routerLink="details/{{u.id}}">Detalles</a>
+          <div class='header-left'>
+            <img
+              [src]='getBase64UrlByUserId(u.id)'
+              alt='{{u.name}}'
+            />
+            <span>{{u.username}}</span>
           </div>
+          <div class='actions'>
+            <button mat-icon-button (click)="deleteById(u.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <a routerLink="update/{{u.id}}">
+              <button mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+            </a>
+            <button mat-icon-button (click)="toggleDetails(u.id)" >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </div>
+        </header>
+        <footer #some>
+          <user-details [u]="u" [show]='idUserToShow == u.id' />
         </footer>
         <hr />
       </article>

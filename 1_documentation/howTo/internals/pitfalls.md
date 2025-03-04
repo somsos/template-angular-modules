@@ -92,3 +92,36 @@ file:  small_black.png
 
 So here I understood that it was problem of the logger of the browser, not that
 the file wasn't there.
+
+## Trigger an event in a sibling when its sibling is clicked in a loop
+
+The trick is just creating an identifier of witch one it's going to be show, and
+then make the comparison, as object or an id of the object.
+
+```html
+<div *ngFor="let user of users">
+  <button (click)="showDetails(user)">Show</button>
+  <app-details [user]="user" [show]="currentUserDetails === user"></app-details>
+</div>
+```
+
+```ts
+@Component({ selector: 'app-root' ... })
+export class AppComponent {
+  users = [ { id: 1, name: 'User 1' }, { id: 2, name: 'User 2' }, { id: 3, name: 'User 3' } ];
+  
+  currentUserDetails: any = null;
+  
+  showDetails(user: any) {
+    this.currentUserDetails = user;
+  }
+
+}
+
+// ---------------
+@Component({ selector: 'app-details' })
+export class DetailsComponent {
+  @Input() user: User | null = null;
+  @Input() show: boolean = false;
+}
+```

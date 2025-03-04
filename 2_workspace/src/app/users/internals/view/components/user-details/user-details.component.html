@@ -1,0 +1,11 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]='show'>
+    <div class='u-details'>
+      <p>Nombre: {{u.name + " " + u.lastName}}</p>
+      <p>Roles: [{{rolesList}}]</p>
+      <p>Creado: {{showDate(u.createdAt)}}</p>
+      <p>Actializado: {{showDate(u.updatedAt)}}</p>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+

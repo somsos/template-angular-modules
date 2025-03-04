@@ -17,6 +17,11 @@
 
 - [ ] Users CRUD prototype
   - [X] List
+    - [X] Show All the user in list and delete details
+    - [>] Add filter by id
+    - [ ] Add filter by name + lastName
+    - [ ] Add filter by roles
+    - [ ] Add filter by active
   - [X] Add
   - [X] Delete
   - [X] Update
