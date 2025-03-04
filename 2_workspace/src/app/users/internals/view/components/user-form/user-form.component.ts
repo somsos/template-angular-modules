@@ -51,7 +51,26 @@ export class UserFormComponent implements OnInit {
         throw new AppError('User is required');
       }
       this.uForm.patchValue(this.user);
+      this._showRolesUserFound();
     }
+  }
+
+  private _showRolesUserFound(): void {
+    const newFormRolesState = this.roles.map(formRole => {
+      let isSelected = false;
+      for (let i = 0; i < this.user.roles.length; i++) {
+        const idUser = this.user.roles[i].id;
+        const idForm = formRole.id;
+        if(idUser == idForm) {
+          isSelected = true;
+          break;
+        }
+      }
+      formRole.selected = isSelected;
+      return formRole;
+    });
+    console.log("newFormRolesState", newFormRolesState);
+    this.roles = newFormRolesState;
   }
 
   onFileChange($event: File | null) {

@@ -22,7 +22,7 @@
   - [X] Update
   - [>] Roles
     - [X] Add Roles
-    - [ ] Update Roles
+    - [>] Update Roles
   - [X] Images
     - [X] Add Image
     - [X] Add case on image upload error
