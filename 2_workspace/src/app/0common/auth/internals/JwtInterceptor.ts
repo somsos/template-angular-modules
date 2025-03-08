@@ -17,14 +17,14 @@ export class JwtInterceptor implements HttpInterceptor {
      * rutes to AuthBackendService on the module start up.
      */
     const requiereAuth = this._authBackSrv.reqRequireToken(req);
-    if(requiereAuth) {
-      console.debug("Adding JWT: ", req.url);
-      const reqWithAuth = this._authBackSrv.addAuth(req);
-      return next.handle(reqWithAuth);
-    } else {
+    if(!requiereAuth) {
       console.debug("JWT not required: ", req.url);
+      return next.handle(req);
     }
-    return next.handle(req);
+
+    console.debug("Adding JWT: ", req.url);
+    const reqWithAuth = this._authBackSrv.addAuth(req);
+    return next.handle(reqWithAuth);
   }
 
 }

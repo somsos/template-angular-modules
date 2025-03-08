@@ -1,7 +1,10 @@
+
+
 export { StringUtils } from './utils/StringUtils';
 
 //types
 export type { Entity } from './types/Entity';
+
 
 //error
 export type { IErrorStateService } from './errors/externals/IErrorStateService';
@@ -22,6 +25,14 @@ export type { ILayoutService } from './layout/ILayoutService';
 export { AuthDto } from './auth/externals/AuthDto';
 export type { IRoleDto } from './auth/externals/IRoleDto';
 export type { IAuthService } from './auth/externals/IAuthService';
+
+//Paginator
+export { PageUtils, PageHelper } from './paginator/PageRequest';
+export type { IPagePayload, IPageResponse, IPaginatorService, } from './paginator/PageRequest';
+
+
+
+
 
 
 

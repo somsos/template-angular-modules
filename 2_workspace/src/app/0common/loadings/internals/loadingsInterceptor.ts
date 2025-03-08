@@ -51,6 +51,8 @@ export class LoadingsInterceptor implements HttpInterceptor {
       tap((event: any) => {
         if (event.type === HttpEventType.Response) {
           this._loadingSrv.setSuccess(req.url, req.body);
+        } else {
+          console.warn("unknown HttpEventType", event);
         }
       }),
       catchError((error: HttpErrorResponse) => {

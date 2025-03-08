@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { IUserDto } from '../commons/IUserDto';
-import { first, Observable, of, switchMap, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { first, Observable, of, switchMap } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Endpoint } from '../../../0common';
-import { UserAdd } from '../commons/UserAdd';
+import { IUserAdd } from '../commons/UserAdd';
 import { UsersFileDao } from './UsersFileDao';
+import { IPagePayload, IPageResponse } from '../../../0common/paginator/PageRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,13 @@ export class UsersDao {
       [ "deleteById", {method: 'DELETE', url: UsersDao.pathId, auth: true} ],
       [ "update", {method: 'PUT', url: UsersDao.pathId, auth: true} ],
       [ "uploadImage", { method: 'POST', url: UsersDao.pathId + "/pictures", auth: true } ],
+      [ "findPage", { method: 'GET', url: UsersDao.pathRoot + "/page", auth: false } ],
+      [ "filterOverAll", { method: 'GET', url: UsersDao.pathRoot + "/filter?q=", auth: false } ],
   ]);
 
   getAll(): Observable<IUserDto[]> {
     const { method, url } = UsersDao.endPoints.get("getAll")!;
-    return this._http.request<IUserDto[]>(method, url).pipe(first());
+    return this._http.request<IUserDto[]>(method, url).pipe();
   }
 
   getById(id: number): Observable<IUserDto> {
@@ -37,7 +40,7 @@ export class UsersDao {
     return this._http.request<IUserDto>(method, urlWithVal).pipe(first());
   }
 
-  save(toAdd: UserAdd): Observable<IUserDto> {
+  save(toAdd: IUserAdd): Observable<IUserDto> {
     const { method, url } = UsersDao.endPoints.get("save")!;
     const options = { body: toAdd };
     const req = this._http.request<IUserDto>(method, url, options);
@@ -85,6 +88,19 @@ export class UsersDao {
     const { method, url } = UsersDao.endPoints.get("deleteById")!;
     const urlWithVal = url.replace('${id}', id + '');
     return this._http.request<IUserDto>(method, urlWithVal).pipe(first());
+  }
+
+  findPage(payload: IPagePayload): Observable<IPageResponse<IUserDto>> {
+    const { method, url } = UsersDao.endPoints.get("findPage")!;
+    const options = { body: payload };
+    return this._http.request<IPageResponse<IUserDto>>(method, url, options).pipe(first());
+  }
+
+  filterOverAll(textFilter: string): Observable<IPageResponse<IUserDto>> {
+    const { method, url } = UsersDao.endPoints.get("filterOverAll")!;
+    //const options = { params: new HttpParams().set('q', textFilter) };
+    const urlWParams = url + textFilter;
+    return this._http.request<IPageResponse<IUserDto>>(method, urlWParams).pipe(first());
   }
 
 }

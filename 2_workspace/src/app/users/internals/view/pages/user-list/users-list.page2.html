@@ -1,0 +1,115 @@
+<div id='users-list-page-container'>
+
+  <mat-form-field class="w-100">
+    <input matInput
+      [formControl]="textFilter"
+      placeholder="Filtro"
+    >
+  </mat-form-field>
+
+
+  <div id='table-container'>
+  @if (pageHelper.data$ | async; as users) {
+    <table
+      mat-table
+      matSort
+      matSortDisableClear multiTemplateDataRows
+      matSortActive="username"
+      matSortDirection="desc"
+      class="mat-elevation-z8"
+      [dataSource]="users"
+      >
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Id </th>
+        <td mat-cell *matCellDef="let u"> {{u.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+        <td mat-cell *matCellDef="let u">
+          <img class='user-picture' alt="{{u.username}}" src='{{getPicture(u.id)}}' />
+          <span>{{u.username}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="roles">
+        <th mat-header-cell *matHeaderCellDef> Roles </th>
+        <td mat-cell *matCellDef="let u"> {{showRoles(u.roles)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let u">
+          <button mat-icon-button (click)="pageHelper.deleteById(u.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <a routerLink="update/{{u.id}}">
+            <button mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+          </a>
+          <button
+            mat-icon-button
+            aria-label="expand row"
+            (click)="toggle(u); $event.stopPropagation()"
+            class="example-toggle-button"
+            [class.example-toggle-button-expanded]="isExpanded(u)">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">Expandir</th>
+        <td mat-cell *matCellDef="let u"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let u" [attr.colspan]="columnsToDisplayWithExpand.length">
+          <div class="example-element-detail-wrapper" [class.example-element-detail-wrapper-expanded]="isExpanded(u)">
+            <div class="example-element-detail">
+              <p>Id: {{u.id}}</p>
+              <p>Creado: {{u.createdAt | date:'yyyy/MM/dd, HH:mm'}}</p>
+              <p>Actualizado: {{u.updatedAt | date:'yyyy/MM/dd, H:mm'}}</p>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+          class="example-element-row"
+          [class.example-expanded-row]="isExpanded(element)"
+          >
+      </tr>
+
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+    </table>
+
+    <div id='paginator-container'>
+      <div id='pages-indexes'>
+        @for (i of pageHelper.pagePayload.page.pageIndexes; track i) {
+          <button mat-button
+            (click)="pageHelper.onClickChangePage(i)"
+            [disabled]="pageHelper.pagePayload.page.index == i-1">
+            {{i}}
+          </button>
+        }
+      </div>
+
+      <mat-paginator
+        showFirstLastButtons="true"
+        hidePageSize="true"
+        [pageIndex]='pageHelper.pagePayload.page.index'
+        [length]="pageHelper.pagePayload.page.itemsInTotal"
+        [pageSize]="pageHelper.pagePayload.page.itemsPerPage"
+      />
+    </div>
+
+  }
+  </div>
+</div>

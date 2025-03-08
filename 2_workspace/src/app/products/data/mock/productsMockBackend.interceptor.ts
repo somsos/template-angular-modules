@@ -24,6 +24,10 @@ export function productsMockBackend(
 ): Observable<HttpEvent<unknown>> {
   const { url, method, headers, body } = req;
 
+  if(url.includes("/users")) {
+    return next(req);
+  }
+
   createProductsStoreIfNotExists();
 
   return handleRoute();

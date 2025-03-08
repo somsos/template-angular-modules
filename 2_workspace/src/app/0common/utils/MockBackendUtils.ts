@@ -3,9 +3,9 @@ import { Observable, of, delay, throwError, materialize, dematerialize } from "r
 import { AppError } from "../errors/externals/AppError";
 import { StringUtils } from "./StringUtils";
 import { Entity } from "../types/Entity";
+import { IPagePayload, IPageResponse } from "../paginator/PageRequest";
 
 export abstract class MockUsersBackendUtils {
-
 
   static ok(body?: any): Observable<HttpResponse<any>> {
     const resp = of(new HttpResponse({ status: 200, body })).pipe(delay(500)); // delay observable to simulate server api call
@@ -35,6 +35,16 @@ export abstract class MockUsersBackendUtils {
     const pathId = url.substring(url.lastIndexOf('/') + 1, url.length);
     const id = StringUtils.toNumber(pathId);
     return id;
+  }
+
+  static getUrlParams(url: string): Map<string, string> {
+    let paramString = url.split('?')[1];
+    const searchParam = new URLSearchParams(paramString);
+    const params = new Map<string, string>();
+    for (let pair of searchParam.entries()) {
+      params.set(pair[0], pair[1]);
+    }
+    return params;
   }
 
   static getBiggestId(all: Array<Entity>): number {
@@ -106,6 +116,72 @@ export abstract class MockUsersBackendUtils {
       delay(2000),
       dematerialize()
     );
+  }
+
+  // AI generated
+  static buildPage(all: Entity[], payload: IPagePayload): IPageResponse<Entity> {
+    // Sort the data based on the sort property and direction
+    const sortedData = all.sort((a: any, b: any) => {
+      if (payload.sort.direction === 'asc') {
+        return a[payload.sort.property] - b[payload.sort.property];
+      } else {
+        return b[payload.sort.property] - a[payload.sort.property];
+      }
+    });
+
+    // Calculate pagination
+    const startIndex = payload.page.index * payload.page.itemsPerPage;
+    // if overload return last page even if is not correct, and set flag indicating is the last one
+    let endIndex = startIndex + payload.page.itemsPerPage;
+    if(endIndex >= all.length) {
+      endIndex = all.length;
+    }
+    const paginatedData = sortedData.slice(startIndex, endIndex);
+    return {
+      itemsInTotal: all.length,
+      data: paginatedData,
+    };
+  }
+
+  // AI generated
+  static overallFilter<T>(all: T[], querySt: string, filterOn: string[]): T[] {
+    const filtered = all.filter((item) => {
+      // Check if any of the properties in the filterOn array match the query string
+      return filterOn.some((key) => {
+        const value = item[key as keyof T];
+
+        // If the value is a string, we check if the query string exists in the value
+        if (typeof value === 'string') {
+          return value.toLowerCase().includes(querySt.toLowerCase());
+        }
+
+        // If the value is a Date, we convert it to string and check the query string
+        if (value instanceof Date) {
+          const stDate = value.toISOString().toLowerCase();
+          return stDate.includes(querySt.toLowerCase());
+        }
+
+        // If the value is an array (e.g., roles), we check if any element matches
+        if (Array.isArray(value)) {
+          return value.some((el) => {
+            if(typeof el === 'string') {
+              return el.toLowerCase().includes(querySt.toLowerCase());
+            } else {
+              return JSON.stringify(el).toLowerCase().includes(querySt.toLowerCase());
+            }
+          });
+        }
+
+        // If the value is a number, check if it matches directly
+        if (typeof value === 'number') {
+          return value.toString().includes(querySt);
+        }
+
+        return false;  // If none of the conditions are met, return false
+      });
+    });
+
+    return filtered;
   }
 
 }

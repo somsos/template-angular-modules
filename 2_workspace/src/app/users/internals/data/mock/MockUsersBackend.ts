@@ -3,7 +3,7 @@ import { Observable, switchMap } from "rxjs";
 import { IUserDto } from "../../commons/IUserDto";
 import { UsersDao } from "../UsersDao";
 import { MockUsersBackendUtils } from "../../../../0common/utils/MockBackendUtils";
-import { AppError, StringUtils } from "../../../../0common";
+import { AppError, Entity, IPagePayload, IPageResponse, PageUtils, StringUtils } from "../../../../0common";
 import { UsersImagesStore } from "./UsersImagesStore";
 
 const keyStoreU = 'users';
@@ -12,6 +12,10 @@ const storeString = localStorage.getItem(keyStoreU)!;
 export class MockUsersBackendImpl {
 
   intercept(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
+    if(req.url.includes("/products")) {
+      return next(req);
+    }
+
     try {
       return this._handleRoute(req, next);
     } catch (error) {
@@ -21,7 +25,11 @@ export class MockUsersBackendImpl {
 
   private _handleRoute(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const { url, method, headers, body } = req;
+
     switch (true) {
+
+      case url == UsersDao.endPoints.get("findPage")!.url && method === 'GET':
+        return this._findPage(body);
 
       case url == UsersDao.endPoints.get("getAll")!.url && method === 'GET':
         return this._getAll();
@@ -41,10 +49,21 @@ export class MockUsersBackendImpl {
         case StringUtils.compareUrls(UsersDao.endPoints.get("uploadImage")!.url, url) && method === 'POST':
           return this._uploadFile(req);
 
+      case url.startsWith(UsersDao.endPoints.get("filterOverAll")!.url) && method === 'GET':
+        return this._filterOverAll(url);
+
       default:
         // pass through any requests not handled above
         return next(req) //.handle(req);
     }
+  }
+
+  private _findPage(payload: unknown): Observable<HttpEvent<IPageResponse<Entity>>> {
+    const payloadCasted = payload as IPagePayload;
+    const page:IPageResponse<Entity> = MockUsersBackendUtils.buildPage(allUsers, payloadCasted);
+    //console.log("request", payloadCasted);
+    //console.log("response", page);
+    return MockUsersBackendUtils.ok(page);
   }
 
   private _getAll(): Observable<HttpResponse<IUserDto>> {
@@ -99,19 +118,30 @@ export class MockUsersBackendImpl {
     }));
   }
 
-  public static generateMockData(): Partial<IUserDto>[] {
+  private _filterOverAll(url: string): Observable<HttpEvent<IPageResponse<Entity>>> {
+    const params = MockUsersBackendUtils.getUrlParams(url);
+    const querySt = params.get("q");
+    if(querySt == undefined || querySt == '') {
+      return MockUsersBackendUtils.error("'q' url-param expected");
+    }
+    const filterOn = ['id', 'username', 'roles', 'createdAt'];
+    const usersFiltered = MockUsersBackendUtils.overallFilter(allUsers, querySt, filterOn);
+    const page = PageUtils.fromFiltering(usersFiltered);
+    return MockUsersBackendUtils.ok(page);
+  }
+
+  public static generateMockData(): IUserDto[] {
     return [
-      { id: 1, username:  "mario1", name: "Mario", lastName: "Marquez", active: true, pictureId: 1, createdAt: new Date('2024-02-14'), roles: [ {id: 1, authority: "Users"}, {id: 2, authority: "Products"} ] },
-      { id: 2, username:  "luigi", name: "Luigi", lastName: "Bianchi", active: true, pictureId: 2, createdAt: new Date('2024-05-20'), roles: [ {id: 1, authority: "Users"} ] },
-      { id: 3, username:  "peach", name: "Peach", lastName: "Toadstool", active: false, pictureId: 3, createdAt: new Date('2024-08-15'), roles: [ {id: 2, authority: "Products"} ] },
-      { id: 4, username:  "yoshi", name: "Yoshi", lastName: "Green", active: true, pictureId: 4, createdAt: new Date('2024-11-10'), roles: [ {id: 2, authority: "Products"} ] },
-      { id: 5, username:  "toad", name: "Toad", lastName: "Mushroom", active: false, pictureId: 5, createdAt: new Date('2024-01-05'), roles: [] },
-      { id: 6, username:  "bowser", name: "Bowser", lastName: "Koopa", active: true, pictureId: 6, createdAt: new Date('2024-03-25'), roles: [] },
-      { id: 7, username:  "daisy", name: "Daisy", lastName: "Sarasaland", active: true, pictureId: 7, createdAt: new Date('2024-06-30'), roles: [] },
-      { id: 8, username:  "wario", name: "Wario", lastName: "Ware", active: false, pictureId: 8, createdAt: new Date('2024-09-05'), roles: [] },
-      { id: 9, username:  "waluigi", name: "Waluigi", lastName: "Pinball", active: true, pictureId: 9, createdAt: new Date('2024-12-20'), roles: [] },
-      { id: 10, username: "rosalina", name: "Rosalina", lastName: "Galaxy", active: true, pictureId: 10, createdAt: new Date('2024-04-15'), roles: [] },
-      { id: 13, username: "shyMan", name: "ShyMan", lastName: "Mask", active: true, pictureId: 13, createdAt: new Date('2024-02-28'), roles: [] },
+      { id: 1, username: "mario1", active: true, pictureId: 1, createdAt: new Date('2024-02-14 12:30:58'), updatedAt: new Date('2025-01-01 07:31:51'), roles: [{ id: 1, authority: "Users" }, { id: 2, authority: "Products" }], password: "" },
+      { id: 2, username:  "luigi",   active: true,  pictureId: 2,  createdAt: new Date('2024-05-20'),  password: "", roles: [ {id: 1, authority: "Users"} ] },
+      { id: 3, username:  "peach",   active: false, pictureId: 3,  createdAt: new Date('2024-08-15'),  password: "", roles: [ {id: 2, authority: "Products"} ] },
+      { id: 4, username:  "yoshi",   active: true,  pictureId: 4,  createdAt: new Date('2024-11-10'),  password: "", roles: [ {id: 2, authority: "Products"} ] },
+      { id: 5, username:  "toad",    active: false, pictureId: 5,  createdAt: new Date('2024-01-05'),  password: "", roles: [] },
+      { id: 6, username:  "bowser",  active: true,  pictureId: 6,  createdAt: new Date('2024-03-25'),  password: "", roles: [] },
+      { id: 7, username:  "daisy",   active: true,  pictureId: 7,  createdAt: new Date('2024-06-30'),  password: "", roles: [] },
+      { id: 8, username:  "wario",   active: false, pictureId: 8,  createdAt: new Date('2024-09-05'),  password: "", roles: [] },
+      { id: 9, username:  "waluigi", active: true,  pictureId: 9,  createdAt: new Date('2024-12-20'),  password: "", roles: [] },
+      { id: 10, username: "rosalin", active: true,  pictureId: 10, createdAt: new Date('2024-04-15'),  password: "", roles: [] },
     ]
   }
 }

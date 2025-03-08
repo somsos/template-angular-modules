@@ -62,6 +62,11 @@ html, body {
   width: 100%;
 }
 
+.mat-drawer-content {
+  // here I have the main page container
+  overflow: hidden;
+}
+
 .link-as-button {
   font: 12px;
   text-decoration: none;
@@ -112,5 +117,9 @@ html, body {
 
 html {
   --mdc-filled-text-field-input-text-color: #999;
+}
+
+.mat-mdc-paginator-range-label  {
+  display: none;
 }
 

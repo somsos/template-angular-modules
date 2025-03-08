@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserAddPage } from './view/pages/user-add/user-add.page';
 import { UserUpdatePage } from './view/pages/user-update/user-update.page';
-import { UsersListPage } from './view/pages/users-list/users-list.page';
+import { UsersListPage2 } from './view/pages/user-list/users-list.page2';
 
 const routes: Routes = [
-  { path: '', component: UsersListPage, },
+  { path: '', component: UsersListPage2, },
   { path: 'add', component: UserAddPage, },
   { path: 'update/:id', component: UserUpdatePage, },
 ];

@@ -35,10 +35,8 @@ export class UserFormComponent implements OnInit {
   readonly userSubmit = new EventEmitter<IUserDto>();
 
   uForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    lastName: ['', Validators.required],
+    username: ['', Validators.required],
     active: [false, Validators.required],
-    //rolesForm: this.formBuilder.array([ ])
   });
 
   ngOnInit() {

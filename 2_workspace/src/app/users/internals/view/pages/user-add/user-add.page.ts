@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { UserAdd } from '../../../commons/UserAdd';
 import { UsersService } from '../../../domain/UsersService';
-import { emptyUser, IUserDto } from '../../../commons/IUserDto';
+import { IUserDto } from '../../../commons/IUserDto';
 import { UserUIHelper } from '../../helpers/UserUIHelper';
 import { AppError } from '../../../../../0common';
-import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserDtoUtils } from '../../../commons/UserDtoUtils';
 
 @Component({
   selector: 'user-add-page',
@@ -18,10 +17,10 @@ export class UserAddPage {
 
   private readonly _uiHelper = inject(UserUIHelper);
 
-  userToAdd: IUserDto = emptyUser();
+  userToAdd: IUserDto = UserDtoUtils.buildEmptyUser();
 
   onUserSubmit(userForm: IUserDto): void {
-    const toAdd = UserAdd.fromDto(userForm);
+    const toAdd = UserDtoUtils.fromDto(userForm);
     this.usersSrv.save(toAdd).subscribe({
       complete: () => {
         this._uiHelper.goToUsers();

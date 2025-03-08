@@ -7,9 +7,7 @@ import { AuthDto, IAuthService } from '../../0common';
   providedIn: 'root',
 })
 export default class AuthService implements IAuthService {
-  private readonly _userLoggedSub = new BehaviorSubject<AuthDto | undefined>(
-    undefined
-  );
+  private readonly _userLoggedSub = new BehaviorSubject<AuthDto | undefined>(undefined);
   private readonly _authDao = inject(AuthApiDao);
   private readonly userAuthInfo = 'userAuthInfo';
 

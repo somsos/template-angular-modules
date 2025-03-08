@@ -15,19 +15,16 @@
   - [X] Update
   - [ ] Add owner to product
 
-- [ ] Users CRUD prototype
+- [X] Users CRUD prototype
   - [X] List
     - [X] Show All the user in list and delete details
-    - [>] Add filter by id
-    - [ ] Add filter by name + lastName
-    - [ ] Add filter by roles
-    - [ ] Add filter by active
+    - [X] Add filter in general (fields selected by programer)
   - [X] Add
   - [X] Delete
   - [X] Update
-  - [>] Roles
+  - [X] Roles
     - [X] Add Roles
-    - [>] Update Roles
+    - [X] Update Roles
   - [X] Images
     - [X] Add Image
     - [X] Add case on image upload error

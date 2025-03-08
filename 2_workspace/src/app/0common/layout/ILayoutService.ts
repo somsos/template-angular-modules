@@ -6,4 +6,7 @@ export interface ILayoutService {
   showConfirmation(): Observable<string | null>;
 
   confirm(arg0: boolean): void;
+
+  showError(error: any): void;
+
 }

@@ -1,6 +1,7 @@
 import { from, Observable } from 'rxjs';
 import { AppError } from '../errors/externals/AppError';
 import { Endpoint } from '../types/Endpoint';
+import { MockUsersBackendUtils } from './MockBackendUtils';
 
 export abstract class StringUtils {
   public static randomString(length: number): string {
@@ -57,6 +58,13 @@ export abstract class StringUtils {
       .replace(/\${([^}]+)}/g, '([^/]+)')
       .replace(/\//g, '\\/');
     const regex = new RegExp(`^${routePattern}(\\?.*)?$`);
+
+    try {
+      MockUsersBackendUtils.getPathId(requestedUrl);
+    } catch (error) {
+      return false;
+    }
+
     return regex.test(requestedUrl);
   }
 

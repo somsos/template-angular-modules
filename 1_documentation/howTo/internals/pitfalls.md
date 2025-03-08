@@ -1,5 +1,15 @@
 # Pitfalls
 
+- [Pitfalls](#pitfalls)
+  - [Do not add http interceptors by @Injectable](#do-not-add-http-interceptors-by-injectable)
+  - [How to override style properties in angular material 18](#how-to-override-style-properties-in-angular-material-18)
+  - [Avoid complex binding between Reactive form and the Object](#avoid-complex-binding-between-reactive-form-and-the-object)
+  - [Log javascript File is tricky](#log-javascript-file-is-tricky)
+  - [Trigger an event in a sibling when its sibling is clicked in a loop](#trigger-an-event-in-a-sibling-when-its-sibling-is-clicked-in-a-loop)
+  - [Not create UI elements from Zero instead copy and peste and then modify](#not-create-ui-elements-from-zero-instead-copy-and-peste-and-then-modify)
+    - [General](#general)
+    - [choose tables even to show lists, cards, etc](#choose-tables-even-to-show-lists-cards-etc)
+
 ## Do not add http interceptors by @Injectable
 
 **Context:** I had several interceptors with different tasks, to add the Jwt, show
@@ -125,3 +135,16 @@ export class DetailsComponent {
   @Input() show: boolean = false;
 }
 ```
+
+## Not create UI elements from Zero instead copy and peste and then modify
+
+### General
+
+Don't re-invent the wheel
+
+### choose tables even to show lists, cards, etc
+
+UI libraries already have a lot of functions pre-builded, for example, http
+requests, sorting, filtering, pagination, etc. and also (TODO: ge sure), I
+think you can use tables that looks like lists.
+
