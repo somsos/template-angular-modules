@@ -194,8 +194,13 @@ export class PageHelper<T extends Entity = Entity> {
     const sub = this._layoutSrv.askConfirmation(msg).subscribe((confirm) => {
       if (confirm) {
         const sub2 = this._srv.deleteById(id).subscribe({
+          next: (uDel) => {
+            const all = this.data$.getValue();
+            const filtered = all.filter(u => u.id === uDel.id);
+            this.data$.next(filtered);
+          },
           complete: () => {
-            this.data$.pipe(retry()).subscribe(this.data$);
+            console.debug("Deleted completed");
             sub2.unsubscribe();
           },
         });

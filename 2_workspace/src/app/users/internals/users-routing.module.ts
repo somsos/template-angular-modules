@@ -6,7 +6,7 @@ import { UsersListPage2 } from './view/pages/user-list/users-list.page2';
 
 const routes: Routes = [
   { path: '', component: UsersListPage2, },
-  { path: 'add', component: UserAddPage, },
+  { path: 'agregar', component: UserAddPage, },
   { path: 'update/:id', component: UserUpdatePage, },
 ];
 

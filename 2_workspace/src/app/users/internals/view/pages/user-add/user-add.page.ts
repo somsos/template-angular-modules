@@ -30,7 +30,7 @@ export class UserAddPage {
           this._uiHelper.goToUsers();
           throw new AppError("Error al subir imagen: intente después");
         }
-        throw new AppError("Error al guardar usuario");
+        throw err;
       },
     });
   }

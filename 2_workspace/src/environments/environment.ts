@@ -1,3 +1,4 @@
 export const environment = {
-  production: false,
+  production: true,
+  img404: "/img/404.png",
 };

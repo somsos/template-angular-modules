@@ -1,15 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ProductsService } from '../../../domain/ProductsStateService';
 import { ProductDto } from '../../../commons/ProductDto';
-import {
-  delay,
-  filter,
-  first,
-  Observable,
-  Observer,
-  of,
-  switchMap,
-} from 'rxjs';
+import { Observable, switchMap, } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StringUtils } from '../../../../0common';
 

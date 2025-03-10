@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, Inject, inject, ViewChild } from '@angular/core';
 import { UsersService } from '../../../domain/UsersService';
 import { commonsNames, ILayoutService, PageHelper } from '../../../../../0common';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,8 +6,10 @@ import { MatSort } from '@angular/material/sort';
 import { IUserDto } from '../../../commons/IUserDto';
 import { UserDtoUtils } from '../../../commons/UserDtoUtils';
 import { IUserRoleDto } from '../../../commons/IUserRoleDto';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UsersImagesStore } from '../../../data/mock/UsersImagesStore';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'users-list-page2',
@@ -16,6 +18,7 @@ import { UsersImagesStore } from '../../../data/mock/UsersImagesStore';
 })
 export class UsersListPage2 implements AfterViewInit {
   private readonly _srv = inject(UsersService);
+  private readonly destroyRef = inject(DestroyRef);
 
   textFilter = new FormControl('', [ Validators.pattern("[a-zA-Z0-9]{1,75}") ] );
 
@@ -25,10 +28,20 @@ export class UsersListPage2 implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
+  private readonly _formBuilder = inject(FormBuilder);
+
+  readonly columnsToShow = this._formBuilder.group({
+    //CAREFUL: sync manually for fist load
+    id: true,
+    username: true,
+    roles: true,
+    createdAt: false,
+    updatedAt: false,
+  });
+
   public pageHelper!: PageHelper<IUserDto>;
 
-  columnsToDisplay = ['username', 'roles'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'actions'];
+  columnsToDisplay = ["id", 'username', 'roles', 'actions']; //CAREFUL: sync manually for fist load
   expandedElement: IUserDto | null = null;
 
   constructor(
@@ -39,6 +52,22 @@ export class UsersListPage2 implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.pageHelper.linkUI(this.paginator, this.sort, this.textFilter);
+    this._observeColumnsToShow();
+  }
+
+  private _observeColumnsToShow() {
+    this.columnsToShow.valueChanges
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(columns => {
+      const newColumnsToShow:string[] = [];
+      if(columns.id === true) { newColumnsToShow.push("id"); }
+      if(columns.username === true) { newColumnsToShow.push("username"); }
+      if(columns.roles === true) { newColumnsToShow.push("roles"); }
+      if(columns.createdAt === true) { newColumnsToShow.push("createdAt"); }
+      if(columns.updatedAt === true) { newColumnsToShow.push("updatedAt"); }
+      newColumnsToShow.push("actions");
+      this.columnsToDisplay = newColumnsToShow;
+    })
   }
 
   /** Checks whether an element is expanded. */
@@ -56,7 +85,12 @@ export class UsersListPage2 implements AfterViewInit {
   }
 
   getPicture(idUser: number): string {
-    return UsersImagesStore.getUrlByUser(idUser);
+    if(environment.production) {
+      console.warn("No implementado");
+      return environment.img404;
+    } else {
+      return UsersImagesStore.getUrlByUser(idUser);
+    }
   }
 
 }

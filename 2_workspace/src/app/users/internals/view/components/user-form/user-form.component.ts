@@ -77,6 +77,7 @@ export class UserFormComponent implements OnInit {
 
   submit() {
     this._extractUser();
+    console.debug("user submitted", this.user);
     this.userSubmit.emit(this.user);
   }
 
@@ -85,7 +86,7 @@ export class UserFormComponent implements OnInit {
     onForm.id = this.user.id;
     const rolesSelected = this.roles
       .filter(o => o.selected)
-      .map(o => ({ id: o.id, authority: '', }) as any)
+      .map(o => ({ id: o.id, authority: o.label, }) as any)
     onForm.roles = rolesSelected;
 
     this.user = onForm;

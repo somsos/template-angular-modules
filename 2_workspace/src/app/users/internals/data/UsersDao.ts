@@ -41,17 +41,19 @@ export class UsersDao {
   }
 
   save(toAdd: IUserAdd): Observable<IUserDto> {
+    const picture = toAdd.pictureFile; // not remove, I don't know why yet in both save and update
     const { method, url } = UsersDao.endPoints.get("save")!;
     const options = { body: toAdd };
     const req = this._http.request<IUserDto>(method, url, options);
     return req.pipe(
       first(),
-      switchMap((saved => {
-        if(toAdd.pictureFile == null) {
+      switchMap((saved => { // duplicated code
+        if(!picture) {
           console.debug("No image to upload");
           return of(saved);
         }
-        return this._usersFileDao.uploadImage(saved.id, toAdd.pictureFile)
+        console.log("File to upload: " + picture.name);
+        return this._usersFileDao.uploadImage(saved.id, picture)
           .pipe(switchMap((idImage => {
             saved.pictureId = idImage;
             return of(saved);
@@ -61,18 +63,18 @@ export class UsersDao {
   }
 
   update(newInfo: IUserDto): Observable<IUserDto> {
+    const picture = newInfo.pictureFile; // not remove, I don't know why yet in both save and update
     const { method, url } = UsersDao.endPoints.get("update")!;
     const urlWithVal = url.replace('${id}', newInfo.id + '');
     const options = { body: newInfo };
-    const picture = newInfo.pictureFile; // not remove, I don't know why yet
     return this._http.request<IUserDto>(method, urlWithVal, options)
       .pipe(
         first(),
-        switchMap(uUpdated => {
+        switchMap(uUpdated => { // duplicated code
           if(!picture) {
             return of(uUpdated).pipe(first());
           } else {
-            console.log("File to update: " + picture?.name);
+            console.log("File to update: " + picture.name);
             return this._usersFileDao.uploadImage(newInfo.id, picture)
               .pipe(first(), switchMap((idImage => {
                 uUpdated.pictureId = idImage;

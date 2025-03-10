@@ -53,7 +53,15 @@ export abstract class StringUtils {
     return url.replace(/\${([^}]+)}/g, remplace);
   }
 
+  static replaceUrlVariablesValues(url: string, remplace: string): string {
+    return url.replace(/\d+/g, () => remplace);
+  }
+
   static compareUrls(route: string, requestedUrl: string): boolean {
+    if(route === requestedUrl) {
+      return true
+    }
+
     const routePattern = route
       .replace(/\${([^}]+)}/g, '([^/]+)')
       .replace(/\//g, '\\/');
@@ -62,7 +70,10 @@ export abstract class StringUtils {
     try {
       MockUsersBackendUtils.getPathId(requestedUrl);
     } catch (error) {
-      return false;
+      const routeSimple = StringUtils.remplaceUrlParam(route, "1");
+      const requestedUrlSimple =  StringUtils.replaceUrlVariablesValues(requestedUrl, "1");
+      const same = routeSimple == requestedUrlSimple;
+      return same
     }
 
     return regex.test(requestedUrl);

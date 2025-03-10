@@ -20,7 +20,6 @@ export class ErrorGlobalHandler implements ErrorHandler {
     if (error instanceof AppError) {
       this._errorSrv.setError(error.toDto());
       this._loadingSrv.clearLoadings();
-      console.log(error.stack);
     } else {
       const cause = this.getStringFromAny(error);
       const err = new ErrorDto('Error, contacte con admins', ErrorType.Unknown, cause );

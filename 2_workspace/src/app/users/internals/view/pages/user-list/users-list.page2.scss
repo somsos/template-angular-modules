@@ -1,3 +1,11 @@
+
+#columns-to-show {
+  display: flex;
+  column-gap: 10px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 #table-container {
   width: 100%;
   overflow-x: auto;

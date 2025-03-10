@@ -19,6 +19,8 @@
   - [X] List
     - [X] Show All the user in list and delete details
     - [X] Add filter in general (fields selected by programer)
+    - [X] Show/hide columns from view
+    - [ ] Order by different properties
   - [X] Add
   - [X] Delete
   - [X] Update

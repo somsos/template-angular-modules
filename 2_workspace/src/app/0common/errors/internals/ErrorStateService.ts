@@ -14,6 +14,9 @@ export class ErrorStateService implements IErrorStateService {
   }
 
   setError(error: ErrorDto | undefined) {
+    if(error?.message == "Unauthorized") {
+      error.message = "Permisos insuficientes";
+    }
     this.error.next(error);
     const t = setTimeout(() => {
       this.error.next(undefined);

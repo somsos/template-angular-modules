@@ -12,6 +12,7 @@ export class UsersFileDao {
 
   uploadImage(idUser: number, picture: File): Observable<number> {
     const { url, body } = this._buildRequestUpload(idUser, picture);
+    console.debug("mock, request: uploadImage: ", url, (body.get("picture") as any)!.name);
     return this._http.post<number>(url, body);
   }
 
