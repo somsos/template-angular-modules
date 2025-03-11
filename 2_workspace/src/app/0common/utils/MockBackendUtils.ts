@@ -121,12 +121,41 @@ export abstract class MockUsersBackendUtils {
   // AI generated
   static buildPage(all: Entity[], payload: IPagePayload): IPageResponse<Entity> {
     // Sort the data based on the sort property and direction
+    const prop = payload.sort.property;
     const sortedData = all.sort((a: any, b: any) => {
-      if (payload.sort.direction === 'asc') {
-        return a[payload.sort.property] - b[payload.sort.property];
-      } else {
-        return b[payload.sort.property] - a[payload.sort.property];
+      if(typeof a[prop] == 'string') {
+        const aLowCase = a[prop].toLocaleLowerCase();
+        const bLowCase = b[prop].toLocaleLowerCase();
+        if (payload.sort.direction === 'asc') {
+          return aLowCase.localeCompare(bLowCase);
+        } else {
+          return bLowCase.localeCompare(aLowCase);
+        }
       }
+      else if (typeof a[prop] == 'number') {
+        if (payload.sort.direction === 'asc') {
+          return a[prop] - b[prop];
+        } else {
+          return b[prop] - a[prop];
+        }
+      } else if(a[prop] instanceof Date) {
+        const aTime = new Date(a[prop]).getTime();
+        const bTime = new Date(b[prop]).getTime();
+        if (payload.sort.direction === 'asc') {
+          return aTime - bTime;
+        } else {
+          return bTime - aTime;
+        }
+      } else if(a[prop] instanceof Array) {
+      const aL = a[prop].length;
+      const bL = b[prop].length;
+      if (payload.sort.direction === 'asc') {
+        return aL - bL;
+      } else {
+        return bL - aL;
+      }
+    }
+
     });
 
     // Calculate pagination

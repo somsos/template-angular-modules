@@ -59,18 +59,19 @@ export class MockUsersBackendImpl {
   }
 
   private _findPage(payload: unknown): Observable<HttpEvent<IPageResponse<Entity>>> {
+    console.debug("request, mock", payload);
     const payloadCasted = payload as IPagePayload;
-    const page:IPageResponse<Entity> = MockUsersBackendUtils.buildPage(allUsers, payloadCasted);
-    //console.log("request", payloadCasted);
-    //console.log("response", page);
+    const page = MockUsersBackendUtils.buildPage(allUsers, payloadCasted);
     return MockUsersBackendUtils.ok(page);
   }
 
   private _getAll(): Observable<HttpResponse<IUserDto>> {
+    console.debug("request, mock, getAll");
     return MockUsersBackendUtils.ok(allUsers);
   }
 
   private _getById(url: string): Observable<HttpEvent<any>> {
+    console.debug("request, mock, getById", url);
     const id = MockUsersBackendUtils.getPathId(url);
     const found = allUsers.find(u => u.id === id);
     if (!found) {
@@ -82,6 +83,7 @@ export class MockUsersBackendImpl {
   }
 
   private _save(newP: IUserDto, headers: HttpHeaders): Observable<HttpResponse<IUserDto>> {
+    console.debug("request, mock, save", newP, headers);
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
     newP.pictureFile = null;
     MockUsersBackendUtils.addEntity(keyStoreU, newP, allUsers);
@@ -89,7 +91,7 @@ export class MockUsersBackendImpl {
   }
 
   private _deleteById(url: string, headers: HttpHeaders): Observable<HttpEvent<any>> {
-    console.log('deleteById');
+    console.debug("request, mock, deleteById", url, headers);
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
     const id = MockUsersBackendUtils.getPathId(url);
     const toDelete = MockUsersBackendUtils.deleteById(keyStoreU, id, allUsers);
@@ -97,6 +99,7 @@ export class MockUsersBackendImpl {
   }
 
   private _update(url: string, body: any, headers: HttpHeaders): Observable<HttpEvent<any>> {
+    console.debug("request, mock, _update", url, body, headers);
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
     const newInfo = body as IUserDto;
     const id = MockUsersBackendUtils.getPathId(url);
@@ -108,6 +111,7 @@ export class MockUsersBackendImpl {
   private _uploadFile(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(req.headers);
     const picture = (req.body as FormData).get("picture") as File | null;
+    console.debug("request, mock, uploadFile", req.url, picture?.name);
     if(!picture) {
       throw new AppError("picture not found");
     }
@@ -119,6 +123,7 @@ export class MockUsersBackendImpl {
   }
 
   private _filterOverAll(url: string): Observable<HttpEvent<IPageResponse<Entity>>> {
+    console.debug("request, mock, filterOverAll", url);
     const params = MockUsersBackendUtils.getUrlParams(url);
     const querySt = params.get("q");
     if(querySt == undefined || querySt == '') {
@@ -132,16 +137,16 @@ export class MockUsersBackendImpl {
 
   public static generateMockData(): IUserDto[] {
     return [
-      { id: 1, username: "mario1", active: true, pictureId: 1, createdAt: new Date('2024-02-14 12:30:58'), updatedAt: new Date('2025-01-01 07:31:51'), roles: [{ id: 1, authority: "Users" }, { id: 2, authority: "Products" }], password: "" },
-      { id: 2, username:  "luigi",   active: true,  pictureId: 2,  createdAt: new Date('2024-05-20'),  password: "", roles: [ {id: 1, authority: "Users"} ] },
-      { id: 3, username:  "peach",   active: false, pictureId: 3,  createdAt: new Date('2024-08-15'),  password: "", roles: [ {id: 2, authority: "Products"} ] },
-      { id: 4, username:  "yoshi",   active: true,  pictureId: 4,  createdAt: new Date('2024-11-10'),  password: "", roles: [ {id: 2, authority: "Products"} ] },
-      { id: 5, username:  "toad",    active: false, pictureId: 5,  createdAt: new Date('2024-01-05'),  password: "", roles: [] },
-      { id: 6, username:  "bowser",  active: true,  pictureId: 6,  createdAt: new Date('2024-03-25'),  password: "", roles: [] },
-      { id: 7, username:  "daisy",   active: true,  pictureId: 7,  createdAt: new Date('2024-06-30'),  password: "", roles: [] },
-      { id: 8, username:  "wario",   active: false, pictureId: 8,  createdAt: new Date('2024-09-05'),  password: "", roles: [] },
-      { id: 9, username:  "waluigi", active: true,  pictureId: 9,  createdAt: new Date('2024-12-20'),  password: "", roles: [] },
-      { id: 10, username: "rosalin", active: true,  pictureId: 10, createdAt: new Date('2024-04-15'),  password: "", roles: [] },
+      { id: 1,  username: "mario1",  active: true,   pictureId: 1,  createdAt: new Date('2024-01-14 12:30:58'),  updatedAt: new Date('2024-08-01 17:30:01'), roles: [{ id: 1, authority: "Users" }, { id: 2, authority: "Products" }], password: "" },
+      { id: 2,  username: "luigi",   active: true,   pictureId: 2,  createdAt: new Date('2024-01-14 13:30:58'),  updatedAt: new Date('2024-01-14 13:30:58'), roles: [ {id: 1, authority: "Users"} ], password: "",},
+      { id: 3,  username: "peach",   active: false,  pictureId: 3,  createdAt: new Date('2024-01-14 13:31:58'),  updatedAt: new Date('2024-01-14 13:31:58'), roles: [ {id: 2, authority: "Products"} ], password: "",},
+      { id: 4,  username: "yoshi",   active: true,   pictureId: 4,  createdAt: new Date('2024-04-14 12:30:58'),  updatedAt: new Date('2024-04-14 12:30:58'), roles: [ {id: 2, authority: "Products"} ], password: "",},
+      { id: 5,  username: "toad",    active: false,  pictureId: 5,  createdAt: new Date('2024-05-14 12:30:58'),  updatedAt: new Date('2024-05-14 12:30:58'), roles: [], password: "",},
+      { id: 6,  username: "bowser",  active: true,   pictureId: 6,  createdAt: new Date('2024-06-14 12:30:58'),  updatedAt: new Date('2024-06-14 12:30:58'), roles: [], password: "",},
+      { id: 7,  username: "daisy",   active: true,   pictureId: 7,  createdAt: new Date('2024-07-14 12:30:58'),  updatedAt: new Date('2024-07-14 12:30:58'), roles: [], password: "",},
+      { id: 8,  username: "wario",   active: false,  pictureId: 8,  createdAt: new Date('2024-08-01 12:30:41'),  updatedAt: new Date('2024-08-01 12:30:41'), roles: [], password: "",},
+      { id: 9,  username: "waluigi", active: true,   pictureId: 9,  createdAt: new Date('2024-08-01 12:30:43'),  updatedAt: new Date('2024-08-01 12:30:43'), roles: [], password: "",},
+      { id: 10, username: "rosalin", active: true,   pictureId: 10, createdAt: new Date('2024-08-01 12:30:42'),  updatedAt: new Date('2024-08-01 12:30:42'), roles: [{ id: 1, authority: "Users" }, { id: 2, authority: "Products" }], password: "",},
     ]
   }
 }

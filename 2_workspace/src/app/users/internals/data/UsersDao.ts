@@ -94,6 +94,7 @@ export class UsersDao {
 
   findPage(payload: IPagePayload): Observable<IPageResponse<IUserDto>> {
     const { method, url } = UsersDao.endPoints.get("findPage")!;
+    console.debug("request, findPage: ", method, url, payload);
     const options = { body: payload };
     return this._http.request<IPageResponse<IUserDto>>(method, url, options).pipe(first());
   }
