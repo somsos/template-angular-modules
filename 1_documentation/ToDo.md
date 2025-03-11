@@ -35,4 +35,10 @@
 - [ ] MainLayout
   - [ ] Add snackbar to show notifications
 
-- [ ] Add manifest of architecture and coding
+- [ ] Project presentation
+  - [ ] Add introduction in README.md
+  - [ ] Add manifest of architecture
+    - [ ] Object relation diagram
+    - [ ] Object relation diagram
+  - [ ] Add manifest of code
+  - [ ] Add manifest of project management
