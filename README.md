@@ -68,3 +68,11 @@ are pending) of this app to show a summary of the organization of the
 architecture. Other modules should follow the same structure.
 
 ![component based architecture example](./1_documentation/howTo/internals/resources/03_components-and-0commons-component.png)
+
+## How to create a new project using this template
+
+ToDo:
+
+## How take module(s) to a started project
+
+ToDo:

@@ -33,11 +33,17 @@
     - [X] Update Image
 
 - [ ] MainLayout
-  - [ ] Add snackbar to show notifications
+  - [>>] Add snackbar to show notifications
 
 - [>>] Project presentation
   - [X] Add introduction in README.md
     - [X] Add manifest of architecture
       - [ ] Object relation diagram
-    - [ ] Add manifest of code
+    - [>>] Add manifest of code
     - [ ] Add manifest of project management
+    - [ ] Add resume of characteristics
+
+- [>] Connect with backend
+  - [>] Auth
+    - [X] Login
+    - [ ] Register

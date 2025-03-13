@@ -1,8 +1,32 @@
-<div>
-  <p><button mat-flat-button (click)="onSubmitMario1()">Login Mario1</button></p>
-  <button mat-flat-button (click)="onSubmitError()"><mat-icon>favorite</mat-icon>Error</button>
+<div class="login-container">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" type="username" required />
+          <mat-error *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+            Introduce un nombre de usuario valido
+          </mat-error>
+        </mat-form-field>
 
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="password" autocomplete='new-password' required />
+          <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+            <mat-icon>{{ hidePassword() ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Contraseña requerida
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+      </form>
+
+    </mat-card-content>
+    <div style='margin-top: 1rem; text-align: end;'>
+      <a mat-button routerLink="/register">Crear cuenta</a>
+    </div>
+  </mat-card>
 </div>
-<p>Login:</p>
-
-

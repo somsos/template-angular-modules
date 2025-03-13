@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, Inject, inject, ViewChild } from '@angular/core';
-import { debounceTime, Observable } from 'rxjs';
+import { debounceTime, filter, Observable, tap } from 'rxjs';
 import { Location } from '@angular/common';
 import { MatSidenav } from '@angular/material/sidenav';
 import { RequestDto, ErrorDto, commonsNames, ILoadingService, IErrorStateService, IAuthService, AuthDto } from '../../../../0common';
 import AuthService from '../../../../auth/domain/AuthService';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'main-layout-root',
@@ -14,14 +15,13 @@ import AuthService from '../../../../auth/domain/AuthService';
 export class MainLayoutPage {
   private readonly _location = inject(Location);
   private readonly _authSrv: IAuthService = inject(AuthService);
+  private _snackBar = inject(MatSnackBar);
   //private readonly _cdr = inject(ChangeDetectorRef);
 
   @ViewChild('sidenav')
   sidenav!: MatSidenav;
 
   public readonly loading$: Observable<RequestDto>;
-
-  public readonly error$: Observable<ErrorDto | undefined>;
 
   public auth?: AuthDto;
 
@@ -39,7 +39,18 @@ export class MainLayoutPage {
     this.loading$ = this._loadingSrv.getRequest().pipe(
       debounceTime(50),
     );
-    this.error$ = this._errorStateSrv.getError().pipe(debounceTime(50));
+    this._observeErrors();
+  }
+
+
+  private _observeErrors() {
+    this._errorStateSrv.getError().pipe(
+      debounceTime(50),
+      filter(err => err != undefined),
+      tap({next: (err) => {
+        this.openSnackBar(err.message, "Ok");
+      }})
+    ).subscribe();
   }
 
   onLogoutClicked() {
@@ -54,6 +65,11 @@ export class MainLayoutPage {
 
   closeSideMenu() {
     this.sidenav.close();
+  }
+
+  openSnackBar(message: string, action: string): void {
+    console.log("showing snack", message, {});
+    this._snackBar.open(message, action, { duration: 4000 });
   }
 
 }

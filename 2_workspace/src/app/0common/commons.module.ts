@@ -25,6 +25,21 @@ import { mainRoutes } from '../app.routing';
 import { MainLayoutPage } from '../layout/view/pages/main-layout/main-layout.page';
 import { LayoutModule } from '../layout/layout.module';
 import { usersMockBackendInterceptor } from '../users/externals';
+import { environment } from '../../environments/environment';
+
+
+console.log("environment", environment);
+
+
+const mockInterceptors = (environment.backend.mock) ? [
+  fakeAuthApiDao,
+] : [];
+
+const allInterceptors = [
+  ...mockInterceptors,
+  productsMockBackend,
+  usersMockBackendInterceptor,
+]
 
 @NgModule({
   bootstrap: [
@@ -41,7 +56,7 @@ import { usersMockBackendInterceptor } from '../users/externals';
     importProvidersFrom(AuthModule),
     provideHttpClient(
       withInterceptorsFromDi(),
-      withInterceptors([fakeAuthApiDao, productsMockBackend, usersMockBackendInterceptor])
+      withInterceptors(allInterceptors)
     ),
     provideAnimationsAsync('noop'),
 
