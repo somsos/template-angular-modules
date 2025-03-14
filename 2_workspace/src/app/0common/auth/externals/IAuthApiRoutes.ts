@@ -1,5 +1,5 @@
 import { Endpoint } from "../../types/Endpoint";
 
-export interface IAuthBackendService {
+export interface IAuthApiRoutes {
   addRoutes(newEps: Endpoint[]): void
 }

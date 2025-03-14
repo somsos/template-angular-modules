@@ -1,14 +1,15 @@
 import { HttpRequest, HttpEvent, HttpInterceptor, HttpHandler } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AuthBackendService } from "./AuthBackendService";
-import { commonsNames } from "../..";
+import { commonsNames, IAuthApiRoutes } from "../../0common";
+import { AuthUtils } from "./AuthUtils";
+import { AuthApiRoutesImpl } from "./AuthApiRoutesImpl";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
   constructor(
-    @Inject(commonsNames.IAuthBackendService) private _authBackSrv: AuthBackendService
+    @Inject(commonsNames.IAuthApiRoutes) private _authBackSrv: AuthApiRoutesImpl
   ){}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -23,7 +24,7 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     console.debug("Adding JWT: ", req.url);
-    const reqWithAuth = this._authBackSrv.addAuth(req);
+    const reqWithAuth = AuthUtils.addAuth(req);
     return next.handle(reqWithAuth);
   }
 

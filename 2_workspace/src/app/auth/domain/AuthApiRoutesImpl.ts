@@ -1,10 +1,10 @@
 import { HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Endpoint, fromRequest, compareEndpoints } from "../../types/Endpoint";
-import { IAuthBackendService } from "../externals/IAuthBackendService";
+import { Endpoint, fromRequest, compareEndpoints } from "../../0common/types/Endpoint";
+import { IAuthApiRoutes } from "../../0common/auth/externals/IAuthApiRoutes";
 
 @Injectable()
-export class AuthBackendService implements IAuthBackendService {
+export class AuthApiRoutesImpl implements IAuthApiRoutes {
 
   private readonly _endpoints: Endpoint[] = [];
 
@@ -20,14 +20,6 @@ export class AuthBackendService implements IAuthBackendService {
       return false;
     }
     return matchRoute.auth;
-  }
-
-  public addAuth(req: HttpRequest<unknown>): HttpRequest<unknown> {
-    const token = "foo-token";
-    const reqWToken = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${token}`),
-    });
-    return reqWToken;
   }
 
 }

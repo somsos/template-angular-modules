@@ -18,7 +18,7 @@ export type { ILoadingService } from './loadings/externals/ILoadingService';
 
 //others
 export type { Endpoint } from './types/Endpoint';
-export type { IAuthBackendService } from './auth/externals/IAuthBackendService';
+export type { IAuthApiRoutes } from './auth/externals/IAuthApiRoutes';
 export type { ILayoutService } from './layout/ILayoutService';
 
 //auth
@@ -40,5 +40,5 @@ export const commonsNames = {
   IErrorStateService: 'IErrorStateService',
   ILoadingService: 'ILoadingService',
   ILayoutService: 'ILayoutService',
-  IAuthBackendService: 'IAuthBackendService',
+  IAuthApiRoutes: 'IAuthApiRoutes',
 };

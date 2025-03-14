@@ -4,8 +4,7 @@ import { ErrorGlobalHandler } from './errors/internals/ErrorGlobalHandler';
 import { ErrorStateService } from './errors/internals/ErrorStateService';
 import { LoadingService } from './loadings/internals/LoadingService';
 import { LoadingsInterceptor } from './loadings/internals/loadingsInterceptor';
-import { JwtInterceptor } from './auth/internals/JwtInterceptor';
-import { AuthBackendService } from './auth/internals/AuthBackendService';
+import { JwtInterceptor } from '../auth/domain/JwtInterceptor';
 import { commonsNames } from '.';
 import {
   importProvidersFrom,
@@ -18,7 +17,6 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { fakeAuthApiDao } from '../auth';
-import { productsMockBackend } from '../products/data/mock/productsMockBackend.interceptor';
 import { AuthModule } from '../auth/auth.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { mainRoutes } from '../app.routing';
@@ -26,6 +24,7 @@ import { MainLayoutPage } from '../layout/view/pages/main-layout/main-layout.pag
 import { LayoutModule } from '../layout/layout.module';
 import { usersMockBackendInterceptor } from '../users/externals';
 import { environment } from '../../environments/environment';
+import { AuthApiRoutesImpl } from '../auth/domain/AuthApiRoutesImpl';
 
 
 console.log("environment", environment);
@@ -37,7 +36,6 @@ const mockInterceptors = (environment.backend.mock) ? [
 
 const allInterceptors = [
   ...mockInterceptors,
-  productsMockBackend,
   usersMockBackendInterceptor,
 ]
 
@@ -64,7 +62,7 @@ const allInterceptors = [
     { provide: ErrorHandler, useClass: ErrorGlobalHandler },
     { provide: commonsNames.IErrorStateService, useClass: ErrorStateService },
     // auth
-    { provide: commonsNames.IAuthBackendService, useClass: AuthBackendService },
+    { provide: commonsNames.IAuthApiRoutes, useClass: AuthApiRoutesImpl },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //loadings
     { provide: commonsNames.ILoadingService, useClass: LoadingService },

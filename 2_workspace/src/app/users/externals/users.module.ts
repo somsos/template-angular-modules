@@ -6,7 +6,7 @@ import { UsersService } from '../internals/domain/UsersService';
 import { UserAddPage } from '../internals/view/pages/user-add/user-add.page';
 import { UserUpdatePage } from '../internals/view/pages/user-update/user-update.page';
 import { UserFormComponent } from '../internals/view/components/user-form/user-form.component';
-import { commonsNames, IAuthBackendService } from '../../0common';
+import { commonsNames, IAuthApiRoutes } from '../../0common';
 import { MaterialModule } from '../../0common/material.module';
 import { MaterialForms } from '../../0common/MaterialForms.module';
 import { UsersFileDao } from '../internals/data/UsersFileDao';
@@ -37,7 +37,7 @@ import { UsersListPage2 } from '../internals/view/pages/user-list/users-list.pag
 export class UsersModule {
 
   constructor(
-    @Inject(commonsNames.IAuthBackendService) jwtInter: IAuthBackendService
+    @Inject(commonsNames.IAuthApiRoutes) jwtInter: IAuthApiRoutes
   ) {
     const routes = Array.from(UsersDao.endPoints.values());
     jwtInter.addRoutes(routes);
