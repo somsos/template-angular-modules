@@ -44,6 +44,13 @@
     - [ ] Add resume of characteristics
 
 - [>] Connect with backend
-  - [>] Auth
+  - [X] Auth
     - [X] Login
-    - [ ] Register
+    - [X] Register
+  - [>] Users
+    - [>>] pagination
+    - [ ] sort
+    - [ ] filtering
+    - [ ] Save
+    - [ ] Delete
+    - [ ] Update

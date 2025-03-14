@@ -1,14 +1,17 @@
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, first, map, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AppError, AuthDto, IRoleDto } from '../../0common';
 import { environment } from '../../../environments/environment';
 
+const backPath = environment.backend.path;
+
 @Injectable({ providedIn: 'root' })
 export default class AuthApiDao {
   private _http = inject(HttpClient);
 
-  public static readonly loginPath = environment.backend.path + '/auth/create-token';
+  public static readonly loginPath = backPath + '/auth/create-token';
+  public static readonly registerPath = backPath + '/auth/register';
 
 
   public createToken(cred: AuthDto): Observable<AuthDto> {
@@ -37,6 +40,21 @@ export default class AuthApiDao {
       }
       return mapped
   }
+
+
+  public register(newAuth: AuthDto): Observable<AuthDto> {
+    return this._http.post<AuthDto>(AuthApiDao.registerPath, newAuth)
+      .pipe(
+        first(),
+        catchError((err) => {
+          if(err instanceof HttpErrorResponse) {
+            throw AppError.fromServer(err);
+          }
+          throw err;
+        }),
+      );
+  }
+
 }
 
 

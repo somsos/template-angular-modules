@@ -4,6 +4,7 @@ import { IRoleDto } from "./IRoleDto";
 export class AuthDto implements Entity {
   id: number = -1;
   username?: string;
+  email?: string;
   password?: string;
   token?: string;
   roles: Partial<IRoleDto>[] = [];

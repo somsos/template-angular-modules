@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { ErrorDto } from '../errors/externals/ErrorDto';
 
 export interface ILayoutService {
   askConfirmation(msg: string): Observable<boolean>;
@@ -7,6 +8,6 @@ export interface ILayoutService {
 
   confirm(arg0: boolean): void;
 
-  showError(error: any): void;
+  showError(error: ErrorDto): void;
 
 }

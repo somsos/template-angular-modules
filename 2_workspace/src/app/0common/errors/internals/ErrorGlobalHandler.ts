@@ -22,7 +22,7 @@ export class ErrorGlobalHandler implements ErrorHandler {
       this._loadingSrv.clearLoadings();
     } else {
       const cause = this.getStringFromAny(error);
-      const err = new ErrorDto('Error, contacte con admins', ErrorType.Unknown, cause );
+      const err:ErrorDto = { message: 'Error, contacte con admins', typeArg: ErrorType.Unknown, cause: cause };
       this._errorSrv.setError(err);
       if (error.stack) {
         console.log(error.stack);

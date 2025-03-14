@@ -7,10 +7,10 @@ import AuthApiDao from './data/AuthApiDao';
 import { MaterialModule } from '../0common/material.module';
 import { LoginPage } from './view/pages/login/login.page';
 import { MaterialForms } from '../0common/MaterialForms.module';
-//import { RegisterPage } from './view/pages/register/register.page';
+import { RegisterPage } from './view/pages/register/register.page';
 
 @NgModule({
-  declarations: [ LoginPage ],
+  declarations: [ LoginPage, RegisterPage ],
   imports: [CommonModule, AuthRoutingModule, MaterialModule, MaterialForms],
   exports: [RouterModule],
   providers: [AuthService, AuthApiDao],

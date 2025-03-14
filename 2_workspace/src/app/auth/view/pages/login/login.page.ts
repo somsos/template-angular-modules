@@ -62,14 +62,15 @@ export class LoginPage {
     const subs = this._authSrv.getUserLogged().pipe(
       filter((u) => u != undefined),
       first(),
-      tap({
-        complete: () => {
-          this._router.navigateByUrl('users');
-        },
-      }),
       takeUntilDestroyed(this._destroyRef)
     );
-    subs.subscribe();
+    subs.subscribe((logged) => {
+      if(JSON.stringify(logged.roles).includes("users")) {
+        this._router.navigateByUrl('/users');
+        return ;
+      }
+      this._router.navigateByUrl('/products');
+    });
     return subs;
   }
 }

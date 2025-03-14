@@ -1,6 +1,6 @@
 <div class="login-container">
   <mat-card>
-    <mat-card-title>Login</mat-card-title>
+    <mat-card-title>Register</mat-card-title>
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
@@ -8,6 +8,14 @@
           <input matInput formControlName="username" type="text" required />
           <mat-error *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
             Introduce un nombre de usuario valido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required />
+          <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            Email requerido
           </mat-error>
         </mat-form-field>
 
@@ -21,12 +29,18 @@
             Contraseña requerida
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar contraseña</mat-label>
+          <input matInput type="password" formControlName="confirmPassword" autocomplete='new-password' required />
+          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Confirmacion requerida
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Registar</button>
       </form>
 
     </mat-card-content>
-    <div style='margin-top: 1rem; text-align: end;'>
-      <a mat-button routerLink="/register">Crear cuenta</a>
-    </div>
   </mat-card>
 </div>

@@ -1,7 +1,7 @@
 import { first, map, Observable, Subject, switchMap } from 'rxjs';
 import { ILayoutService } from '../../0common/layout/ILayoutService';
 import { Inject, Injectable } from '@angular/core';
-import { commonsNames } from '../../0common';
+import { commonsNames, ErrorDto } from '../../0common';
 import { ErrorStateService } from '../../0common/errors/internals/ErrorStateService';
 
 @Injectable({ providedIn: 'root' })
@@ -30,7 +30,7 @@ export class LayoutService implements ILayoutService {
     this._confirmation$ = null;
   }
 
-  showError(error: any): void {
+  showError(error: ErrorDto): void {
     this._errorSrv.setError(error);
   }
 

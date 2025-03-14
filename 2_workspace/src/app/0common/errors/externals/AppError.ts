@@ -16,7 +16,8 @@ export class AppError extends Error {
   }
 
   toDto(): ErrorDto {
-    return new ErrorDto(this.message, this.type, JSON.stringify(this.cause));
+    const err:ErrorDto = {message: this.message, typeArg: this.type, cause: JSON.stringify(this.cause)}
+    return err;
   }
 
   static fromServer(err: HttpErrorResponse): AppError {

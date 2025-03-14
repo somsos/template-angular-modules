@@ -10,7 +10,7 @@ export type { Entity } from './types/Entity';
 export type { IErrorStateService } from './errors/externals/IErrorStateService';
 export { AppError } from './errors/externals/AppError';
 export { ErrorType } from './errors/externals/ErrorType';
-export { ErrorDto } from './errors/externals/ErrorDto';
+export type { ErrorDto } from './errors/externals/ErrorDto';
 
 //loadings
 export { RequestDto } from './loadings/externals/RequestDto';

@@ -1,4 +1,4 @@
-import { BehaviorSubject, filter, first, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, filter, first, Observable } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
 import AuthApiDao from '../data/AuthApiDao';
 import { AuthDto, IAuthService } from '../../0common';
@@ -47,4 +47,9 @@ export default class AuthService implements IAuthService {
   logout(): void {
     this._setAuthUser(undefined);
   }
+
+  register(newAuth: AuthDto): Observable<AuthDto> {
+    return this._authDao.register(newAuth);
+  }
+
 }
