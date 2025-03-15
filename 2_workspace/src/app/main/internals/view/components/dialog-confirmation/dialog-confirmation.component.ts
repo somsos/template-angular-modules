@@ -1,11 +1,7 @@
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {} from '@angular/core';
 import { tap } from 'rxjs';
-import { commonsNames, ILayoutService } from '../../../../0common';
+import { commonsNames, ILayoutService } from '../../../../../0common';
 
 @Component({
   selector: 'dialog-confirmation',

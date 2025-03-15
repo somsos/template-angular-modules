@@ -1,7 +1,7 @@
 import { HttpRequest, HttpEvent, HttpHandlerFn, } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsersMockBackend } from './UsersMockBackend';
-import { MockUsersBackendUtils } from '../app/0common/utils/MockBackendUtils';
+import { MockUsersBackendUtils } from './MockBackendUtils';
 import AuthApiDao from '../app/auth/internals/data/AuthApiDao';
 
 const usersBD = new UsersMockBackend();

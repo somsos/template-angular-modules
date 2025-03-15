@@ -7,8 +7,8 @@ import { RouterModule, RouterOutlet } from "@angular/router";
 import { DialogConfirmationComponent } from "./view/components/dialog-confirmation/dialog-confirmation.component";
 import { CommonModule } from "@angular/common";
 import { BrowserModule } from "@angular/platform-browser";
-import { commonsNames } from "../0common";
-import { MaterialModule } from "../0common/material.module";
+import { commonsNames } from "../../0common";
+import { MaterialModule } from "../../0common/material.module";
 
 @NgModule({
   declarations: [

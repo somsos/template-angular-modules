@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, inject, ViewChild } from '@
 import { debounceTime, filter, Observable, tap } from 'rxjs';
 import { Location } from '@angular/common';
 import { MatSidenav } from '@angular/material/sidenav';
-import { RequestDto, commonsNames, ILoadingService, IErrorStateService, IAuthService, AuthDto } from '../../../../0common';
+import { RequestDto, commonsNames, ILoadingService, IErrorStateService, IAuthService, AuthDto } from '../../../../../0common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -54,7 +54,8 @@ export class MainLayoutPage {
 
   onLogoutClicked() {
     this._authSrv.logout();
-    this._location.go(this._location.path());
+    //this._location.go("/login");
+    window.location.href = "/login";
   }
 
   onThemeSwitchChange(ev: boolean) {

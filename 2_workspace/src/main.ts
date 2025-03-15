@@ -1,5 +1,5 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { CommonsModule } from './app/0common/commons.module';
+import { MainModule } from './app/main/main.config';
 
-platformBrowserDynamic().bootstrapModule(CommonsModule)
+platformBrowserDynamic().bootstrapModule(MainModule)
   .catch(err => console.error(err));

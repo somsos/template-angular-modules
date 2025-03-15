@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AuthDto } from '../../../../0common';
+import { AuthDto } from '../../../../../0common';
 
 @Component({
   selector: 'app-header',

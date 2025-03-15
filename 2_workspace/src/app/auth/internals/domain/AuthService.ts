@@ -35,8 +35,11 @@ export default class AuthService implements IAuthService {
 
   private _setAuthUser(logged?: AuthDto) {
     if (logged) {
-      delete logged.password;
-      localStorage.setItem(this.userAuthInfo, JSON.stringify(logged));
+      //delete logged.password; // careful it delated the password from DB as well, don't know why yet.
+      const toSaveInStore:any = {};
+      Object.assign(toSaveInStore, logged);
+      delete toSaveInStore.password;
+      localStorage.setItem(this.userAuthInfo, JSON.stringify(toSaveInStore));
     } else {
       localStorage.removeItem(this.userAuthInfo);
     }

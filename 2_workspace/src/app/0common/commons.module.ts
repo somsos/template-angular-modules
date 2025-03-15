@@ -1,43 +1,21 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, importProvidersFrom } from '@angular/core';
 import { ErrorGlobalHandler } from './errors/internals/ErrorGlobalHandler';
 import { ErrorStateService } from './errors/internals/ErrorStateService';
 import { LoadingService } from './loadings/internals/LoadingService';
 import { LoadingsInterceptor } from './loadings/internals/loadingsInterceptor';
 import { commonsNames } from '.';
-import { importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { mainRoutes } from '../app.routing';
-import { MainLayoutPage } from '../layout/view/pages/main-layout/main-layout.page';
-import { LayoutModule } from '../layout/layout.module';
 
 //my modules
 import { AuthApiRoutesImpl, AuthModule, JwtInterceptor } from '../auth';
 import AuthService from '../auth/internals/domain/AuthService';
-import { allMockInterceptors } from '../../mockBackend';
 
 
 
 @NgModule({
-  bootstrap: [
-    MainLayoutPage,
-  ],
-  imports: [
-    LayoutModule,
-  ],
   providers: [
-    // Config
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(mainRoutes),
-    importProvidersFrom(CommonsModule),
+
     importProvidersFrom(AuthModule),
-    provideHttpClient(
-      withInterceptorsFromDi(),
-      withInterceptors(allMockInterceptors)
-    ),
-    provideAnimationsAsync('noop'),
 
     //errors
     { provide: ErrorHandler, useClass: ErrorGlobalHandler },

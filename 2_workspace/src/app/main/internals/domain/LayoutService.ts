@@ -1,8 +1,6 @@
-import { first, map, Observable, Subject, switchMap } from 'rxjs';
-import { ILayoutService } from '../../0common/layout/ILayoutService';
+import { first, Observable, Subject } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
-import { commonsNames, ErrorDto } from '../../0common';
-import { ErrorStateService } from '../../0common/errors/internals/ErrorStateService';
+import { commonsNames, ErrorDto, IErrorStateService, ILayoutService } from '../../../0common';
 
 @Injectable({ providedIn: 'root' })
 export class LayoutService implements ILayoutService {
@@ -10,7 +8,7 @@ export class LayoutService implements ILayoutService {
   private _show$ = new Subject<string | null>();
 
   constructor(
-    @Inject(commonsNames.IErrorStateService) private _errorSrv: ErrorStateService,
+    @Inject(commonsNames.IErrorStateService) private _errorSrv: IErrorStateService,
   ) { }
 
   askConfirmation(msg: string): Observable<boolean> {
