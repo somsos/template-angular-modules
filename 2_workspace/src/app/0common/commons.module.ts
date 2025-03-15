@@ -12,25 +12,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { mainRoutes } from '../app.routing';
 import { MainLayoutPage } from '../layout/view/pages/main-layout/main-layout.page';
 import { LayoutModule } from '../layout/layout.module';
-import { usersMockBackendInterceptor } from '../users/externals';
-import { environment } from '../../environments/environment';
 
 //my modules
-import { AuthApiRoutesImpl, AuthModule, JwtInterceptor, mockAuthServer } from '../auth';
+import { AuthApiRoutesImpl, AuthModule, JwtInterceptor } from '../auth';
 import AuthService from '../auth/internals/domain/AuthService';
+import { allMockInterceptors } from '../../mockBackend';
 
 
-console.log("environment", environment);
-
-
-const mockInterceptors = (environment.backend.mock) ? [
-  mockAuthServer,
-] : [];
-
-const allInterceptors = [
-  ...mockInterceptors,
-  usersMockBackendInterceptor,
-]
 
 @NgModule({
   bootstrap: [
@@ -47,7 +35,7 @@ const allInterceptors = [
     importProvidersFrom(AuthModule),
     provideHttpClient(
       withInterceptorsFromDi(),
-      withInterceptors(allInterceptors)
+      withInterceptors(allMockInterceptors)
     ),
     provideAnimationsAsync('noop'),
 

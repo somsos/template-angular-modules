@@ -1,15 +1,30 @@
 import { HttpRequest, HttpEvent, HttpResponse, HttpHeaders, HttpHandlerFn } from "@angular/common/http";
 import { Observable, switchMap } from "rxjs";
-import { IUserDto } from "../../commons/IUserDto";
-import { UsersDao } from "../UsersDao";
-import { MockUsersBackendUtils } from "../../../../0common/utils/MockBackendUtils";
-import { AppError, Entity, IPagePayload, IPageResponse, PageUtils, StringUtils } from "../../../../0common";
+import { IUserDto } from "../app/users/internals/commons/IUserDto";
+import { UsersDao } from "../app/users/internals/data/UsersDao";
+import { MockUsersBackendUtils } from "../app/0common/utils/MockBackendUtils";
+import { AppError, Entity, IPagePayload, IPageResponse, PageUtils, StringUtils } from "../app/0common";
 import { UsersImagesStore } from "./UsersImagesStore";
 
-const keyStoreU = 'users';
-const storeString = localStorage.getItem(keyStoreU)!;
+export class UsersMockBackend {
 
-export class MockUsersBackendImpl {
+  private static readonly keyStoreU = 'usersStore';
+  private static readonly storeString = localStorage.getItem(UsersMockBackend.keyStoreU)!;
+  private static readonly allUsers: IUserDto[] = JSON.parse(UsersMockBackend.storeString) || UsersMockBackend.generateMockData();
+
+  constructor() {
+    this._createUsersIfNotExists();
+  }
+
+  private _createUsersIfNotExists() {
+    if (!localStorage.getItem(UsersMockBackend.keyStoreU)) {
+      localStorage.setItem(UsersMockBackend.keyStoreU, JSON.stringify(UsersMockBackend.allUsers));
+    }
+  }
+
+  getAllUsers(): IUserDto[] {
+    return UsersMockBackend.allUsers;
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     if(req.url.includes("/products")) {
@@ -61,19 +76,19 @@ export class MockUsersBackendImpl {
   private _findPage(payload: unknown): Observable<HttpEvent<IPageResponse<Entity>>> {
     console.debug("request, mock", payload);
     const payloadCasted = payload as IPagePayload;
-    const page = MockUsersBackendUtils.buildPage(allUsers, payloadCasted);
+    const page = MockUsersBackendUtils.buildPage(this.getAllUsers(), payloadCasted);
     return MockUsersBackendUtils.ok(page);
   }
 
   private _getAll(): Observable<HttpResponse<IUserDto>> {
     console.debug("request, mock, getAll");
-    return MockUsersBackendUtils.ok(allUsers);
+    return MockUsersBackendUtils.ok(this.getAllUsers());
   }
 
   private _getById(url: string): Observable<HttpEvent<any>> {
     console.debug("request, mock, getById", url);
     const id = MockUsersBackendUtils.getPathId(url);
-    const found = allUsers.find(u => u.id === id);
+    const found = this.getAllUsers().find(u => u.id === id);
     if (!found) {
       const msg = "Usuario no encontrado";
       return MockUsersBackendUtils.notFoundError(msg);
@@ -86,7 +101,7 @@ export class MockUsersBackendImpl {
     console.debug("request, mock, save", newP, headers);
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
     newP.pictureFile = null;
-    MockUsersBackendUtils.addEntity(keyStoreU, newP, allUsers);
+    MockUsersBackendUtils.addEntity(UsersMockBackend.keyStoreU, newP, this.getAllUsers());
     return MockUsersBackendUtils.ok(newP);
   }
 
@@ -94,7 +109,7 @@ export class MockUsersBackendImpl {
     console.debug("request, mock, deleteById", url, headers);
     MockUsersBackendUtils.mustBeAuthenticatedOrThrow(headers);
     const id = MockUsersBackendUtils.getPathId(url);
-    const toDelete = MockUsersBackendUtils.deleteById(keyStoreU, id, allUsers);
+    const toDelete = MockUsersBackendUtils.deleteById(UsersMockBackend.keyStoreU, id, this.getAllUsers());
     return MockUsersBackendUtils.ok(toDelete);
   }
 
@@ -104,7 +119,7 @@ export class MockUsersBackendImpl {
     const newInfo = body as IUserDto;
     const id = MockUsersBackendUtils.getPathId(url);
     newInfo.pictureFile = null;
-    const updated = MockUsersBackendUtils.updateEntity(keyStoreU, newInfo, allUsers);
+    const updated = MockUsersBackendUtils.updateEntity(UsersMockBackend.keyStoreU, newInfo, this.getAllUsers());
     return MockUsersBackendUtils.ok(updated);
   }
 
@@ -130,26 +145,33 @@ export class MockUsersBackendImpl {
       return MockUsersBackendUtils.error("'q' url-param expected");
     }
     const filterOn = ['id', 'username', 'roles', 'createdAt'];
-    const usersFiltered = MockUsersBackendUtils.overallFilter(allUsers, querySt, filterOn);
+    const usersFiltered = MockUsersBackendUtils.overallFilter(this.getAllUsers(), querySt, filterOn);
     const page = PageUtils.fromFiltering(usersFiltered);
     return MockUsersBackendUtils.ok(page);
   }
 
   public static generateMockData(): IUserDto[] {
     return [
-      { id: 1,  username: "mario1",  active: true,   pictureId: 1,  createdAt: new Date('2024-01-14 12:30:58'),  updatedAt: new Date('2024-08-01 17:30:01'), roles: [{ id: 1, authority: "Users" }, { id: 2, authority: "Products" }], password: "" },
-      { id: 2,  username: "luigi",   active: true,   pictureId: 2,  createdAt: new Date('2024-01-14 13:30:58'),  updatedAt: new Date('2024-01-14 13:30:58'), roles: [ {id: 1, authority: "Users"} ], password: "",},
-      { id: 3,  username: "peach",   active: false,  pictureId: 3,  createdAt: new Date('2024-01-14 13:31:58'),  updatedAt: new Date('2024-01-14 13:31:58'), roles: [ {id: 2, authority: "Products"} ], password: "",},
-      { id: 4,  username: "yoshi",   active: true,   pictureId: 4,  createdAt: new Date('2024-04-14 12:30:58'),  updatedAt: new Date('2024-04-14 12:30:58'), roles: [ {id: 2, authority: "Products"} ], password: "",},
-      { id: 5,  username: "toad",    active: false,  pictureId: 5,  createdAt: new Date('2024-05-14 12:30:58'),  updatedAt: new Date('2024-05-14 12:30:58'), roles: [], password: "",},
-      { id: 6,  username: "bowser",  active: true,   pictureId: 6,  createdAt: new Date('2024-06-14 12:30:58'),  updatedAt: new Date('2024-06-14 12:30:58'), roles: [], password: "",},
-      { id: 7,  username: "daisy",   active: true,   pictureId: 7,  createdAt: new Date('2024-07-14 12:30:58'),  updatedAt: new Date('2024-07-14 12:30:58'), roles: [], password: "",},
-      { id: 8,  username: "wario",   active: false,  pictureId: 8,  createdAt: new Date('2024-08-01 12:30:41'),  updatedAt: new Date('2024-08-01 12:30:41'), roles: [], password: "",},
-      { id: 9,  username: "waluigi", active: true,   pictureId: 9,  createdAt: new Date('2024-08-01 12:30:43'),  updatedAt: new Date('2024-08-01 12:30:43'), roles: [], password: "",},
-      { id: 10, username: "rosalin", active: true,   pictureId: 10, createdAt: new Date('2024-08-01 12:30:42'),  updatedAt: new Date('2024-08-01 12:30:42'), roles: [{ id: 1, authority: "Users" }, { id: 2, authority: "Products" }], password: "",},
+      { id: 1,  username: "mario1",  password: 'mario1p', active: true,   pictureId: 1,  createdAt: new Date('2024-01-14 12:30:58'),  updatedAt: new Date('2024-08-01 17:30:01'), roles: [{ id: 1, authority: "users" }, { id: 2, authority: "products" }]},
+      { id: 2,  username: "luigi",   password: 'luigi1p', active: true,   pictureId: 2,  createdAt: new Date('2024-01-14 13:30:58'),  updatedAt: new Date('2024-01-14 13:30:58'), roles: [ {id: 1, authority: "users"} ]},
+      { id: 3,  username: "peach",   password: 'peach1p', active: false,  pictureId: 3,  createdAt: new Date('2024-01-14 13:31:58'),  updatedAt: new Date('2024-01-14 13:31:58'), roles: [ {id: 2, authority: "products"} ]},
+      { id: 4,  username: "yoshi",   password: 'yoshi1p', active: true,   pictureId: 4,  createdAt: new Date('2024-04-14 12:30:58'),  updatedAt: new Date('2024-04-14 12:30:58'), roles: [ {id: 2, authority: "products"} ]},
+      { id: 5,  username: "toad",    password: 'toad1p', active: false,  pictureId: 5,  createdAt: new Date('2024-05-14 12:30:58'),  updatedAt: new Date('2024-05-14 12:30:58'), roles: []},
+      { id: 6,  username: "bowser",  password: 'bowser1p', active: true,   pictureId: 6,  createdAt: new Date('2024-06-14 12:30:58'),  updatedAt: new Date('2024-06-14 12:30:58'), roles: []},
+      { id: 7,  username: "daisy",   password: 'daisy1p', active: true,   pictureId: 7,  createdAt: new Date('2024-07-14 12:30:58'),  updatedAt: new Date('2024-07-14 12:30:58'), roles: []},
+      { id: 8,  username: "wario",   password: 'wario1p', active: false,  pictureId: 8,  createdAt: new Date('2024-08-01 12:30:41'),  updatedAt: new Date('2024-08-01 12:30:41'), roles: []},
+      { id: 9,  username: "waluigi", password: 'waluigi1p', active: true,   pictureId: 9,  createdAt: new Date('2024-08-01 12:30:43'),  updatedAt: new Date('2024-08-01 12:30:43'), roles: []},
+      { id: 10, username: "rosalin", password: 'rosalin1p', active: true,   pictureId: 10, createdAt: new Date('2024-08-01 12:30:42'),  updatedAt: new Date('2024-08-01 12:30:42'), roles: [{ id: 1, authority: "users" }, { id: 2, authority: "products" }]},
     ]
   }
 }
 
-let allUsers: IUserDto[] = JSON.parse(storeString) || MockUsersBackendImpl.generateMockData();
 
+
+
+
+const aa = new UsersMockBackend();
+
+export function UsersMockBackendInterceptor(req: HttpRequest<any>, next: HttpHandlerFn ): Observable<HttpEvent<unknown>> {
+  return aa.intercept(req, next);
+}

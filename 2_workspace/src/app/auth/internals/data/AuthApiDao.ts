@@ -18,40 +18,11 @@ export default class AuthApiDao {
       username: cred.username,
       password: cred.password,
     };
-    return this._http.post<AuthResponse>(AuthApiDao.loginPath, loginReq)
-      .pipe(
-        map(resp => this._mapAuthResponse(resp)),
-        catchError((err) => {
-          if(err instanceof HttpErrorResponse) {
-            throw AppError.fromServer(err);
-          }
-          throw err;
-        }),
-      );
+    return this._http.post<AuthDto>(AuthApiDao.loginPath, loginReq);
   }
-
-  private _mapAuthResponse(resp: AuthResponse): AuthDto {
-    const mapped: AuthDto = {
-      token: resp.token,
-      id: resp.user.id,
-      roles: resp.user.roles,
-      username: resp.user.username
-    }
-    return mapped
-  }
-
 
   public register(newAuth: AuthDto): Observable<AuthDto> {
-    return this._http.post<AuthDto>(AuthApiDao.registerPath, newAuth)
-      .pipe(
-        first(),
-        catchError((err) => {
-          if(err instanceof HttpErrorResponse) {
-            throw AppError.fromServer(err);
-          }
-          throw err;
-        }),
-      );
+    return this._http.post<AuthDto>(AuthApiDao.registerPath, newAuth);
   }
 
 }
@@ -59,23 +30,13 @@ export default class AuthApiDao {
 
 
 /*
-"token" : "xxx",
-"user" : {
+{
   "id" : 1,
+  "username" : "mario1"
+  "token" : "xxx",
   "roles" : [
     { "authority" : "xx", "id" : 11 },
     { "authority" : "ROLE_admin_products", "id" : -56 }
   ],
-  "username" : "mario1"
 }
 */
-interface AuthResponse {
-  token: string;
-  user : AuthUserResponse;
-}
-
-interface AuthUserResponse {
-  id: number;
-  roles: IRoleDto[];
-  username: string;
-}

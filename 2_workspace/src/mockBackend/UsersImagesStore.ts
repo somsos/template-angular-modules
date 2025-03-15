@@ -1,9 +1,8 @@
 import { first, Observable, of, switchMap, throwError } from "rxjs";
-import { Entity, StringUtils } from "../../../../0common";
-import { MockUsersBackendUtils } from "../../../../0common/utils/MockBackendUtils";
-import { UserPreferences } from "typescript";
+import { Entity, StringUtils } from "../app/0common";
+import { MockUsersBackendUtils } from "../app/0common/utils/MockBackendUtils";
 import { HttpErrorResponse } from "@angular/common/http";
-import { UsersDao } from "../UsersDao";
+import { UsersDao } from "../app/users/internals/data/UsersDao";
 
 interface UserPicture extends Entity {
 

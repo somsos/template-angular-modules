@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { IUserDto } from '../../../commons/IUserDto';
 import { AppError, StringUtils } from '../../../../../0common';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { UsersImagesStore } from '../../../data/mock/UsersImagesStore';
+import { UsersImagesStore } from '../../../../../../mockBackend/UsersImagesStore';
 
 @Component({
   encapsulation: ViewEncapsulation.None,

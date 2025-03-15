@@ -7,7 +7,7 @@ import { IUserDto } from '../../../commons/IUserDto';
 import { UserDtoUtils } from '../../../commons/UserDtoUtils';
 import { IUserRoleDto } from '../../../commons/IUserRoleDto';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { UsersImagesStore } from '../../../data/mock/UsersImagesStore';
+import { UsersImagesStore } from '../../../../../../mockBackend/UsersImagesStore';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '../../../../../../environments/environment';
 

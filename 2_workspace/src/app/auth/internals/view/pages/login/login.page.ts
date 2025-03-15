@@ -69,7 +69,7 @@ export class LoginPage {
         this._router.navigateByUrl('/users');
         return ;
       }
-      this._router.navigateByUrl('/products');
+      //this._router.navigateByUrl('/products');
     });
     return subs;
   }
