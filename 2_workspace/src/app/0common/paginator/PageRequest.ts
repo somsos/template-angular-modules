@@ -196,7 +196,7 @@ export class PageHelper<T extends Entity = Entity> {
         const sub2 = this._srv.deleteById(id).subscribe({
           next: (uDel) => {
             const all = this.data$.getValue();
-            const filtered = all.filter(u => u.id === uDel.id);
+            const filtered = all.filter(u => u.id !== uDel.id);
             this.data$.next(filtered);
           },
           complete: () => {

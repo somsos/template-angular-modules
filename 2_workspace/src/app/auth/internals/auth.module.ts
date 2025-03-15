@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth.routes';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from '../../0common/material.module';
+import { MaterialForms } from '../../0common/MaterialForms.module';
+import { LoginPage } from './view/pages/login/login.page';
+import { RegisterPage } from './view/pages/register/register.page';
 import AuthService from './domain/AuthService';
 import AuthApiDao from './data/AuthApiDao';
-import { MaterialModule } from '../0common/material.module';
-import { LoginPage } from './view/pages/login/login.page';
-import { MaterialForms } from '../0common/MaterialForms.module';
-import { RegisterPage } from './view/pages/register/register.page';
 
 @NgModule({
   declarations: [ LoginPage, RegisterPage ],

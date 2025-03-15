@@ -18,13 +18,14 @@ export type { ILoadingService } from './loadings/externals/ILoadingService';
 
 //others
 export type { Endpoint } from './types/Endpoint';
-export type { IAuthApiRoutes } from './auth/externals/IAuthApiRoutes';
 export type { ILayoutService } from './layout/ILayoutService';
+export { compareEndpoints, fromRequest } from './types/Endpoint';
 
 //auth
-export { AuthDto } from './auth/externals/AuthDto';
-export type { IRoleDto } from './auth/externals/IRoleDto';
-export type { IAuthService } from './auth/externals/IAuthService';
+export { AuthDto } from './auth/AuthDto';
+export type { IRoleDto } from './auth/AuthDto';
+export type { IAuthService } from './auth/IAuthService';
+export type { IAuthApiRoutes } from './auth/IAuthApiRoutes';
 
 //Paginator
 export { PageUtils, PageHelper } from './paginator/PageRequest';
@@ -41,4 +42,5 @@ export const commonsNames = {
   ILoadingService: 'ILoadingService',
   ILayoutService: 'ILayoutService',
   IAuthApiRoutes: 'IAuthApiRoutes',
+  IAuthService: 'IAuthService'
 };

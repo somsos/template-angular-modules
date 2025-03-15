@@ -1,14 +1,7 @@
-import { IAuthServiceName } from '../0common/auth/externals/IAuthService';
-import AuthService from './domain/AuthService';
+export { JwtInterceptor } from "./internals/domain/JwtInterceptor";
 
-export * from '../0common/auth/externals/AuthDto';
+export { AuthApiRoutesImpl } from "./internals/domain/AuthApiRoutesImpl";
 
-export { fakeAuthApiDao } from './data/FakeAuthApiDao';
+export { mockAuthServer } from "./internals/data/mock/mockAuthServer.interceptor";
 
-export const authNames = {
-  AuthService: IAuthServiceName,
-};
-
-export const authProviders = [
-  { provide: authNames.AuthService, useClass: AuthService },
-];
+export { AuthModule } from "./internals/auth.module";

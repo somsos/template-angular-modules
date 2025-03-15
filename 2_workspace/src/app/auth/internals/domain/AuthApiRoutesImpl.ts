@@ -1,7 +1,6 @@
 import { HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Endpoint, fromRequest, compareEndpoints } from "../../0common/types/Endpoint";
-import { IAuthApiRoutes } from "../../0common/auth/externals/IAuthApiRoutes";
+import { Endpoint, fromRequest, compareEndpoints, IAuthApiRoutes } from "../../../0common";
 
 @Injectable()
 export class AuthApiRoutesImpl implements IAuthApiRoutes {

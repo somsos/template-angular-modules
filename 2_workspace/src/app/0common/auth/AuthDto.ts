@@ -1,5 +1,4 @@
-import { AppError, Entity, ErrorType } from "../..";
-import { IRoleDto } from "./IRoleDto";
+import { AppError, Entity, ErrorType } from "..";
 
 export class AuthDto implements Entity {
   id: number = -1;
@@ -48,6 +47,15 @@ export class AuthDto implements Entity {
     return undefined;
   }
 }
+
+export interface IRoleDto {
+
+  id: number;
+
+  authority: string;
+
+}
+
 
 /*
 export type AuthViewModel = Pick<AuthDto, | 'id' | 'username' | 'roles'>;

@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, inject, ViewChild } from '@
 import { debounceTime, filter, Observable, tap } from 'rxjs';
 import { Location } from '@angular/common';
 import { MatSidenav } from '@angular/material/sidenav';
-import { RequestDto, ErrorDto, commonsNames, ILoadingService, IErrorStateService, IAuthService, AuthDto } from '../../../../0common';
-import AuthService from '../../../../auth/domain/AuthService';
+import { RequestDto, commonsNames, ILoadingService, IErrorStateService, IAuthService, AuthDto } from '../../../../0common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -14,7 +13,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class MainLayoutPage {
   private readonly _location = inject(Location);
-  private readonly _authSrv: IAuthService = inject(AuthService);
   private _snackBar = inject(MatSnackBar);
   //private readonly _cdr = inject(ChangeDetectorRef);
 
@@ -27,7 +25,8 @@ export class MainLayoutPage {
 
   constructor(
     @Inject(commonsNames.ILoadingService) private _loadingSrv: ILoadingService,
-    @Inject(commonsNames.IErrorStateService) private _errorStateSrv: IErrorStateService
+    @Inject(commonsNames.IErrorStateService) private _errorStateSrv: IErrorStateService,
+    @Inject(commonsNames.IAuthService) private _authSrv: IAuthService,
   ) {
     this._authSrv.getUserLogged().subscribe({
       next: (u) => {

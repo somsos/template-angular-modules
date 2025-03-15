@@ -1,8 +1,8 @@
 import { catchError, first, map, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AppError, AuthDto, IRoleDto } from '../../0common';
-import { environment } from '../../../environments/environment';
+import { AppError, AuthDto, IRoleDto } from '../../../0common';
+import { environment } from '../../../../environments/environment';
 
 const backPath = environment.backend.path;
 
@@ -12,7 +12,6 @@ export default class AuthApiDao {
 
   public static readonly loginPath = backPath + '/auth/create-token';
   public static readonly registerPath = backPath + '/auth/register';
-
 
   public createToken(cred: AuthDto): Observable<AuthDto> {
     const loginReq = {
@@ -33,12 +32,12 @@ export default class AuthApiDao {
 
   private _mapAuthResponse(resp: AuthResponse): AuthDto {
     const mapped: AuthDto = {
-        token: resp.token,
-        id: resp.user.id,
-        roles: resp.user.roles,
-        username: resp.user.username
-      }
-      return mapped
+      token: resp.token,
+      id: resp.user.id,
+      roles: resp.user.roles,
+      username: resp.user.username
+    }
+    return mapped
   }
 
 
@@ -72,10 +71,10 @@ export default class AuthApiDao {
 */
 interface AuthResponse {
   token: string;
-  user : AuthUser;
+  user : AuthUserResponse;
 }
 
-interface AuthUser {
+interface AuthUserResponse {
   id: number;
   roles: IRoleDto[];
   username: string;

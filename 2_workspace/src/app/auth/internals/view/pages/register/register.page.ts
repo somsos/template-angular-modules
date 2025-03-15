@@ -3,7 +3,7 @@ import AuthService from '../../../domain/AuthService';
 //import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthDto, commonsNames, ErrorDto, ILayoutService } from '../../../../0common';
+import { AuthDto, commonsNames, ErrorDto, ILayoutService } from '../../../../../0common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

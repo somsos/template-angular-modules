@@ -1,7 +1,7 @@
 import { BehaviorSubject, filter, first, Observable } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
 import AuthApiDao from '../data/AuthApiDao';
-import { AuthDto, IAuthService } from '../../0common';
+import { AuthDto, IAuthService } from '../../../0common';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,7 @@
 import { HttpRequest, HttpEvent, HttpInterceptor, HttpHandler } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { commonsNames, IAuthApiRoutes } from "../../0common";
+import { commonsNames } from "../../../0common";
 import { AuthUtils } from "./AuthUtils";
 import { AuthApiRoutesImpl } from "./AuthApiRoutesImpl";
 
