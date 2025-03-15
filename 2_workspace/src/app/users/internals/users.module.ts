@@ -1,17 +1,17 @@
 import { Inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsersRoutingModule } from '../internals/users-routing.module';
-import { UsersDao } from '../internals/data/UsersDao';
-import { UsersService } from '../internals/domain/UsersService';
-import { UserAddPage } from '../internals/view/pages/user-add/user-add.page';
-import { UserUpdatePage } from '../internals/view/pages/user-update/user-update.page';
-import { UserFormComponent } from '../internals/view/components/user-form/user-form.component';
+import { UsersRoutingModule } from './users-routing.module';
+import { UsersDao } from './data/UsersDao';
+import { UsersService } from './domain/UsersService';
+import { UserAddPage } from './view/pages/user-add/user-add.page';
+import { UserUpdatePage } from './view/pages/user-update/user-update.page';
+import { UserFormComponent } from './view/components/user-form/user-form.component';
 import { commonsNames, IAuthApiRoutes } from '../../0common';
 import { MaterialModule } from '../../0common/material.module';
 import { MaterialForms } from '../../0common/MaterialForms.module';
-import { UsersFileDao } from '../internals/data/UsersFileDao';
+import { UsersFileDao } from './data/UsersFileDao';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { UsersListPage2 } from '../internals/view/pages/user-list/users-list.page2';
+import { UsersListPage2 } from './view/pages/user-list/users-list.page2';
 
 
 @NgModule({

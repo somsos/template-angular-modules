@@ -152,16 +152,16 @@ export class UsersMockBackend {
 
   public static generateMockData(): IUserDto[] {
     return [
-      { id: 1,  username: "mario1",  password: 'mario1p', active: true,   pictureId: 1,  createdAt: new Date('2024-01-14 12:30:58'),  updatedAt: new Date('2024-08-01 17:30:01'), roles: [{ id: 1, authority: "users" }, { id: 2, authority: "products" }]},
-      { id: 2,  username: "luigi",   password: 'luigi1p', active: true,   pictureId: 2,  createdAt: new Date('2024-01-14 13:30:58'),  updatedAt: new Date('2024-01-14 13:30:58'), roles: [ {id: 1, authority: "users"} ]},
-      { id: 3,  username: "peach",   password: 'peach1p', active: false,  pictureId: 3,  createdAt: new Date('2024-01-14 13:31:58'),  updatedAt: new Date('2024-01-14 13:31:58'), roles: [ {id: 2, authority: "products"} ]},
-      { id: 4,  username: "yoshi",   password: 'yoshi1p', active: true,   pictureId: 4,  createdAt: new Date('2024-04-14 12:30:58'),  updatedAt: new Date('2024-04-14 12:30:58'), roles: [ {id: 2, authority: "products"} ]},
-      { id: 5,  username: "toad",    password: 'toad1p', active: false,  pictureId: 5,  createdAt: new Date('2024-05-14 12:30:58'),  updatedAt: new Date('2024-05-14 12:30:58'), roles: []},
-      { id: 6,  username: "bowser",  password: 'bowser1p', active: true,   pictureId: 6,  createdAt: new Date('2024-06-14 12:30:58'),  updatedAt: new Date('2024-06-14 12:30:58'), roles: []},
-      { id: 7,  username: "daisy",   password: 'daisy1p', active: true,   pictureId: 7,  createdAt: new Date('2024-07-14 12:30:58'),  updatedAt: new Date('2024-07-14 12:30:58'), roles: []},
-      { id: 8,  username: "wario",   password: 'wario1p', active: false,  pictureId: 8,  createdAt: new Date('2024-08-01 12:30:41'),  updatedAt: new Date('2024-08-01 12:30:41'), roles: []},
-      { id: 9,  username: "waluigi", password: 'waluigi1p', active: true,   pictureId: 9,  createdAt: new Date('2024-08-01 12:30:43'),  updatedAt: new Date('2024-08-01 12:30:43'), roles: []},
-      { id: 10, username: "rosalin", password: 'rosalin1p', active: true,   pictureId: 10, createdAt: new Date('2024-08-01 12:30:42'),  updatedAt: new Date('2024-08-01 12:30:42'), roles: [{ id: 1, authority: "users" }, { id: 2, authority: "products" }]},
+      { id: 1,  username: "mario1",  password: 'mario1p',   token: 'token-mario1', active: true,   pictureId: 1,  createdAt: new Date('2024-01-14 12:30:58'),  updatedAt: new Date('2024-08-01 17:30:01'), roles: [{ id: 1, authority: "users" }, { id: 2, authority: "products" }]},
+      { id: 2,  username: "luigi",   password: 'luigi1p',   token: 'token-luigi', active: true,   pictureId: 2,  createdAt: new Date('2024-01-14 13:30:58'),  updatedAt: new Date('2024-01-14 13:30:58'), roles: [ {id: 1, authority: "users"} ]},
+      { id: 3,  username: "peach",   password: 'peach1p',   token: 'token-peach', active: false,  pictureId: 3,  createdAt: new Date('2024-01-14 13:31:58'),  updatedAt: new Date('2024-01-14 13:31:58'), roles: [ {id: 2, authority: "products"} ]},
+      { id: 4,  username: "yoshi",   password: 'yoshi1p',   token: 'token-yoshi', active: true,   pictureId: 4,  createdAt: new Date('2024-04-14 12:30:58'),  updatedAt: new Date('2024-04-14 12:30:58'), roles: [ {id: 2, authority: "products"} ]},
+      { id: 5,  username: "toad",    password: 'toad1p',   token: 'token-toad', active: false,  pictureId: 5,  createdAt: new Date('2024-05-14 12:30:58'),  updatedAt: new Date('2024-05-14 12:30:58'), roles: []},
+      { id: 6,  username: "bowser",  password: 'bowser1p',   token: 'token-bowser', active: true,   pictureId: 6,  createdAt: new Date('2024-06-14 12:30:58'),  updatedAt: new Date('2024-06-14 12:30:58'), roles: []},
+      { id: 7,  username: "daisy",   password: 'daisy1p',   token: 'token-daisy', active: true,   pictureId: 7,  createdAt: new Date('2024-07-14 12:30:58'),  updatedAt: new Date('2024-07-14 12:30:58'), roles: []},
+      { id: 8,  username: "wario",   password: 'wario1p',   token: 'token-wario', active: false,  pictureId: 8,  createdAt: new Date('2024-08-01 12:30:41'),  updatedAt: new Date('2024-08-01 12:30:41'), roles: []},
+      { id: 9,  username: "waluigi", password: 'waluigi1p',   token: 'token-waluigi', active: true,   pictureId: 9,  createdAt: new Date('2024-08-01 12:30:43'),  updatedAt: new Date('2024-08-01 12:30:43'), roles: []},
+      { id: 10, username: "rosalin", password: 'rosalin1p',   token: 'token-rosalin', active: true,   pictureId: 10, createdAt: new Date('2024-08-01 12:30:42'),  updatedAt: new Date('2024-08-01 12:30:42'), roles: [{ id: 1, authority: "users" }, { id: 2, authority: "products" }]},
     ]
   }
 }

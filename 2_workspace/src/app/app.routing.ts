@@ -5,7 +5,7 @@ export const mainRoutes: Routes = [
   {
     path: 'users',
     loadChildren: () =>
-      import('./users/externals/users.module').then((m) => m.UsersModule),
+      import('./users').then((m) => m.UsersModule),
   },
 
   { path: 'login', component: LoginPage },

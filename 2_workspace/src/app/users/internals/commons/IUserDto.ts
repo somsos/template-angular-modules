@@ -13,6 +13,7 @@ export interface IUserDto extends Entity {
   // read architecture_manifest.md -> Keep the modules independent as posible
   username: string;
   password: string;
+  token?: string;
   roles: IUserRoleDto[];
   active: boolean;
   createdAt?: Date;
