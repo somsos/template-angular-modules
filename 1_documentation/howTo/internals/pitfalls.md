@@ -9,6 +9,9 @@
   - [Not create UI elements from Zero instead copy and peste and then modify](#not-create-ui-elements-from-zero-instead-copy-and-peste-and-then-modify)
     - [General](#general)
     - [choose tables even to show lists, cards, etc](#choose-tables-even-to-show-lists-cards-etc)
+  - [Understand well the Injection system](#understand-well-the-injection-system)
+    - [Getting Injected Objects as undefined](#getting-injected-objects-as-undefined)
+    - [Observables seems not to trigger](#observables-seems-not-to-trigger)
 
 ## Do not add http interceptors by @Injectable
 
@@ -148,3 +151,47 @@ UI libraries already have a lot of functions pre-builded, for example, http
 requests, sorting, filtering, pagination, etc. and also (TODO: ge sure), I
 think you can use tables that looks like lists.
 
+<!--
+
+----------------------------------------------------------------------------
+
+----------------------------------------------------------------------------
+
+----------------------------------------------------------------------------
+
+-->
+
+## Understand well the Injection system
+
+I have had two common errors when I deal with Injected object, and both of them
+is because we need to have present how the Injection Dependency of angular works,
+
+### Getting Injected Objects as undefined
+
+It seems that is similar to HttpClient, we need to avoid making them in the
+constructor, and use it in the `onInit()` or `afterViewInit()` to be sure that
+they are already available.
+
+### Observables seems not to trigger
+
+The most likely is that we injected differently, the dependencies from angular,
+and the the dependencies we have don't want to depend on their implementation,
+just in their interface, we need to do it differently.
+
+Dependencies of Angular
+
+```ts
+class X { ...
+  private _router = inject(Router);
+}
+```
+
+Dependencies we we want to hide it's Implementation and just expose it's interface
+
+```ts
+class X { ...
+  constructor(
+    @Inject(commonsNames.IAuthService) private _authSrv: AuthService,
+  ) { ... }
+}
+```

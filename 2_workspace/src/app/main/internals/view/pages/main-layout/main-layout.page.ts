@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, inject, ViewChild } from '@angular/core';
 import { debounceTime, filter, Observable, tap } from 'rxjs';
 import { Location } from '@angular/common';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MainLayoutPage {
   private readonly _location = inject(Location);
   private _snackBar = inject(MatSnackBar);
-  //private readonly _cdr = inject(ChangeDetectorRef);
+  private readonly _cdr = inject(ChangeDetectorRef);
 
   @ViewChild('sidenav')
   sidenav!: MatSidenav;
@@ -30,8 +30,9 @@ export class MainLayoutPage {
   ) {
     this._authSrv.getUserLogged().subscribe({
       next: (u) => {
+        console.log("User logged", u);
         this.auth = u;
-        //this._cdr.markForCheck();
+        this._cdr.markForCheck();
       },
     });
 

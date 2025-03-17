@@ -18,15 +18,14 @@ import { CommonsModule } from '../0common/commons.module';
     LayoutModule,
   ],
   providers: [
-    // Config
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(mainRoutes),
-    importProvidersFrom(CommonsModule),
     provideHttpClient(
       withInterceptorsFromDi(),
       withInterceptors(allMockInterceptors)
     ),
     provideAnimationsAsync('noop'),
+    importProvidersFrom(CommonsModule),
   ],
 })
 export class MainModule {}

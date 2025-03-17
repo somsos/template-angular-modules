@@ -1,9 +1,9 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, Inject, inject, signal } from '@angular/core';
 import AuthService from '../../../domain/AuthService';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, first, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthDto } from '../../../../../0common';
+import { AuthDto, commonsNames, IAuthService } from '../../../../../0common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,21 +11,26 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './login.page.html',
   styleUrl: './login.page.scss',
 })
-export class LoginPage {
-  private _authSrv = inject(AuthService);
+export class LoginPage implements AfterViewInit{
   private _destroyRef = inject(DestroyRef);
   private _router = inject(Router);
   private _formBuilder = inject(FormBuilder);
 
-  public userAuth = this._observeLoginSuccess();
+  public userAuth!: Observable<AuthDto>;
   public loginForm: FormGroup;
   public hidePassword = signal(true);
 
-  constructor() {
+  constructor(
+    @Inject(commonsNames.IAuthService) private _authSrv: AuthService,
+  ) {
     this.loginForm = this._formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', Validators.required]
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.userAuth = this._observeLoginSuccess();
   }
 
   togglePasswordVisibility() {

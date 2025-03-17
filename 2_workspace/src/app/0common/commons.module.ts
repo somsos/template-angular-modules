@@ -13,18 +13,18 @@ import AuthService from '../auth/internals/domain/AuthService';
 @NgModule({
   providers: [
 
-    importProvidersFrom(AuthModule),
-
     //errors
     { provide: ErrorHandler, useClass: ErrorGlobalHandler },
     { provide: commonsNames.IErrorStateService, useClass: ErrorStateService },
     // auth
     { provide: commonsNames.IAuthApiRoutes, useClass: AuthApiRoutesImpl },
-    { provide: commonsNames.IAuthService, useClass: AuthService },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //loadings
     { provide: commonsNames.ILoadingService, useClass: LoadingService },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingsInterceptor, multi: true },
+
+    importProvidersFrom(AuthModule),
+
   ],
 })
 export class CommonsModule {}

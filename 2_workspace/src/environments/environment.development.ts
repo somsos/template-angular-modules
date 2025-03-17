@@ -3,7 +3,7 @@ export const environment = {
   img404: "/img/404.png",
   backend: {
     // mock and path must be the same boolean value
-    mock: true,
-    path: (true) ? '' : 'http://localhost:8080',
+    mock: false,
+    path: (false) ? '' : 'http://localhost:8080',
   }
 };

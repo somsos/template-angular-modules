@@ -8,11 +8,15 @@ import { LoginPage } from './view/pages/login/login.page';
 import { RegisterPage } from './view/pages/register/register.page';
 import AuthService from './domain/AuthService';
 import AuthApiDao from './data/AuthApiDao';
+import { commonsNames } from '../../0common';
 
 @NgModule({
   declarations: [ LoginPage, RegisterPage ],
   imports: [CommonModule, AuthRoutingModule, MaterialModule, MaterialForms],
   exports: [RouterModule],
-  providers: [AuthService, AuthApiDao],
+  providers: [
+    AuthApiDao,
+    { provide: commonsNames.IAuthService, useClass: AuthService },
+],
 })
 export class AuthModule {}
