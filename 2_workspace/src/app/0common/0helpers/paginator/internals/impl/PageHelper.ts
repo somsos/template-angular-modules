@@ -1,79 +1,15 @@
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { BehaviorSubject, merge, map, switchMap, retry, Observable, filter, debounceTime, EMPTY, tap } from "rxjs";
-import { Entity } from "../types/Entity"
-import { ILayoutService } from "../layout/ILayoutService";
+import { BehaviorSubject, merge, map, switchMap, filter, debounceTime, EMPTY } from "rxjs";
+import { Entity } from "../../../../types/Entity"
+import { ILayoutService } from "../../../../layout/ILayoutService";
 import { FormControl } from "@angular/forms";
-import { AppError } from "../errors/externals/AppError";
-import { ErrorType } from "../errors/externals/ErrorType";
-import { IUserDto } from "../../users/internals/commons/IUserDto";
+import { IPagePayload } from "../dtos/IPagePayload";
+import { IPaginatorService } from "../IPaginatorService";
+import { PageUtils } from "./PageUtils";
+import { IPageResponse } from "../dtos/IPageResponse";
+import { AppError } from "../../../errors";
 
-export interface IPagePayload {
-  sort: {
-    property: string,
-    direction: 'asc' | 'desc',
-  },
-  page: {
-    index: number,
-    indexPrevious: number,
-    pageIndexes: number[], // example: [1, 2, 3], so can iterate and show it in UI
-    itemsPerPage: number,
-    itemsInTotal: number,
-
-  }
-}
-
-export interface IPageResponse<T extends Entity> {
-  itemsInTotal: number,
-  data: T[],
-}
-
-
-export interface IPaginatorService<T extends Entity> {
-
-  filterOverAll(textFilter: string): Observable<IPageResponse<T>>
-
-  findPage(payload: IPagePayload): Observable<IPageResponse<T>>;
-
-  deleteById(id: number): Observable<T>
-
-}
-
-// -------------- implementation ----------------
-
-export abstract class PageUtils {
-
-  static fromSortAndPageChangeEventsAndMergeWithOld(events: any, oldInfo: IPagePayload): IPagePayload {
-    return {
-      sort: {
-        property: events.active ?? oldInfo.sort.property,
-        direction: events.direction ?? oldInfo.sort.direction,
-      },
-      page: {
-        index: events.pageIndex ?? oldInfo.page.index,
-        indexPrevious: events.previousPageIndex ?? oldInfo.page.indexPrevious,
-        itemsPerPage: oldInfo.page.itemsPerPage,
-        itemsInTotal: oldInfo.page.itemsInTotal,
-        pageIndexes: PageUtils.getIndexCount(oldInfo),
-      }
-    }
-  }
-
-  public static getIndexCount(info: IPagePayload): number[] {
-    const size = Math.ceil(info.page.itemsInTotal / info.page.itemsPerPage);
-    const pageIndexes = Array.from({length: size}, (_, i) => i + 1);
-    return pageIndexes;
-  }
-
-  public static fromFiltering(usersFiltered: IUserDto[]): IPageResponse<Entity> {
-    const casted: IPageResponse<Entity> = {
-      itemsInTotal: usersFiltered.length,
-      data: usersFiltered,
-    }
-    return casted;
-  }
-
-}
 
 
 /**
@@ -129,7 +65,7 @@ export class PageHelper<T extends Entity = Entity> {
   }
 
   //You must call linkUI or it will fail on ngAfterViewInit
-  public linkUI(paginator: MatPaginator, sort: MatSort, tf: FormControl) {
+  public linkUI(paginator: MatPaginator, sort: MatSort, tf: FormControl): void {
     this.paginator = paginator;
     this.sort = sort;
     this.textFilter = tf;
@@ -147,7 +83,7 @@ export class PageHelper<T extends Entity = Entity> {
     );
   }
 
-  private _observeSortAndPagination() {
+  private _observeSortAndPagination(): void {
     merge(this.sort.sortChange, this.paginator.page)
     .pipe(
       //startWith({ allItemsCount: 10, data: [] }),
@@ -172,7 +108,7 @@ export class PageHelper<T extends Entity = Entity> {
     if((response as any).data == undefined) {
       const usrMsg = "Error inesperado, contacte con administrador";
       const cause = "response to show in UI unexpected";
-      throw new AppError(usrMsg, ErrorType.CodeFault, cause);
+      throw new AppError(usrMsg, 600, cause);
     }
     this.data$.next(response.data);
     this.pagePayload.page.itemsInTotal = response.itemsInTotal;
@@ -189,7 +125,7 @@ export class PageHelper<T extends Entity = Entity> {
   }
 
 
-  deleteById(id: number) {
+  deleteById(id: number): void {
     const msg = '¿Realmente quieres eliminar este usuario?';
     const sub = this._layoutSrv.askConfirmation(msg).subscribe((confirm) => {
       if (confirm) {
@@ -210,7 +146,7 @@ export class PageHelper<T extends Entity = Entity> {
   }
 
 
-  private _observeFilter() {
+  private _observeFilter(): void {
     this.textFilter.valueChanges.pipe(
       map(v => v ?? ''),
       filter(_ => this.textFilter.valid),

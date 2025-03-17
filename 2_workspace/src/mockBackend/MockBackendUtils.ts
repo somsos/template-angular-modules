@@ -1,9 +1,8 @@
 import { HttpEvent, HttpHeaders, HttpResponse, HttpStatusCode } from "@angular/common/http";
 import { Observable, of, delay, throwError, materialize, dematerialize } from "rxjs";
-import { AppError } from "../app/0common/errors/externals/AppError";
 import { StringUtils } from "../app/0common/utils/StringUtils";
 import { Entity } from "../app/0common/types/Entity";
-import { IPagePayload, IPageResponse } from "../app/0common/paginator/PageRequest";
+import { AppError, IPagePayload, IPageResponse } from "../app/0common";
 
 export abstract class MockUsersBackendUtils {
 
@@ -150,9 +149,9 @@ export abstract class MockUsersBackendUtils {
       const aL = a[prop].length;
       const bL = b[prop].length;
       if (payload.sort.direction === 'asc') {
-        return aL - bL;
-      } else {
         return bL - aL;
+      } else {
+        return aL - bL;
       }
     }
 

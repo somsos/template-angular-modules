@@ -1,9 +1,7 @@
 import { ErrorHandler, Inject, inject, Injectable } from '@angular/core';
-import { AppError } from '../externals/AppError';
+import { AppError, ErrorDto } from './AppError';
 import { ErrorStateService } from './ErrorStateService';
-import { ErrorDto } from '../externals/ErrorDto';
-import { ErrorType } from '../externals/ErrorType';
-import { commonsNames, ILoadingService } from '../..';
+import { commonsNames } from '../../..';
 import { LoadingService } from '../../loadings/internals/LoadingService';
 
 @Injectable({
@@ -22,7 +20,7 @@ export class ErrorGlobalHandler implements ErrorHandler {
       this._loadingSrv.clearLoadings();
     } else {
       const cause = this.getStringFromAny(error);
-      const err:ErrorDto = { message: 'Error, contacte con admins', typeArg: ErrorType.Unknown, cause: cause };
+      const err:ErrorDto = { message: 'Error, contacte con admins', typeArg: 400, cause: cause };
       this._errorSrv.setError(err);
       if (error.stack) {
         console.log(error.stack);

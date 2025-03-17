@@ -1,7 +1,6 @@
 import { from, Observable } from 'rxjs';
-import { AppError } from '../errors/externals/AppError';
-import { Endpoint } from '../types/Endpoint';
 import { MockUsersBackendUtils } from '../../../mockBackend/MockBackendUtils';
+import { AppError } from '../0helpers/errors';
 
 export abstract class StringUtils {
   public static randomString(length: number): string {

@@ -1,6 +1,6 @@
 import { HttpRequest } from '@angular/common/http';
-import { AppError } from '../errors/externals/AppError';
 import { StringUtils } from '../utils/StringUtils';
+import { AppError } from '..';
 
 export interface Endpoint {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';

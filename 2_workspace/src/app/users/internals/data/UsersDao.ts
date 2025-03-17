@@ -1,11 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { IUserDto } from '../commons/IUserDto';
 import { first, Observable, of, switchMap } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Endpoint } from '../../../0common';
+import { HttpClient } from '@angular/common/http';
+import { Endpoint, IPagePayload, IPageResponse } from '../../../0common';
 import { IUserAdd } from '../commons/UserAdd';
 import { UsersFileDao } from './UsersFileDao';
-import { IPagePayload, IPageResponse } from '../../../0common/paginator/PageRequest';
 
 @Injectable({
   providedIn: 'root'

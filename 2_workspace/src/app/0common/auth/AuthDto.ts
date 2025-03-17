@@ -1,4 +1,4 @@
-import { AppError, Entity, ErrorType } from "..";
+import { AppError, Entity } from "..";
 
 export class AuthDto implements Entity {
   id: number = -1;
@@ -17,7 +17,7 @@ export class AuthDto implements Entity {
   static fromAny(arg0: unknown): AuthDto {
     let cause = AuthDto.hasSomeError(arg0);
     if (cause) {
-      throw new AppError('Usuario no valido', ErrorType.CodeFault, cause);
+      throw new AppError('Usuario no valido', 600, cause);
     }
     const casted = arg0 as AuthDto;
     return casted;

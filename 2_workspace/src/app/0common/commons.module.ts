@@ -1,9 +1,7 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, ErrorHandler, importProvidersFrom } from '@angular/core';
-import { ErrorGlobalHandler } from './errors/internals/ErrorGlobalHandler';
-import { ErrorStateService } from './errors/internals/ErrorStateService';
-import { LoadingService } from './loadings/internals/LoadingService';
-import { LoadingsInterceptor } from './loadings/internals/loadingsInterceptor';
+import { ErrorGlobalHandler, ErrorStateService } from './0helpers/errors';
+import { LoadingService, LoadingsInterceptor } from './0helpers/loadings';
 import { commonsNames } from '.';
 
 //my modules

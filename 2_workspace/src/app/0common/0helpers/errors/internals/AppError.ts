@@ -1,13 +1,22 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { ErrorDto } from './ErrorDto';
-import { ErrorType } from './ErrorType';
+
+
+// At the moment to serialize if we use a class that extends form Error, it has a weird behavior, so this es the why of this Dto
+export interface ErrorDto {
+  message: string;
+
+  typeArg: HttpStatusCode;
+
+  cause: string;
+}
+
 
 export class AppError extends Error {
-  public readonly type: ErrorType | HttpStatusCode;
+  public readonly type: HttpStatusCode;
 
   constructor(
     msg: string,
-    typeArg: ErrorType | HttpStatusCode = ErrorType.Unknown,
+    typeArg: HttpStatusCode | number = 400,
     cause: string = ''
   ) {
     super(msg);
@@ -24,10 +33,10 @@ export class AppError extends Error {
     // todo: err.error.causes
     const errorApp = new AppError(
       err.error.message,
-      ErrorType.ServerSide,
       err.error.cause
     );
     return errorApp;
   }
 
 }
+

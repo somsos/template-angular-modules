@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ErrorDto } from './ErrorDto';
+import { ErrorDto } from './AppError';
 
 export interface IErrorStateService {
   getError(): Observable<ErrorDto | undefined>;

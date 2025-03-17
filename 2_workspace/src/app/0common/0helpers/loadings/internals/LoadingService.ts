@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestDto } from '../externals/RequestDto';
+import { RequestDto } from './RequestDto';
 import { Observable, Subject } from 'rxjs';
-import { ILoadingService } from '../externals/ILoadingService';
+import { ILoadingService } from './ILoadingService';
 
 @Injectable({
   providedIn: 'root',

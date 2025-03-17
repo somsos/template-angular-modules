@@ -1,17 +1,8 @@
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpErrorResponse,
-  HttpEventType,
-  HTTP_INTERCEPTORS,
-  HttpHandlerFn,
-} from '@angular/common/http';
-import { Inject, inject, Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { catchError, delay, Observable, tap, throwError } from 'rxjs';
 import { LoadingService } from './LoadingService';
-import { commonsNames, ILoadingService } from '../..';
+import { commonsNames } from '../../..';
 
 /*
 export function loadingsInterceptor(
