@@ -49,7 +49,7 @@
     - [X] Register
   - [>] Users
     - [X] pagination
-    - [>>] sort
+    - [X] sort
     - [ ] filtering
     - [ ] Save
     - [ ] Delete
