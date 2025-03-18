@@ -166,8 +166,8 @@ export abstract class MockUsersBackendUtils {
     }
     const paginatedData = sortedData.slice(startIndex, endIndex);
     return {
-      itemsInTotal: all.length,
-      data: paginatedData,
+      totalElements: all.length,
+      content: paginatedData,
     };
   }
 

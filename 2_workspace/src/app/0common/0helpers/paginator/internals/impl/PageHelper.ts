@@ -42,7 +42,7 @@ import { AppError } from "../../../errors";
 
 const firstPayload: IPagePayload = {
   sort: { property: 'id', direction: 'asc', },
-  page: { index: 0, indexPrevious: 0, itemsPerPage: 3, itemsInTotal: 0, pageIndexes: [], }
+  page: { index: 0, indexPrevious: 0, itemsPerPage: 3, totalElements: 0, pageIndexes: [], }
 }
 
 export class PageHelper<T extends Entity = Entity> {
@@ -69,12 +69,12 @@ export class PageHelper<T extends Entity = Entity> {
     this.paginator = paginator;
     this.sort = sort;
     this.textFilter = tf;
-    this._firstRequestUsers();
+    this._firstRequestEntities();
     this._observeSortAndPagination();
     this._observeFilter();
   }
 
-  private _firstRequestUsers(): void {
+  private _firstRequestEntities(): void {
     this.pagePayload = firstPayload; // when we what to reset
     this._srv.findPage(this.pagePayload).subscribe({
         next: (response) => this._updatePage(response),
@@ -103,15 +103,13 @@ export class PageHelper<T extends Entity = Entity> {
 
 
   private _updatePage(response: IPageResponse<T>): void {
-    //console.log("users list found", list);
-    //const users = response.data.map(u => UserDtoUtils.dtoToIUserItem(u))
-    if((response as any).data == undefined) {
+    if((response as any).content == undefined) {
       const usrMsg = "Error inesperado, contacte con administrador";
       const cause = "response to show in UI unexpected";
       throw new AppError(usrMsg, 600, cause);
     }
-    this.data$.next(response.data);
-    this.pagePayload.page.itemsInTotal = response.itemsInTotal;
+    this.data$.next(response.content);
+    this.pagePayload.page.totalElements = response.totalElements;
     this.pagePayload.page.pageIndexes = PageUtils.getIndexCount(this.pagePayload);
     //console.log("table-updated", response);
   }
@@ -122,6 +120,10 @@ export class PageHelper<T extends Entity = Entity> {
       next: (resp) => this._updatePage(resp),
       complete: () => console.log("change-selected-page-index completed")
     });
+  }
+
+  onClickRefresh(): void {
+    this._firstRequestEntities();
   }
 
 
@@ -154,7 +156,7 @@ export class PageHelper<T extends Entity = Entity> {
     ).subscribe({
       next: (textFilter) => {
         if(textFilter == '') { // it feels natural make first request
-          this._firstRequestUsers();
+          this._firstRequestEntities();
           return ;
         }
         this._srv.filterOverAll(textFilter).subscribe({

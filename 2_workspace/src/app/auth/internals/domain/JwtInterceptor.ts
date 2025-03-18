@@ -1,7 +1,7 @@
 import { HttpRequest, HttpEvent, HttpInterceptor, HttpHandler } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { commonsNames } from "../../../0common";
+import { Observable, throwError } from "rxjs";
+import { AppError, commonsNames, IAuthService } from "../../../0common";
 import { AuthUtils } from "./AuthUtils";
 import { AuthApiRoutesImpl } from "./AuthApiRoutesImpl";
 
@@ -9,7 +9,8 @@ import { AuthApiRoutesImpl } from "./AuthApiRoutesImpl";
 export class JwtInterceptor implements HttpInterceptor {
 
   constructor(
-    @Inject(commonsNames.IAuthApiRoutes) private _authBackSrv: AuthApiRoutesImpl
+    @Inject(commonsNames.IAuthService) private _authSrv: IAuthService,
+    @Inject(commonsNames.IAuthApiRoutes) private _authBackSrv: AuthApiRoutesImpl,
   ){}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -24,7 +25,13 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     console.debug("Adding JWT: ", req.url);
-    const reqWithAuth = AuthUtils.addAuth(req);
+    const loggedUser = this._authSrv.getUserAuth();
+    if(loggedUser === undefined || loggedUser.token === undefined) {
+      return throwError(() => {
+        return new AppError("Esta acción requiere autenticación", 401);
+      })
+    }
+    const reqWithAuth = AuthUtils.addAuth(req, loggedUser.token);
     return next.handle(reqWithAuth);
   }
 

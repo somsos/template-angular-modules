@@ -8,7 +8,7 @@ export interface IPagePayload {
     indexPrevious: number,
     pageIndexes: number[], // example: [1, 2, 3], so can iterate and show it in UI
     itemsPerPage: number,
-    itemsInTotal: number,
+    totalElements: number,
 
   }
 }

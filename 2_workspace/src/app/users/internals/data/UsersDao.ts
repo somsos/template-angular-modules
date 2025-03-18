@@ -5,6 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { Endpoint, IPagePayload, IPageResponse } from '../../../0common';
 import { IUserAdd } from '../commons/UserAdd';
 import { UsersFileDao } from './UsersFileDao';
+import { environment } from '../../../../environments/environment';
+
+const backPath = environment.backend.path;
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +17,18 @@ export class UsersDao {
   private readonly _http = inject(HttpClient);
   private readonly _usersFileDao = inject(UsersFileDao);
 
-    public static readonly pathRoot = 'api/v1/users';
-    public static readonly pathId = 'api/v1/users/${id}';
+    public static readonly pathRoot = backPath + '/users';
+    public static readonly pathId = backPath + '/users/${id}';
 
     public static readonly endPoints = new Map<string, Endpoint>([
-      [ "getAll", {method: 'GET', url: UsersDao.pathRoot, auth: false} ],
-      [ "getById", {method: 'GET', url: UsersDao.pathId, auth: false} ],
+      [ "getAll", {method: 'GET', url: UsersDao.pathRoot, auth: true} ],
+      [ "getById", {method: 'GET', url: UsersDao.pathId, auth: true} ],
       [ "save", {method: 'POST', url: UsersDao.pathRoot, auth: true} ],
       [ "deleteById", {method: 'DELETE', url: UsersDao.pathId, auth: true} ],
       [ "update", {method: 'PUT', url: UsersDao.pathId, auth: true} ],
       [ "uploadImage", { method: 'POST', url: UsersDao.pathId + "/pictures", auth: true } ],
-      [ "findPage", { method: 'GET', url: UsersDao.pathRoot + "/page", auth: false } ],
-      [ "filterOverAll", { method: 'GET', url: UsersDao.pathRoot + "/filter?q=", auth: false } ],
+      [ "findPage", { method: 'GET', url: UsersDao.pathRoot + "/page", auth: true } ],
+      [ "filterOverAll", { method: 'GET', url: UsersDao.pathRoot + "/filter?q=", auth: true } ],
   ]);
 
   getAll(): Observable<IUserDto[]> {
@@ -94,7 +97,7 @@ export class UsersDao {
   findPage(payload: IPagePayload): Observable<IPageResponse<IUserDto>> {
     const { method, url } = UsersDao.endPoints.get("findPage")!;
     console.debug("request, findPage: ", method, url, payload);
-    const options = { body: payload };
+    const options = { params: { page: payload.page.index, itemsPerPage: payload.page.itemsPerPage  } };
     return this._http.request<IPageResponse<IUserDto>>(method, url, options).pipe(first());
   }
 

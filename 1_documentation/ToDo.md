@@ -48,8 +48,8 @@
     - [X] Login
     - [X] Register
   - [>] Users
-    - [>>] pagination
-    - [ ] sort
+    - [X] pagination
+    - [>>] sort
     - [ ] filtering
     - [ ] Save
     - [ ] Delete

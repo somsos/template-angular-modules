@@ -14,22 +14,22 @@ export abstract class PageUtils {
         index: events.pageIndex ?? oldInfo.page.index,
         indexPrevious: events.previousPageIndex ?? oldInfo.page.indexPrevious,
         itemsPerPage: oldInfo.page.itemsPerPage,
-        itemsInTotal: oldInfo.page.itemsInTotal,
+        totalElements: oldInfo.page.totalElements,
         pageIndexes: PageUtils.getIndexCount(oldInfo),
       }
     }
   }
 
   public static getIndexCount(info: IPagePayload): number[] {
-    const size = Math.ceil(info.page.itemsInTotal / info.page.itemsPerPage);
+    const size = Math.ceil(info.page.totalElements / info.page.itemsPerPage);
     const pageIndexes = Array.from({length: size}, (_, i) => i + 1);
     return pageIndexes;
   }
 
   public static fromFiltering(usersFiltered: Entity[]): IPageResponse<Entity> {
     const casted: IPageResponse<Entity> = {
-      itemsInTotal: usersFiltered.length,
-      data: usersFiltered,
+      totalElements: usersFiltered.length,
+      content: usersFiltered,
     }
     return casted;
   }

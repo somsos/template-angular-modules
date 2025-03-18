@@ -9,15 +9,19 @@ import { AuthDto, IAuthService } from '../../../0common';
 export default class AuthService implements IAuthService {
   private readonly _userLoggedSub = new BehaviorSubject<AuthDto | undefined>(undefined);
   private readonly _authDao = inject(AuthApiDao);
-  private readonly userAuthInfo = 'userAuthInfo';
+  private readonly keyStore = 'userAuthInfo';
 
   getUserLogged(): Observable<AuthDto | undefined> {
-    const onStorage = localStorage.getItem(this.userAuthInfo);
+    const onStorage = localStorage.getItem(this.keyStore);
     if (onStorage) {
       const userInStorage: AuthDto = AuthDto.fromAny(JSON.parse(onStorage));
       this._userLoggedSub.next(userInStorage);
     }
     return this._userLoggedSub.asObservable();
+  }
+
+  getUserAuth(): AuthDto | undefined {
+    return this._userLoggedSub.value;
   }
 
   login(toAuth: AuthDto): Observable<AuthDto | undefined> {
@@ -39,9 +43,9 @@ export default class AuthService implements IAuthService {
       const toSaveInStore:any = {};
       Object.assign(toSaveInStore, logged);
       delete toSaveInStore.password;
-      localStorage.setItem(this.userAuthInfo, JSON.stringify(toSaveInStore));
+      localStorage.setItem(this.keyStore, JSON.stringify(toSaveInStore));
     } else {
-      localStorage.removeItem(this.userAuthInfo);
+      localStorage.removeItem(this.keyStore);
     }
 
     this._userLoggedSub.next(logged);

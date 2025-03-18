@@ -2,7 +2,8 @@
 
   <div>
     <div style='display: flex; justify-content: end;'>
-      <button mat-flat-button [routerLink]="['.', 'agregar']">Crear</button>
+      <button mat-button [routerLink]="['.', 'agregar']">Crear</button>
+      <button mat-button (click)="pageHelper.onClickRefresh()">Refrescar</button>
     </div>
     <div>
       <mat-form-field class="w-100">
@@ -134,7 +135,7 @@
         showFirstLastButtons="true"
         hidePageSize="true"
         [pageIndex]='pageHelper.pagePayload.page.index'
-        [length]="pageHelper.pagePayload.page.itemsInTotal"
+        [length]="pageHelper.pagePayload.page.totalElements"
         [pageSize]="pageHelper.pagePayload.page.itemsPerPage"
       />
     </div>

@@ -1,7 +1,7 @@
-import { catchError, first, map, Observable } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AppError, AuthDto, IRoleDto } from '../../../0common';
+import { AuthDto } from '../../../0common';
 import { environment } from '../../../../environments/environment';
 
 const backPath = environment.backend.path;
