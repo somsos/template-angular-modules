@@ -4,20 +4,27 @@ import { IPageResponse } from "../dtos/IPageResponse";
 
 export abstract class PageUtils {
 
-  static fromSortAndPageChangeEventsAndMergeWithOld(events: any, oldInfo: IPagePayload): IPagePayload {
-    return {
+  static fromSortAndPageChangeEventsAndMergeWithOld(newInfo: any, oldInfo: IPagePayload): IPagePayload {
+    const mergeNewAndOldInfo = {
       sort: {
-        property: events.active ?? oldInfo.sort.property,
-        direction: events.direction ?? oldInfo.sort.direction,
+        property: newInfo.active ?? oldInfo.sort.property,
+        direction: newInfo.direction ?? oldInfo.sort.direction,
       },
       page: {
-        index: events.pageIndex ?? oldInfo.page.index,
-        indexPrevious: events.previousPageIndex ?? oldInfo.page.indexPrevious,
+        index: newInfo.pageIndex ?? oldInfo.page.index,
+        indexPrevious: newInfo.previousPageIndex ?? oldInfo.page.indexPrevious,
         itemsPerPage: oldInfo.page.itemsPerPage,
         totalElements: oldInfo.page.totalElements,
         pageIndexes: PageUtils.getIndexCount(oldInfo),
+      },
+      filter: {
+        overall: newInfo.filter?.overall ?? oldInfo.filter.overall
       }
-    }
+    };
+
+    console.log("newInfo", newInfo, "oldInfo", oldInfo, "mergeNewAndOldInfo", mergeNewAndOldInfo);
+
+    return mergeNewAndOldInfo
   }
 
   public static getIndexCount(info: IPagePayload): number[] {

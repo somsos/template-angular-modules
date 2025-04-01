@@ -12,6 +12,7 @@ export abstract class UserDtoUtils {
       pictureFile: null,
       username: "",
       password: "",
+      email: "",
       roles: [],
       active: false,
     };

@@ -32,8 +32,8 @@
     - [X] Add case on image upload error
     - [X] Update Image
 
-- [ ] MainLayout
-  - [>>] Add snackbar to show notifications
+- [X] MainLayout
+  - [X] Add snackbar to show notifications
 
 - [>>] Project presentation
   - [X] Add introduction in README.md
@@ -50,10 +50,10 @@
   - [>] Users
     - [X] pagination
     - [X] sort
-    - [ ] filtering
-    - [ ] Save
+    - [X] Overall filtering
+    - [>>] Save
     - [ ] Delete
     - [ ] Update
 
-- Backend
-  - [ ] Change response of login (create-token)
+- [ ] Backend
+  - [X] Change response of login (create-token)

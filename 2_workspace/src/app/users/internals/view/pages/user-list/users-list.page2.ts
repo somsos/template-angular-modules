@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DestroyRef, Inject, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, Inject, inject, ViewChild, ElementRef } from '@angular/core';
 import { UsersService } from '../../../domain/UsersService';
 import { commonsNames, ILayoutService, PageHelper } from '../../../../../0common';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,7 +20,7 @@ export class UsersListPage2 implements AfterViewInit {
   private readonly _srv = inject(UsersService);
   private readonly destroyRef = inject(DestroyRef);
 
-  textFilter = new FormControl('', [ Validators.pattern("[a-zA-Z0-9]{1,75}") ] );
+  overAllQueryInput = new FormControl('', [ Validators.pattern("[a-zA-Z0-9]{1,75}") ] );
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -34,9 +34,11 @@ export class UsersListPage2 implements AfterViewInit {
     //CAREFUL: sync manually for fist load
     id: true,
     username: true,
+    email: false,
     roles: true,
     createdAt: false,
     updatedAt: false,
+    actions: true,
   });
 
   public pageHelper!: PageHelper<IUserDto>;
@@ -51,7 +53,7 @@ export class UsersListPage2 implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.pageHelper.linkUI(this.paginator, this.sort, this.textFilter);
+    this.pageHelper.linkUI(this.paginator, this.sort, this.overAllQueryInput);
     this._observeColumnsToShow();
   }
 
@@ -62,10 +64,11 @@ export class UsersListPage2 implements AfterViewInit {
       const newColumnsToShow:string[] = [];
       if(columns.id === true) { newColumnsToShow.push("id"); }
       if(columns.username === true) { newColumnsToShow.push("username"); }
+      if(columns.email === true) { newColumnsToShow.push("email"); }
       if(columns.roles === true) { newColumnsToShow.push("roles"); }
       if(columns.createdAt === true) { newColumnsToShow.push("createdAt"); }
       if(columns.updatedAt === true) { newColumnsToShow.push("updatedAt"); }
-      newColumnsToShow.push("actions");
+      if(columns.actions === true) { newColumnsToShow.push("actions"); }
       this.columnsToDisplay = newColumnsToShow;
     })
   }

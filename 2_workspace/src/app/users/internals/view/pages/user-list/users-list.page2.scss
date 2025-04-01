@@ -4,6 +4,9 @@
   column-gap: 10px;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 3rem;
 }
 
 #table-container {
@@ -58,7 +61,6 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-detail {
-
   min-height: 0;
 }
 

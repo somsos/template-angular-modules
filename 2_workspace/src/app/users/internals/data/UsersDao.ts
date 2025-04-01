@@ -102,6 +102,7 @@ export class UsersDao {
       itemsPerPage: payload.page.itemsPerPage,
       sortBy: payload.sort.property,
       sortDirection: payload.sort.direction,
+      query: payload.filter.overall,
     } };
     return this._http.request<IPageResponse<IUserDto>>(method, url, options).pipe(first());
   }

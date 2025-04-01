@@ -3,6 +3,9 @@ export interface IPagePayload {
     property: string,
     direction: 'asc' | 'desc',
   },
+  filter: {
+    overall: string,
+  }
   page: {
     index: number,
     indexPrevious: number,

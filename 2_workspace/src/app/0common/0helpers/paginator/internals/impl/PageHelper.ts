@@ -1,6 +1,6 @@
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { BehaviorSubject, merge, map, switchMap, filter, debounceTime, EMPTY } from "rxjs";
+import { BehaviorSubject, merge, map, switchMap, EMPTY, filter, debounce, interval, debounceTime } from "rxjs";
 import { Entity } from "../../../../types/Entity"
 import { ILayoutService } from "../../../../layout/ILayoutService";
 import { FormControl } from "@angular/forms";
@@ -42,6 +42,7 @@ import { AppError } from "../../../errors";
 
 const firstPayload: IPagePayload = {
   sort: { property: 'id', direction: 'asc', },
+  filter: { overall: '' },
   page: { index: 0, indexPrevious: 0, itemsPerPage: 3, totalElements: 0, pageIndexes: [], }
 }
 
@@ -71,7 +72,7 @@ export class PageHelper<T extends Entity = Entity> {
     this.textFilter = tf;
     this._firstRequestEntities();
     this._observeSortAndPagination();
-    this._observeFilter();
+    //this._observeFilter();
   }
 
   private _firstRequestEntities(): void {
@@ -84,7 +85,16 @@ export class PageHelper<T extends Entity = Entity> {
   }
 
   private _observeSortAndPagination(): void {
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(
+      this.sort.sortChange,
+      this.paginator.page,
+      this.textFilter.valueChanges.pipe(
+        debounceTime(1000),
+        map(v => v ?? ''),
+        filter(_ => this.textFilter.valid),
+        map((plainText) => ({ filter: { overall: plainText } }) ),
+      )
+    )
     .pipe(
       //startWith({ allItemsCount: 10, data: [] }),
       map((events: any) => PageUtils.fromSortAndPageChangeEventsAndMergeWithOld(events, this.pagePayload) ),
@@ -123,6 +133,7 @@ export class PageHelper<T extends Entity = Entity> {
   }
 
   onClickRefresh(): void {
+    this.textFilter.setValue("");
     this._firstRequestEntities();
   }
 
@@ -148,6 +159,7 @@ export class PageHelper<T extends Entity = Entity> {
   }
 
 
+  /*
   private _observeFilter(): void {
     this.textFilter.valueChanges.pipe(
       map(v => v ?? ''),
@@ -172,6 +184,7 @@ export class PageHelper<T extends Entity = Entity> {
 
     });
   }
+    */
 
 
 }
