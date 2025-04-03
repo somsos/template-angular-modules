@@ -7,6 +7,7 @@ import { commonsNames } from '.';
 //my modules
 import { AuthApiRoutesImpl, AuthModule, JwtInterceptor } from '../auth';
 import AuthService from '../auth/internals/domain/AuthService';
+import { RoleUserGuard } from './auth/RoleUserGuard';
 
 
 
@@ -24,6 +25,8 @@ import AuthService from '../auth/internals/domain/AuthService';
     { provide: HTTP_INTERCEPTORS, useClass: LoadingsInterceptor, multi: true },
 
     importProvidersFrom(AuthModule),
+
+    RoleUserGuard,
 
   ],
 })

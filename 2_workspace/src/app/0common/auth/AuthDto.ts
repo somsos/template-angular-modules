@@ -14,6 +14,23 @@ export class AuthDto implements Entity {
 
   updatedAt?: Date;
 
+  static hasRoles(uToCheck: AuthDto | undefined, acceptedRoles: string[]): boolean {
+    if(!uToCheck) {
+      return false;
+    }
+
+    for (let i = 0; i < uToCheck.roles.length; i++) {
+      const userRole = uToCheck.roles[i];
+      for (let iAR = 0; iAR < acceptedRoles.length; iAR++) {
+        const acceptedRole = acceptedRoles[iAR];
+        if(userRole.authority?.includes(acceptedRole)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   static fromAny(arg0: unknown): AuthDto {
     let cause = AuthDto.hasSomeError(arg0);
     if (cause) {

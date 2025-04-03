@@ -28,7 +28,7 @@ export class MainLayoutPage {
     @Inject(commonsNames.IErrorStateService) private _errorStateSrv: IErrorStateService,
     @Inject(commonsNames.IAuthService) private _authSrv: IAuthService,
   ) {
-    this._authSrv.getUserLogged().subscribe({
+    this._authSrv.observeUserLogged().subscribe({
       next: (u) => {
         console.log("User logged", u);
         this.auth = u;
@@ -73,4 +73,7 @@ export class MainLayoutPage {
     this._snackBar.open(message, action, { duration: 4000 });
   }
 
+  hasRoles(acceptedRoles: string[]): boolean {
+    return AuthDto.hasRoles(this.auth, acceptedRoles);
+  }
 }

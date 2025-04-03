@@ -4,7 +4,8 @@ import { AuthDto } from './AuthDto';
 export const IAuthServiceName = 'IAuthServiceName';
 
 export interface IAuthService {
-  getUserLogged(): Observable<AuthDto | undefined>;
+
+  observeUserLogged(): Observable<AuthDto | undefined>;
 
   getUserAuth(): AuthDto | undefined;
 

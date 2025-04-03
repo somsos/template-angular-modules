@@ -64,7 +64,7 @@ export class LoginPage implements AfterViewInit{
     */
 
   private _observeLoginSuccess(): Observable<AuthDto> {
-    const subs = this._authSrv.getUserLogged().pipe(
+    const subs = this._authSrv.observeUserLogged().pipe(
       filter((u) => u != undefined),
       first(),
       takeUntilDestroyed(this._destroyRef)
@@ -74,7 +74,7 @@ export class LoginPage implements AfterViewInit{
         this._router.navigateByUrl('/users');
         return ;
       }
-      //this._router.navigateByUrl('/products');
+      this._router.navigateByUrl('/home');
     });
     return subs;
   }

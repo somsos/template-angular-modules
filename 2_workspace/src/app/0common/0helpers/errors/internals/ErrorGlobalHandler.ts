@@ -24,14 +24,30 @@ export class ErrorGlobalHandler implements ErrorHandler {
       const toShow = this._determineIfActionIsRequired(casted);
       this._errorSrv.setError(toShow);
     } else {
+      this._printError(error);
       const cause = this.getStringFromAny(error);
       const err:ErrorDto = { message: 'Error, contacte con admins', typeArg: 400, cause: cause };
       this._errorSrv.setError(err);
-      if (error.stack) {
-        console.log(error.stack);
-      }
       throw error;
     }
+  }
+
+  private _printError(error: any): void {
+    if(!error.message && !error.stack) {
+      const errSt = JSON.stringify(error);
+      console.log(errSt);
+      return ;
+    }
+
+    if (error.stack) {
+      console.log(error.stack);
+      return ;
+    }
+
+    if(error.message) {
+      console.log(error.message);
+    }
+
   }
 
   private _determineIfActionIsRequired(err: ErrorDto): ErrorDto {

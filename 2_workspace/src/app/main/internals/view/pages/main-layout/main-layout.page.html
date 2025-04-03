@@ -11,10 +11,10 @@
 
   <mat-drawer-container class="example-container" >
     <mat-drawer #sidenav class="example-sidenav" mode="over">
-      <a [routerLink]="['/products']" (click)="closeSideMenu()">
-        <button mat-menu-item>Products</button>
+      <a [routerLink]="['/home']" (click)="closeSideMenu()">
+        <button mat-menu-item>Home</button>
       </a>
-      @if (auth) {
+      @if (hasRoles(["users"]) ) {
         <a [routerLink]="['/users']" (click)="closeSideMenu()">
           <button mat-menu-item>Usuarios</button>
         </a>

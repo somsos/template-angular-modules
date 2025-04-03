@@ -11,7 +11,12 @@ export default class AuthService implements IAuthService {
   private readonly _authDao = inject(AuthApiDao);
   private readonly keyStore = 'userAuthInfo';
 
-  getUserLogged(): Observable<AuthDto | undefined> {
+  constructor() {
+    console.debug("Init AuthService");
+
+  }
+
+  observeUserLogged(): Observable<AuthDto | undefined> {
     const onStorage = localStorage.getItem(this.keyStore);
     if (onStorage) {
       const userInStorage: AuthDto = AuthDto.fromAny(JSON.parse(onStorage));
@@ -31,6 +36,7 @@ export default class AuthService implements IAuthService {
     );
     req.subscribe({
       next: (logged) => {
+        console.debug("[login] user logged", logged);
         this._setAuthUser(logged);
       },
     });
