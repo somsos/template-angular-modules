@@ -88,11 +88,11 @@ export class UsersListPage2 implements AfterViewInit {
   }
 
   getPicture(idUser: number): string {
-    if(environment.production) {
-      console.warn("No implementado");
-      return environment.img404;
-    } else {
+    if(environment.backend.mock) {
       return UsersImagesStore.getUrlByUser(idUser);
+    } else {
+      const urlImg = `${environment.backend.path}/users/${idUser}/pictures`;
+      return urlImg;
     }
   }
 

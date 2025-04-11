@@ -1,21 +1,53 @@
 <form [formGroup]="uForm" (ngSubmit)="submit()">
 
-  <div class='my-form-field'>
-    <mat-checkbox formControlName="active">Activo: </mat-checkbox>
-  </div>
-
-  <mat-form-field class='my-form-field'>
-    <mat-label>Usuario</mat-label>
+  <mat-form-field>
+    <mat-label>Nombre de usuario</mat-label>
     <input
       matInput
       type="text"
-      placeholder="Pedro"
+      placeholder="neyra"
       formControlName="username"
     />
+    <mat-error>{{checkForErrorsIn(uForm.controls.username)}}</mat-error>
   </mat-form-field>
 
 
-  <div class='my-form-field'>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      type="email"
+      placeholder="neyra@email.com"
+      formControlName="email"
+    />
+    <mat-error>{{checkForErrorsIn(uForm.controls.email)}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Contraseña</mat-label>
+    <input
+      matInput
+      type="password"
+      formControlName="password"
+      (keyup)='checkConfirmPassword($event)'
+    />
+    <mat-error>{{checkForErrorsIn(uForm.controls.password)}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Confirmar contraseña</mat-label>
+    <input
+      matInput
+      type="password"
+      formControlName="confirmPassword"
+      (keyup)='checkConfirmPassword($event)'
+    />
+    <mat-error>{{checkForErrorsIn(uForm.controls.confirmPassword)}}</mat-error>
+  </mat-form-field>
+
+
+  <div>
     Roles:
     <div style='display: flex;'>
       <!--              ... id; let i = $index -->
@@ -29,7 +61,7 @@
     </div>
   </div>
 
-  <div class='my-form-field'>
+  <div>
     <label for="image">Imagen</label>
     <app-file-upload
       [urlImage]='getUrlPicture(user.id)'
@@ -38,7 +70,7 @@
   </div>
 
   <div class='actions'>
-    <button mat-flat-button type="submit">{{btnSubmitLabel}}</button>
+    <button mat-flat-button type="submit" [disabled]="this.uForm.invalid">{{btnSubmitLabel}}</button>
   </div>
 
 </form>

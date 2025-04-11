@@ -1,9 +1,11 @@
 import { Component, inject, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { IUserDto } from '../../../commons/IUserDto';
 import { AppError, StringUtils } from '../../../../../0common';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UsersImagesStore } from '../../../../../../mockBackend/UsersImagesStore';
+
+const commonValidators = [Validators.required, Validators.minLength(3), Validators.maxLength(16)];
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -27,16 +29,18 @@ export class UserFormComponent implements OnInit {
   private _file: File | null = null;
 
   public roles = [
-    { id: 1, label: 'Users', selected: false },
-    { id: 2, label: 'Products', selected: false },
+    { id: -55, label: 'Users', selected: false },
+    { id: -56, label: 'Products', selected: false },
   ];
 
   @Output()
   readonly userSubmit = new EventEmitter<IUserDto>();
 
   uForm = this.formBuilder.group({
-    username: ['', Validators.required],
-    active: [false, Validators.required],
+    username:         ['', [ ...commonValidators ] ],
+    email:            ['', [ ...commonValidators, Validators.email ] ],
+    password:         ['', [ ...commonValidators ] ],
+    confirmPassword:  ['', [ ...commonValidators ] ],
   });
 
   ngOnInit() {
@@ -76,6 +80,10 @@ export class UserFormComponent implements OnInit {
   }
 
   submit() {
+    this.uForm.updateValueAndValidity();
+    if(this.uForm.invalid) {
+      return ;
+    }
     this._extractUser();
     console.debug("user submitted", this.user);
     this.userSubmit.emit(this.user);
@@ -104,6 +112,52 @@ export class UserFormComponent implements OnInit {
 
   getUrlPicture(userId: number): string {
     return UsersImagesStore.getUrlByUser(userId);
+  }
+
+  checkConfirmPassword($event: any): void {
+    const passConfirm = $event.target.value;
+    if(!passConfirm) {
+      return ;
+    }
+    const pass = this.uForm.controls.password.getRawValue();
+
+    const cpErr = this.uForm.controls.confirmPassword;
+
+    if(passConfirm !== pass) {
+      cpErr.setErrors({ confirmPassword: true });
+    } else {
+      cpErr.setErrors(null);
+    }
+  }
+
+  checkForErrorsIn(formControl: AbstractControl): string {
+    if (formControl.hasError('required')) {
+      return 'Min value is required'
+    }
+
+    if (formControl.hasError('min') || formControl.hasError('max')) {
+      return 'Value must be between 1980 and 2020';
+    }
+
+    if (formControl.hasError('minlength')) {
+      return 'Se requieren mas caracteres'
+    }
+
+    if (formControl.hasError('email')) {
+      return 'Formato de email incorrecto'
+    }
+
+    if (formControl.hasError('maxlength')) {
+      return 'se requieren menos caracteres'
+    }
+
+    if (formControl.hasError('confirmPassword')) {
+      return 'contraseñas no coinciden'
+    }
+
+
+
+    return ''
   }
 
 }

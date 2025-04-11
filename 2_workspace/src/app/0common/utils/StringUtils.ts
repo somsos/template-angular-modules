@@ -61,6 +61,12 @@ export abstract class StringUtils {
       return true
     }
 
+    const sameBySimplification = StringUtils._bySimplification(route, requestedUrl);
+    if(sameBySimplification) {
+      return true;
+    }
+
+
     const routePattern = route
       .replace(/\${([^}]+)}/g, '([^/]+)')
       .replace(/\//g, '\\/');
@@ -76,6 +82,22 @@ export abstract class StringUtils {
     }
 
     return regex.test(requestedUrl);
+  }
+
+  private static _bySimplification(route: string, requestedUrl: string): boolean {
+    const regexMatchDomain = /^.*\/\/[^\/]+/;
+    const regexMatchPathVariable = /\/[0-9]{1,}\//g;
+    const simpleRoute = route
+      .replace(regexMatchDomain, '')
+      .replaceAll("${id}", "1")
+    ;
+    const simpleUrlRequested = requestedUrl
+      .replace(regexMatchDomain, '')
+      .replaceAll(regexMatchPathVariable, "/1/")
+    ;
+
+    const same = simpleRoute == simpleUrlRequested;
+    return same;
   }
 
   static toUrlBase64(file: File): Observable<string> {

@@ -20,6 +20,12 @@ export class ErrorGlobalHandler implements ErrorHandler {
       this._errorSrv.setError(error.toDto());
       this._loadingSrv.clearLoadings();
     } else if (error instanceof HttpErrorResponse) {
+      if (error.status === 0 && error.error instanceof ProgressEvent) {
+        const checkYourConn: ErrorDto = { message: 'Revisa tu conexión', typeArg: 400, cause: '' };
+        this._errorSrv.setError(checkYourConn);
+        return ;
+      }
+
       const casted = this._castServerError(error);
       const toShow = this._determineIfActionIsRequired(casted);
       this._errorSrv.setError(toShow);

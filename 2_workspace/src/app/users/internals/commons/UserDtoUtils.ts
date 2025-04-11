@@ -22,7 +22,8 @@ export abstract class UserDtoUtils {
   public static fromDto(dto: IUserDto): IUserAdd {
     const casted: IUserAdd = {
       username: dto.username,
-      active: dto.active,
+      email: dto.email,
+      password: dto.password,
       pictureFile: dto.pictureFile,
       roles: dto.roles
     };

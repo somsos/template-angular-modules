@@ -17,7 +17,7 @@
     <!-- <p>{{ "ACTIONS.UPLOAD_PLACEHOLDER" | translate }}</p> -->
     <p>Click para subir imagen</p>
     <div *ngIf="imageName()">
-      <div *ngIf="selectedFile || imagePreview">
+      <div *ngIf="selectedFile || imagePreview" style='display: flex; flex-direction: column;'>
         <img
           [src]="imagePreview()"
           alt="Image Preview"

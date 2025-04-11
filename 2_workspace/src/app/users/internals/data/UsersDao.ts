@@ -17,18 +17,18 @@ export class UsersDao {
   private readonly _http = inject(HttpClient);
   private readonly _usersFileDao = inject(UsersFileDao);
 
-    public static readonly pathRoot = backPath + '/users';
-    public static readonly pathId = backPath + '/users/${id}';
+  public static readonly pathRoot = backPath + '/users';
+  public static readonly pathId = backPath + '/users/${id}';
 
-    public static readonly endPoints = new Map<string, Endpoint>([
-      [ "getAll", {method: 'GET', url: UsersDao.pathRoot, auth: true} ],
-      [ "getById", {method: 'GET', url: UsersDao.pathId, auth: true} ],
-      [ "save", {method: 'POST', url: UsersDao.pathRoot, auth: true} ],
-      [ "deleteById", {method: 'DELETE', url: UsersDao.pathId, auth: true} ],
-      [ "update", {method: 'PUT', url: UsersDao.pathId, auth: true} ],
-      [ "uploadImage", { method: 'POST', url: UsersDao.pathId + "/pictures", auth: true } ],
-      [ "findPage", { method: 'GET', url: UsersDao.pathRoot + "/page", auth: true } ],
-      [ "filterOverAll", { method: 'GET', url: UsersDao.pathRoot + "/filter?q=", auth: true } ],
+  public static readonly endPoints = new Map<string, Endpoint>([
+    [ "getAll", {method: 'GET', url: UsersDao.pathRoot, auth: true} ],
+    [ "getById", {method: 'GET', url: UsersDao.pathId, auth: true} ],
+    [ "save", {method: 'POST', url: UsersDao.pathRoot, auth: true} ],
+    [ "deleteById", {method: 'DELETE', url: UsersDao.pathId, auth: true} ],
+    [ "update", {method: 'PUT', url: UsersDao.pathId, auth: true} ],
+    [ "uploadImage", { method: 'POST', url: UsersDao.pathId + "/pictures", auth: true } ],
+    [ "findPage", { method: 'GET', url: UsersDao.pathRoot + "/page", auth: true } ],
+    [ "filterOverAll", { method: 'GET', url: UsersDao.pathRoot + "/filter?q=", auth: true } ],
   ]);
 
   getAll(): Observable<IUserDto[]> {
