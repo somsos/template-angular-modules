@@ -91,8 +91,7 @@ export class UsersListPage2 implements AfterViewInit {
     if(environment.backend.mock) {
       return UsersImagesStore.getUrlByUser(idUser);
     } else {
-      const urlImg = `${environment.backend.path}/users/${idUser}/pictures`;
-      return urlImg;
+      return UserDtoUtils.getUrlPicture(idUser);;
     }
   }
 

@@ -12,6 +12,7 @@ import { MaterialForms } from '../../0common/MaterialForms.module';
 import { UsersFileDao } from './data/UsersFileDao';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { UsersListPage2 } from './view/pages/user-list/users-list.page2';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { UsersListPage2 } from './view/pages/user-list/users-list.page2';
     MaterialModule,
     MaterialForms,
     MatExpansionModule,
+    MatSlideToggleModule,
   ],
 })
 export class UsersModule {

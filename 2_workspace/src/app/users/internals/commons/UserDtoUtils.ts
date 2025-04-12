@@ -1,3 +1,4 @@
+import { environment } from "../../../../environments/environment";
 import { IUserDto } from "./IUserDto";
 import { IUserRoleDto } from "./IUserRoleDto";
 import { IUserAdd } from "./UserAdd";
@@ -60,6 +61,11 @@ export abstract class UserDtoUtils {
     return d.getFullYear() + "/" +
       d.getMonth() + 1 + "/"  +
       d.getDay() ;
+  }
+
+
+  static getUrlPicture(idUser: number): string {
+    return `${environment.backend.path}/users/${idUser}/pictures`;
   }
 
 }

@@ -115,6 +115,10 @@ html, body {
   --mat-checkbox-label-text-color: var(--mat-app-text-color);
 }
 
+.mat-accent.mat-mdc-slide-toggle {
+  --mat-switch-label-text-color: var(--mat-app-text-color);
+}
+
 html {
   --mdc-filled-text-field-input-text-color: #999;
 }

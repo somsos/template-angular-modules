@@ -24,6 +24,23 @@
     <mat-error>{{checkForErrorsIn(uForm.controls.email)}}</mat-error>
   </mat-form-field>
 
+
+@if (type == 'update' ) {
+
+  <p><mat-slide-toggle formControlName="changePassEnabled">Cambiar contraseña</mat-slide-toggle></p>
+
+  <mat-form-field>
+    <mat-label>Contraseña Anterior</mat-label>
+    <input
+      matInput
+      type="password"
+      formControlName="oldPassword"
+    />
+    <mat-error>{{checkForErrorsIn(uForm.controls.oldPassword)}}</mat-error>
+  </mat-form-field>
+}
+
+@if (type != 'view' ) {
   <mat-form-field>
     <mat-label>Contraseña</mat-label>
     <input
@@ -45,6 +62,7 @@
     />
     <mat-error>{{checkForErrorsIn(uForm.controls.confirmPassword)}}</mat-error>
   </mat-form-field>
+}
 
 
   <div>

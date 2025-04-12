@@ -1,11 +1,16 @@
-import { Component, inject, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, inject, Input, OnInit, Output, EventEmitter, ViewEncapsulation, DestroyRef } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { IUserDto } from '../../../commons/IUserDto';
 import { AppError, StringUtils } from '../../../../../0common';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UsersImagesStore } from '../../../../../../mockBackend/UsersImagesStore';
+import { environment } from '../../../../../../environments/environment';
+import { UserDtoUtils } from '../../../commons/UserDtoUtils';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter, startWith } from 'rxjs';
 
-const commonValidators = [Validators.required, Validators.minLength(3), Validators.maxLength(16)];
+const commonValidators = [Validators.required, Validators.minLength(3), Validators.maxLength(36)];
+const updateValidators = [Validators.minLength(3), Validators.maxLength(16)];
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -18,7 +23,7 @@ export class UserFormComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
 
   @Input()
-  type!: string;
+  type!: 'update' | "add" | "view";
 
   @Input()
   user!: IUserDto;
@@ -37,14 +42,42 @@ export class UserFormComponent implements OnInit {
   readonly userSubmit = new EventEmitter<IUserDto>();
 
   uForm = this.formBuilder.group({
-    username:         ['', [ ...commonValidators ] ],
-    email:            ['', [ ...commonValidators, Validators.email ] ],
-    password:         ['', [ ...commonValidators ] ],
-    confirmPassword:  ['', [ ...commonValidators ] ],
+    username:           ['', [ ...commonValidators ] ],
+    email:              ['', [ ...commonValidators, Validators.email ] ],
+    password:           ['', [ ...commonValidators ] ],
+    confirmPassword:    ['', [ ...commonValidators ] ],
+    oldPassword:        ['', [ ...commonValidators ] ],
+    changePassEnabled:  [ false ],
+
   });
+
+  private readonly _destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     this._fillUpdateOrViewForm();
+    if(this.type === "update") {
+      this.uForm.controls.password.setValidators(updateValidators);
+      this.uForm.controls.confirmPassword.setValidators(updateValidators);
+      this.uForm.controls.oldPassword.setValidators(updateValidators);
+      this.uForm.controls.changePassEnabled.valueChanges
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        filter(v => v != undefined),
+        startWith(false),
+      )
+      .subscribe((v)=>{
+        if(v) {
+          this.uForm.controls.password.enable();
+          this.uForm.controls.confirmPassword.enable();
+          this.uForm.controls.oldPassword.enable();
+        } else {
+          this.uForm.controls.password.disable();
+          this.uForm.controls.confirmPassword.disable();
+          this.uForm.controls.oldPassword.disable();
+        }
+
+      });
+    }
   }
 
   private _fillUpdateOrViewForm() {
@@ -111,7 +144,12 @@ export class UserFormComponent implements OnInit {
   }
 
   getUrlPicture(userId: number): string {
-    return UsersImagesStore.getUrlByUser(userId);
+    if(environment.backend.mock) {
+      return UsersImagesStore.getUrlByUser(userId);
+    } else {
+      return UserDtoUtils.getUrlPicture(userId);
+    }
+
   }
 
   checkConfirmPassword($event: any): void {

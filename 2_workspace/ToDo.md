@@ -51,8 +51,8 @@
     - [X] pagination
     - [X] sort
     - [X] Overall filtering
-    - [>>] Save
-    - [ ] Delete
+    - [X] Save
+    - [>>] Delete
     - [ ] Update
 
 - [ ] Backend

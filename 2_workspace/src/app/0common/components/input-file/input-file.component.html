@@ -22,6 +22,7 @@
           [src]="imagePreview()"
           alt="Image Preview"
           class="image-preview"
+          onerror="if (this.src != '/img/404.png') this.src = '/img/404.png';"
         />
         <p>
           <span class="image-name">{{ imageName() }}</span> ({{
