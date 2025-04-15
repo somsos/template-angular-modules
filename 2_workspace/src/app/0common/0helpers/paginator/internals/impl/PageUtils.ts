@@ -5,6 +5,13 @@ import { IPageResponse } from "../dtos/IPageResponse";
 export abstract class PageUtils {
 
   static fromSortAndPageChangeEventsAndMergeWithOld(newInfo: any, oldInfo: IPagePayload): IPagePayload {
+    if(newInfo.filter?.overall && !newInfo.active && !newInfo.pageIndex) {
+      // It happens that when is the first time that the user make a overall filter,
+      // can keep in some page further showing no results. so here we reset the
+      // page number to 0, so it does not happens.
+      newInfo.pageIndex = 0;
+    }
+
     const mergeNewAndOldInfo = {
       sort: {
         property: newInfo.active ?? oldInfo.sort.property,

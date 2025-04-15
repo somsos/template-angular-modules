@@ -52,8 +52,8 @@
     - [X] sort
     - [X] Overall filtering
     - [X] Save
-    - [>>] Delete
-    - [ ] Update
+    - [X] Delete
+    - [X] Update
 
 - [ ] Backend
   - [X] Change response of login (create-token)

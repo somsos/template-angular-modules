@@ -20,7 +20,7 @@ export class UsersListPage2 implements AfterViewInit {
   private readonly _srv = inject(UsersService);
   private readonly destroyRef = inject(DestroyRef);
 
-  overAllQueryInput = new FormControl('', [ Validators.pattern("[a-zA-Z0-9]{1,75}") ] );
+  overAllQueryInput = new FormControl('', [ Validators.pattern("[a-zA-Z0-9\-]{1,75}") ] );
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

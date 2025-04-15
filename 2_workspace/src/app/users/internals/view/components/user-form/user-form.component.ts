@@ -9,8 +9,6 @@ import { UserDtoUtils } from '../../../commons/UserDtoUtils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, startWith } from 'rxjs';
 
-const commonValidators = [Validators.required, Validators.minLength(3), Validators.maxLength(36)];
-const updateValidators = [Validators.minLength(3), Validators.maxLength(16)];
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -42,13 +40,12 @@ export class UserFormComponent implements OnInit {
   readonly userSubmit = new EventEmitter<IUserDto>();
 
   uForm = this.formBuilder.group({
-    username:           ['', [ ...commonValidators ] ],
-    email:              ['', [ ...commonValidators, Validators.email ] ],
-    password:           ['', [ ...commonValidators ] ],
-    confirmPassword:    ['', [ ...commonValidators ] ],
-    oldPassword:        ['', [ ...commonValidators ] ],
+    username:           ['', [ Validators.required, Validators.minLength(3), Validators.maxLength(36)] ],
+    email:              ['', [ Validators.required, Validators.minLength(3), Validators.maxLength(36), Validators.email ] ],
+    password:           ['', [ Validators.minLength(3), Validators.maxLength(16) ] ],
+    confirmPassword:    ['', [ Validators.minLength(3), Validators.maxLength(16) ] ],
+    oldPassword:        ['', [ Validators.minLength(3), Validators.maxLength(16) ] ],
     changePassEnabled:  [ false ],
-
   });
 
   private readonly _destroyRef = inject(DestroyRef);
@@ -56,9 +53,9 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
     this._fillUpdateOrViewForm();
     if(this.type === "update") {
-      this.uForm.controls.password.setValidators(updateValidators);
-      this.uForm.controls.confirmPassword.setValidators(updateValidators);
-      this.uForm.controls.oldPassword.setValidators(updateValidators);
+      this.uForm.controls.password.setValidators([ Validators.minLength(3), Validators.maxLength(16) ]);
+      this.uForm.controls.confirmPassword.setValidators([ Validators.minLength(3), Validators.maxLength(16) ]);
+      this.uForm.controls.oldPassword.setValidators([ Validators.minLength(3), Validators.maxLength(16) ]);
       this.uForm.controls.changePassEnabled.valueChanges
       .pipe(
         takeUntilDestroyed(this._destroyRef),
