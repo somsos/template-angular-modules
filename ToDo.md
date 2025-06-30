@@ -57,3 +57,8 @@
 
 - [ ] Backend
   - [X] Change response of login (create-token)
+
+- [ ] Documentation
+  - [ ] Second try of how to use template of template frontend
+  - [ ] Add document of feature and demonstration
+  - [ ] 

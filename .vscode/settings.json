@@ -1,12 +1,8 @@
 {
-  "cSpell.words": [
-    "Bianchi",
-    "Bowser",
-    "Koopa",
-    "Rosalina",
-    "Sarasaland",
-    "Waluigi",
-    "Wario",
-    "Yoshi"
-  ]
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false
+  }
 }
