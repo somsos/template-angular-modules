@@ -7,6 +7,7 @@
 
 - [X] Fixes
   - [X] Fix show loading in users
+  - [ ] Fix error "Error: NG04002: 'xxx' at Rs.noMatchError", I think is just add the 404 redirect in angular (it's already fixed in Ngnix)
 
 - [X] Products CRUD prototype
   - [X] List
