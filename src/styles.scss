@@ -1,5 +1,8 @@
 @use '@angular/material' as mat;
 
+@import 'assets/google-fonts/fonts-roboto.css';
+@import 'assets/google-fonts/material-icon.css';
+
 @include mat.core();
 
 $dark-theme: mat.define-theme((
