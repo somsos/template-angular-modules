@@ -1,9 +1,10 @@
 export const environment = {
   production: true,
-  img404: "/img/404.png",
+  img404: '/img/404.png',
   backend: {
     mock: false,
-    path: (false) ? 'http://localhost:8080' : '',
+    path: 'http://192.168.43.24:8201',
   }
 
 };
+
