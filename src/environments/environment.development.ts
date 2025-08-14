@@ -4,6 +4,6 @@ export const environment = {
   backend: {
     // mock and path must be the same boolean value
     mock: false,
-    path: 'http://host.docker.internal:8080',
+    path: 'https://host.docker.internal:8080',
   }
 };
