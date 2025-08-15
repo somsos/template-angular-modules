@@ -1,0 +1,28 @@
+
+h2 {
+  padding-top: 2rem;
+  font-weight: bolder;
+}
+
+hr {
+  margin-top: 2rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+
+code {
+  background-color: gray;
+}
+
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
