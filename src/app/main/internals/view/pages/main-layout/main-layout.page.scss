@@ -10,21 +10,23 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: hidden;
 
     main {
-      min-height: calc(100vh - 210px);
+      min-height: calc(100vh - 270px);
       flex-grow: 10;
       padding-top: 2rem;
       padding-bottom: 4rem;
       padding-left: 1rem;
       padding-right: 1rem;
 
+
     }
 
     footer {
       flex-grow: 1;
-      height: 60px;
-      max-height: 60px;
+      height: 120px;
+      max-height: 120px;
     }
 
   }

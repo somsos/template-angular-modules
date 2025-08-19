@@ -21,8 +21,26 @@ export const mainRoutes: Routes = [
   },
 
   {
+    path: 'blog/project-introduction',
+    loadComponent: () => import('./main/internals/view/components/project-intruduction/project-introduction.component').then((m) => m.ProjectIntroductionComponent),
+  },
+
+  {
+    path: 'blog/structured-data',
+    loadComponent: () => import('./main/internals/view/components/structured-data/structured-data').then((m) => m.StructuredDataBlogComponent),
+  },
+
+  {
+    path: 'blog/devops-importance',
+    loadComponent: () => import('./main/internals/view/components/importancia-devops/importancia-devops').then((m) => m.ImportanciaDeDevops),
+  },
+
+
+
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'home',
   },
+
 ];

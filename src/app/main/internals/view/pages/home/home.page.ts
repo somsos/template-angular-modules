@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ProjectIntroductionComponent } from '../../components/project-intruduction/project-introduction.component';
+import { BlogsHomePage } from '../blogs-home/blogs-home.page';
 
 @Component({
   selector: 'home-page',
   standalone: true,
-  imports: [ProjectIntroductionComponent],
+  imports: [ BlogsHomePage ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss'
 })

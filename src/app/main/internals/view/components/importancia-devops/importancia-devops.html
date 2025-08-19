@@ -1,0 +1,400 @@
+<div style="max-width: 960px; margin-left: 2rem;">
+
+<h2 id="importancia-de-devops-y-mi-experiencia-implementándolo-en-artesaniastlaxcocom">Importancia de DevOps y mi experiencia implementándolo en artesaniastlaxco.com</h2>
+<hr />
+    <ul>
+      <li><a href="#1-introduccion" (click)="scrollTo('1-introduccion'); $event.preventDefault()">1. Introduccion</a>
+      </li>
+      <li><a href="#2-desarrollo" (click)="scrollTo('2-desarrollo'); $event.preventDefault()">2. Desarrollo</a>
+        <ul>
+          <li><a href="#21-problemas-que-arregla-devops" (click)="scrollTo('21-problemas-que-arregla-devops'); $event.preventDefault()">2.1. Problemas que arregla DevOps</a>
+            <ul>
+              <li><a href="#211-errar-es-de-humanos" (click)="scrollTo('211-errar-es-de-humanos'); $event.preventDefault()">2.1.1. Errar es de humanos</a>
+              </li>
+              <li><a href="#" (click)="scrollTo('212-discrepancias-en-el-codigo'); $event.preventDefault()">2.1.2. Discrepancias en el codigo</a></li>
+              <li><a href="#" (click)="scrollTo('223-probar-grandes-cambios'); $event.preventDefault()">2.2.3. Probar grandes cambios, en vez de probar pequeños cambios</a></li>
+            </ul>
+          </li>
+          <li><a href="#" (click)="scrollTo('23-como-implemente-gitops-en-artesaniastlaxcocom'); $event.preventDefault()">2.3. Como implemente GitOps en artesaniastlaxco.com</a><ul>
+              <li><a href="#" (click)="scrollTo('231-herramientas-usadas-y-observaciones-de-estas'); $event.preventDefault()">2.3.1. Herramientas usadas y observaciones de estas</a>
+                <ul>
+                  <li><a href="#" (click)="scrollTo('2311-git-vs-sub-version'); $event.preventDefault()">2.3.1.1. Git vs sub-version</a></li>
+                  <li><a href="#" (click)="scrollTo('2312-github-vs-gitlab-vs-gitea'); $event.preventDefault()">2.3.1.2. Github vs GitLab vs Gitea</a></li>
+                  <li><a href="#" (click)="scrollTo('2313-drone-vs-jenkins'); $event.preventDefault()">2.3.1.3. Drone vs Jenkins</a> </li>
+                  <li><a href="#" (click)="scrollTo('2314-docker-vs-a-pelo'); $event.preventDefault()">2.3.1.4. Docker vs a pelo</a> </li>
+                  <li><a href="#" (click)="scrollTo('2315-linode-vs-aws'); $event.preventDefault()">2.3.1.5. Linode vs AWS</a></li>
+                  <li><a href="#" (click)="scrollTo('2316-porkbun'); $event.preventDefault()">2.3.1.6. Porkbun</a></li>
+                  <li><a href="#" (click)="scrollTo('2317-lets-encrypt-y-certbot'); $event.preventDefault()">2.3.1.7. Let's Encrypt y Certbot</a></li>
+                </ul>
+              </li>
+              <li><a href="#" (click)="scrollTo('232-flujo-de-trabajo'); $event.preventDefault()">2.3.2. Flujo de trabajo</a>
+                <ul>
+                  <li><a href="#" (click)="scrollTo('2321-pasos-para-implementarlo'); $event.preventDefault()">2.3.2.1. Pasos para implementarlo</a></li>
+                  <li><a href="#" (click)="scrollTo('2322-pasos-para-usarlo'); $event.preventDefault()">2.3.2.2. Pasos para usarlo</a></li>
+                  <li><a href="#" (click)="scrollTo('2324-gitops-en-base-de-datos'); $event.preventDefault()">2.3.2.4. GitOps en base de datos</a></li>
+                  <li><a href="#" (click)="scrollTo('2323-en-caso-de-rollback'); $event.preventDefault()">2.3.2.3. En caso de Rollback</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#" (click)="scrollTo('25-trabajos-pendientes-y-deseados'); $event.preventDefault()">2.5. Trabajos Pendientes y Deseados</a></li>
+        </ul>
+      </li>
+      <li><a href="#" (click)="scrollTo('3-conclusion'); $event.preventDefault()">3. Conclusion</a></li>
+    </ul>
+
+<h2 id="1-introduccion">1. Introduccion</h2>
+<p>La intención de este ensayo, es en tener un recordatorio personal, de porque y como implementar GitOps,
+  y mi experiencia al implementarlo en artesaniastlaxco.com,
+  por lo que esto NO pretende ser una guía, mas bien, una aproximación, vistazo general y/o retrospectiva,</p>
+<p>En este proyecto que yo considero es de un tamaño medio y un solo desarrollador, estaría de acuerdo que usar GitOps
+  es sobre-ingeniería,
+  pero una de mis principales motivaciones en este proyecto, es poner a prueba mis habilidades, asi que me doy el lujo
+  de sacrificar el tiempo tiempo.</p>
+<p>Hay varias formas de implementar GitOps, de hecho, antes de este lo hice usando Jenkins y GitLab, pero esto requiere
+  un servidor de al menos 3gb de ram, en cambio usando Gitea y Drone con 1gb de ram me sobra.</p>
+<p><strong>Nota:</strong> No agregare detalles de como usar estas herramientas para eso esta la documentación oficial, y
+  ni me esforzaré en dar detalles, ya que estos incluso cambian con el tiempo.</p>
+<h2 id="2-desarrollo">2. Desarrollo</h2>
+<h3 id="21-problemas-que-arregla-devops">2.1. Problemas que arregla DevOps</h3>
+<h4 id="211-errar-es-de-humanos">2.1.1. Errar es de humanos</h4>
+<p>Parte de la filosofía de DevOps, es la reducción de la posibilidad de cometer errores, ya que el humano tarde o
+  temprano va a cometerlo.
+  Asi que, si algo lo puede hacer una computadora, que lo haga la computadora, por que su probabilidad cometer un error
+  es mucho menor.</p>
+<p>Uno de los requisitos de DevOps es la <strong>idempotencia</strong>, que es la capacidad de obtener un mismo
+  resultado, a pesar de hacerlo varias veces, algo que en lo que las computadoras son buenas.</p>
+<h4 id="212-discrepancias-en-el-codigo">2.1.2. Discrepancias en el codigo</h4>
+<p>Algo que vi y he escuchado, es que incluso grandes empresas tienen su codigo des-sincronizado entre ambientes,
+  es decir, hay codigo en test que nunca va hacia producción,
+  o peor aun, hay codigo que esta en producción pero no esta en test, y esto pasa porque comúnmente al no usar DevOps,
+  lo que se hace es, usar una computadora personal, donde se genera el ejecutable, y este se sube a producción.</p>
+<p>Esto permite que se suba codigo que nunca se subió al repositorio central, y justificadamente podríamos decir que es
+  culpa del programador, ya que no subió el codigo al repositorio central, pero ley de Murphy, si algo puede salir mal,
+  eventualmente saldrá mal.</p>
+<p>Una forma de imposibilitar este error es con DevOps, el cual dejamos la responsabilidad de generar el ejecutable a un
+  servidor a partir del repositorio central, y que el servidor lo suba a producción.</p>
+<h4 id="223-probar-grandes-cambios">2.2.3. Probar grandes cambios, en vez de probar
+  pequeños cambios</h4>
+<p>Hay veces que se suben cambios solo por tenerlos guardados,
+  y esto provoca tener un desfase moderado o grande entre el codigo en el repositorio central y test o producción, lo
+  cual va en contra de la filosofía de DevOps.</p>
+<p>Y lo mismo, justificadamente podríamos decir que es culpa del programador, por no gatillar el despliegue del
+  ejecutable, pero de nuevo ley de Murphy.</p>
+<p>Para imposibilitar este error, hacemos que cada vez que se suba codigo al repositorio central, se gatille el
+  despliegue del ejecutable a producción o a test, o al ambiente previo correspondiente.</p>
+<p>Y es por esto que usar DevOps no es suficiente, asi que es mejor usar GitOps, o como a mi me gusta llamarle
+  GitDevOps, por que es lo mismo, solo que dejamos en claro que el deploy es generado por por un webhook.</p>
+<h3 id="23-como-implemente-gitops-en-artesaniastlaxcocom">2.3. Como implemente GitOps en artesaniastlaxco.com</h3>
+<h4 id="231-herramientas-usadas-y-observaciones-de-estas">2.3.1. Herramientas usadas y observaciones de estas</h4>
+<p>Mi intención no es descubrir o explicar si una herramienta es mejor que la otra, solo una comparativa, ya que al
+  final solo quiero lograr implementar GitDevOps, es mas si regalaran la ram, yo me hubiera quedado con Jenkins y
+  Gitlab, por que era lo que yo usaba en un proyecto anterior.</p>
+<h5 id="2311-git-vs-sub-version">2.3.1.1. Git vs sub-version</h5>
+<p>Esta sera la única excepción, desde mi perspectiva Git es mejor que sub-version.</p>
+<p>Algo importante a tener en cuenta, al usar git junto con DevOps, es que debemos de usar multiples ramas.</p>
+<p>En mi caso me estoy basando en el git-flow de Vincent Driessen, el cual en resumen, es tener una rama persistente por
+  cada ambiente,
+  las cuales su contenido, es usado para construir el ejecutable de su ambiente que le corresponde,
+  y tener multiples ramas temporales, que son donde se implementan, y luego se combinan con las ramas de ambiente, en el
+  gráfico de abajo se explica mejor.</p>
+<p><img src="/img/blog/01_gitflow.png" alt="Git-flow"></p>
+<p><strong>Actualización</strong>: Creo es mejor usar contenedores en su propia red local, porque
+  de este modo la URL de conexión es siempre la misma, por ejemplo <code>172.X.X.X/...</code>,
+  el cual es imposible que se trate de conectar a un ambiente que no le corresponde, por si hay algún error de mesclar
+  credenciales.
+  Y es mas fácil por que las variables de algún ambiente particular pueden estar concentradas en un solo archivo, en mi
+  caso <code>.evn</code>, y las variables a cambiar son menos, ya que la aplicación esta en su propio contenedor.</p>
+<p><s>Por ejemplo, Yo lo hago declarando una variable de entorno, por decir algo HOST=&quot;debug&quot; en mi maquina
+    local o HOST=&quot;release&quot; en el servidor, de esta manera el ejecutable sabra diferenciar. También, por cada
+    una de estas ramas de ambiente debemos, de poder diferenciar en que modo las ejecutamos, si en debug o e en
+    release.</s></p>
+<p><s>Esto con la finalidad de, usando el mismo codigo poder obtener diferentes comportamientos, según en la maquina que
+    lo ejecutemos. Ya que si no podemos lograr esto, entonces pasaremos un mal rato cambiando variables globales, tener
+    conflictos al combinar ramas, o llegar a tener la idea compleja/errónea de tener ramas como test_local y
+    test_release.</s></p>
+<h5 id="2312-github-vs-gitlab-vs-gitea">2.3.1.2. Github vs GitLab vs Gitea</h5>
+<p>Github es de codigo cerrado y no tiene opción para self-hosting, lo cual me da mucha desconfianza, que la principal
+  pagina de codigo abierto, sea de codigo cerrado y tenga una naturaleza centralizada, a pesar de la naturaleza
+  des-centralizada de git.</p>
+<p><strong>Actualización</strong> Para soluciones simples o empresas que no sean recelosas de su información, github es
+  una solución confiable y &quot;estándar&quot;.</p>
+<p>GitLab, la ultima vez que levante GitLab en mi servidor, por solo tenerlo levantado me consumía 1.3gb de ram.</p>
+<p>Gitea, no tiene ninguno de estos tres problemas, es de codigo abierto, tiene self-hosting, y solo consume 100 y pico
+  megas de ram.</p>
+<p>Algo que me gusto de Gitea, es que solo es un servicio de git,
+  no pretende ser un todo en uno como Github o GitLab, lo cual incluyen cosas que uno nunca va usar, pero Gitea pero se
+  arregla usando OAuth y/o WebHooks, como lo es en mi caso Drone, pero hay otros, como Hugo, Slack, etc, para extender
+  la funcionalidad, y me gustan los servicios especializados.</p>
+<p>Lo que no me gusto de Gitea fue,</p>
+<ul>
+  <li>
+    <p>Uno se confunde con Gogs, ya que Gitea es un fork de Gogs, pero entiendo es lo mismo, yo solo escogí Gitea por
+      que su comunidad es mas activa.</p>
+  </li>
+  <li>
+    <p>Es menos robusto/maduro que Gitlab/GitHub, y complejo si queremos funcionalidad extra.</p>
+  </li>
+  <li>
+    <p>Su uso no es tan extendido como github, Gitlab o GitBucket</p>
+  </li>
+</ul>
+<h5 id="2313-drone-vs-jenkins">2.3.1.3. Drone vs Jenkins</h5>
+<p>Drone me consume unos 25mb de ram y Jenkins me consumía 1gb, pero Jenkins es mucho mas maduro y robusto que Drone.
+</p>
+<p>Un truco de seguridad, que me gusto de Drone, (y seguro igual se puede en Jenkins)
+  es la capacidad de usar secretos de una forma segura y simple, el cual en mi caso uso archivos .ini para guardar
+  contraseñas,
+  pero que estén ahi, es que una riesgo que se filtre este archivo, y por ende nuestros secretos.</p>
+<p>Asi que para <strong>imposibilitar este riesgo de seguridad</strong> es, no tener las contraseñas de producción o
+  test en el archivo .ini,
+  si no que cada vez que se haga un despliegue, hacer que Drone ponga las contraseñas de forma temporal en el .ini,
+  y ya una vez que se usaron se borran.</p>
+<p>Drone en automático guarda las contraseñas de forma encriptada, y las des-encriptan al ponerlas en el archivo .ini,
+  asi que aunque se filtren los encriptados, o trate de capturarlos en el pequeño momento están expuestos, incluso un
+  buen hacker pasara un mal rato.</p>
+<h5 id="2314-docker-vs-a-pelo">2.3.1.4. Docker vs a pelo</h5>
+<p>Yo tengo una relación de amor odio con Docker, pero en resumen vale la pena atravesar por la complejidad extra de
+  Docker, ya que sus ventajas son muchas, como lo es estabilidad, portabilidad, seguridad, re-uso de funcionalidad
+  propia o de la comunidad, etc.</p>
+<p>Por ejemplo, un truco que me gusta de Docker, es su resolución de DNS automática entre contenedores, es decir, en
+  lugar de usar IPs se pueden usar alias de contenedor para conectar aplicaciones entre si, por ejemplo, en lugar de
+  decir que el backend se conecte a la IP 1.1.1.1, se le dice que se conecte a <em>my_database_app_x_test</em>.<br>
+  Con este simple truco, <strong>imposibilitamos el error de</strong> por accidente conectar erróneamente ambientes que
+  no corresponden entre si, por ejemplo, conectar el backend de test con la bd de producción, lo cual puede causar un
+  daño grave.</p>
+<h5 id="2315-linode-vs-aws">2.3.1.5. Linode vs AWS</h5>
+<p>Linode es mas claro y económico, ya que en mi caso AWS, dicen ser mas económicos pero por tarifas flexibles e
+  ignorancia o su alta complejidad, yo termine pagando de mas.</p>
+<p>Lo que me gusta de Linode o en general las IaaS/VPS, es que creas tu servidor linux, y por medio de ssh lo
+  configuras, asi que si sabes manejar linux sabes manejar IaaS.</p>
+<p>En cambio las soluciones SaaS o PaaS, cada empresa tiene sus variantes, por lo que si sabes usar un SaaS de AWS, no
+  necesariamente sabes usar el SaaS de Azure o alguna otra.</p>
+<h5 id="2316-porkbun">2.3.1.6. Porkbun</h5>
+<p>leyendo experiencias de otros, es de los mas recomendados, por que son/tienen;</p>
+<ul>
+  <li>Certificación ICANN: Es algo asi como un nombrador de dominios directo, ya que hay otros que son intermediarios.
+  </li>
+  <li>Privacidad: Hay formas de mandarle un comando <code>who is</code> a un dominio, y hay unos que entregan mucha
+    información por default, mientras que Porkbun no da nada.</li>
+</ul>
+<h5 id="2317-lets-encrypt-y-certbot">2.3.1.7. Let's Encrypt y Certbot</h5>
+<p>Es gratis pero dura 3 meses, asi que use Certbot para cambiar el certificado https de forma automática.<br>
+  Y esta estrategia ya lo usan muchas paginas, y grandes como AWS, Cisco, etc.</p>
+<p><strong>Actualización:</strong> usar el contenedor <a
+    href="https://hub.docker.com/r/nginxproxy/acme-companion">nginxproxy/acme-companion</a> es bastante simple y util,
+  para la generación automática de certificados SSL/HTTPS con Let's Encrypt, el problema es que al parecer no soporta
+  wildcards (ej. *.mydomain.com).
+  Como nota, funciona junto con el contenedor <a
+    href="https://hub.docker.com/r/nginxproxy/nginx-proxy">nginxproxy/nginx-proxy</a>, que es una manera simple de
+  implementar un reverse-proxy, y puede ser configurado por <code>acme-companion</code> para configurar el https de
+  forma automática.</p>
+<h4 id="232-flujo-de-trabajo">2.3.2. Flujo de trabajo</h4>
+<h5 id="2321-pasos-para-implementarlo">2.3.2.1. Pasos para implementarlo</h5>
+<p>1, Con Linode, crear un VPS e instalar Docker.</p>
+<p><img
+    src="/img/blog/02_linode.png"
+    alt="Linode"></p>
+<p>2, Con Porkbun, configurar DNS para mandar el dominio al servidor Linode. (no fue el segundo paso pero asi me hubiera
+  gustado, para ahorrarme trabajo)</p>
+<p>Nota: tener en cuenta que el usuario puede escribir ya sea <code>mi-dominio.com</code> o
+  <code>www.mi-dominio.com</code>, y no para la red, asi que es nuestra responsabilidad hacer que ambas dirijan al mismo
+  lugar.
+</p>
+<p><img
+    src="/img/blog/03_porkbun.png"
+    alt="Porkbun"></p>
+<p>3, Configurar HTTPS con Let's Encrypt y Certbot. para hacer esto necesitamos el nombre de dominio ya hecho.</p>
+<ul>
+  <li>Ver la <a href="https://eff-certbot.readthedocs.io/en/stable/using.html">documentación oficial</a></li>
+</ul>
+<p><img
+    src="/img/blog/04_lets_encrypt.png"
+    alt="Let's Encrypt"></p>
+<blockquote>
+  <p><strong>Actualización</strong>: Mejor usar <code>docker-compose.yml</code>, es &quot;mas estándar&quot; y
+    comodidades para soluciones comunes, creo que un desarrollador es mas probable que se sienta familiarizado con
+    docker compose que con <code>make</code> con el que hice artesaniastlaxco.com.</p>
+</blockquote>
+<p>4, Levante instancia de Gitea con docker, y por seguridad limite el acceso al repositorio, solo usando llaves ssh.
+</p>
+<p>5, Levante instancia de Drone con docker, e instale un shell runner</p>
+<ul>
+  <li>Me hubiera gustado mas un docker runner (separar UI y servidor que ejecuta los scripts), pero para reducir la
+    complejidad, lo hice asi, ya que necesitaba contenedores Docker in Docker.</li>
+  <li>El runner es para Drone tenga acceso a la terminal.</li>
+</ul>
+<p><img
+    src="/img/blog/05_getea_drone.png"
+    alt="Gitea and Drone"></p>
+<p>6, Cree un makefile por cada capa (base de datos, backend, frontend), para realizar tareas como, compilar, desplegar,
+  levantar, etc.</p>
+<ul>
+  <li>Por ejemplo</li>
+</ul>
+<pre><code class="language-make"><span class="hljs-comment">#bd/makefile</span>
+<span class="hljs-section">db_start:</span>
+  docker run --name <span class="hljs-variable">$(container_name)</span> --rm --detach \
+    -v <span class="hljs-variable">$(path_volume)</span>:/var/lib/postgresql/data \
+    -p $&#123;PORT&#125;:5432 \
+    --network <span class="hljs-variable">$(NET)</span> \
+    -e POSTGRES_DB=<span class="hljs-variable">$(NAME)</span> \
+    -e POSTGRES_USER=<span class="hljs-variable">$(USER)</span> \
+    -e POSTGRES_PASSWORD=<span class="hljs-variable">$(PASS)</span> \
+    postgres-alpine
+
+<span class="hljs-comment">#back/makefile</span>
+<span class="hljs-section">back_start:</span>
+  docker run --detach --rm --name <span class="hljs-variable">$(name_container)</span> \
+    -e APP_HOST=remote \
+    -v <span class="hljs-variable">$(path_dist)</span>:/dist \
+    -v <span class="hljs-variable">$(path_certs)</span>:/certs \
+    -w /dist \
+    -p <span class="hljs-variable">$(PORT)</span>:<span class="hljs-variable">$(PORT)</span> \
+    --network <span class="hljs-variable">$(NET)</span> \
+    alpine \
+    ./<span class="hljs-variable">$(exe_name)</span>
+
+<span class="hljs-comment">#back/makefile</span>
+<span class="hljs-section">build_front:</span>
+  <span class="hljs-comment">#Compile tailwind styles</span>
+  <span class="hljs-variable">$(cmd_node_container)</span> \
+    ./node_modules/tailwindcss/lib/cli.js --minify \
+      --config ./tailwind.config.cjs \
+      --input ./src/input.css \
+      --output <span class="hljs-variable">$(path_build)</span>/tailwin.css
+</code></pre>
+<p>7, Por cada capa cree un pipeline en forma de .drone.yml, el cual usa los pasos definidos en el makefile.</p>
+<ul>
+  <li>Por ejemplo.</li>
+</ul>
+<pre><code class="language-yml"><span class="hljs-comment">#bd/.drone.yml</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">pipeline</span>
+<span class="hljs-attr">type:</span> <span class="hljs-string">exec</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">database-change</span>
+
+<span class="hljs-attr">steps:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">migrate_up</span>
+  <span class="hljs-attr">environment:</span>
+    <span class="hljs-attr">USER:</span>
+      <span class="hljs-attr">from_secret:</span> <span class="hljs-string">USER</span>
+    <span class="hljs-attr">PASS:</span>
+      <span class="hljs-attr">from_secret:</span> <span class="hljs-string">PASS</span>
+  <span class="hljs-attr">commands:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">echo</span> <span class="hljs-string">&quot;\r\nUSER=$USER\r\nPASS=$PASS&quot;</span> <span class="hljs-string">&gt;&gt;</span> <span class="hljs-string">.ini</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">make</span> <span class="hljs-string">dbStop</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">make</span> <span class="hljs-string">dbStart</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">make</span> <span class="hljs-string">dbMigrateUp</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">make</span> <span class="hljs-string">dbRemoveSecrets</span>
+
+<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">migrate_down</span>
+  <span class="hljs-attr">commands:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">make</span> <span class="hljs-string">dbMigrateDown</span>
+  <span class="hljs-attr">when:</span>
+    <span class="hljs-attr">event:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">rollback</span>
+</code></pre>
+<p>8, Crear rama producción y test, y subirlas a Gitea, con sus respectivas variables de conexión.</p>
+<p><img
+    src="/img/blog/06_git_branches.png"
+    alt="Git branches"></p>
+<p>9, Conecte Drone y Gitea, para que Gitea le mande un evento de que ocurrió un git push, usando un webhook, y asi
+  gatillar el pipeline.</p>
+<p>10, Asegurar que ambas ramas se despliegan, en su ambiente correspondiente.</p>
+<p><img
+    src="/img/blog/07_webhook_pipeline.png"
+    alt="07 Webhook Pipeline"></p>
+<h5 id="2322-pasos-para-usarlo">2.3.2.2. Pasos para usarlo</h5>
+<p>Pasos para desplegar</p>
+<p>1, Creo una rama a partir producción.</p>
+<ul>
+  <li>por ejemplo, <em>f_login</em> (f de feature, leer el GitFlow mencionado)</li>
+</ul>
+<p><img
+    src="/img/blog/08_using_1.png"
+    alt="07 Webhook Pipeline"></p>
+<p>2, Hago los cambios correspondientes en la rama temporal, y al terminar hago commit en dicha rama.</p>
+<ul>
+  <li>por ejemplo, en <em>f_login</em> hago el codigo que implementa el login, con sus respectivos commits (círculos)
+  </li>
+</ul>
+<p><img
+    src="/img/blog/08_using_2.png"
+    alt="07 Webhook Pipeline"></p>
+<p>3, Me paso a la rama de ambiente, y traigo los cambios de la rama temporal a la rama de ambiente previo.</p>
+<ul>
+  <li>Por ejemplo, me paso a la rama test, estando en test traigo los cambios de la rama <em>f_login</em></li>
+  <li>De hecho en el merge uso las banderas <code>--no-commit</code> y <code>--no-ff</code>, y usando el IDE, en mi caso
+    vscode, veo que cambios se van a aplicar a la rama test.</li>
+</ul>
+<p><img
+    src="/img/blog/08_using_3_merge.png"
+    alt="07 Webhook Pipeline"></p>
+<p>4, Ya con los cambios de la rama temporal dentro de la rama de ambiente previo, hago el push a Gitea, el cual le
+  avisara a Drone y se verán implementados los cambios en el ambiente previo.</p>
+<ul>
+  <li>Por ejemplo, ya que la rama test tiene los cambios de la rama f_login, hago push a Gitea y este le notificara a
+    Drone y este desplegara el nuevo ejecutable con el cual tiene el login implementado, en test.</li>
+</ul>
+<p><img
+    src="/img/blog/08_using_4_deploy.png"
+    alt="07 Webhook Pipeline"></p>
+<p>5, Se hacen ls pruebas en el ambiente previo, y se inspecciona si la implementación no tira el ambiente o haga que
+  funcione mal, o si se decide que aun faltan mas cosas, etc.</p>
+<p>6, Ya que el cambio se le da visto bueno en el ambiente previo, los cambios se pasan a producción, y se hace lo
+  mismo, se usan las banderas <code>--no-commit</code> y <code>--no-ff</code>, para ver que están entrando solo los
+  cambios esperados, se hace el commit, y al final el push a Gitea y Drone hará el resto, y listo, tenemos un cambio
+  probado y desplegado en producción.</p>
+<p><img
+    src="/img/blog/08_using_4_deploy_prod.png"
+    alt="07 Webhook Pipeline"></p>
+<h5 id="2324-gitops-en-base-de-datos">2.3.2.4. GitOps en base de datos</h5>
+<p>Este es un tema extenso, el cual mejor hare otro articulo concentrándome en este, y para que hacer un teléfono
+  descompuesto, creo no hay mejor articulo del tema que el de <a
+    href="https://martinfowler.com/articles/evodb.html">Martin Fowler</a>.</p>
+<p>Pero en resumen uso scripts con soda-fizz que tienen el DDL-SQL para hacer las migraciones, ya sea para arriba o para
+  abajo, y drone tiene la posibilidad de levantar un evento deploy o rollback, el cual se pude diferenciar, si es
+  deploy, ejecuta <em>script_a.up.fizz</em>, y en caso de ser un rollback, entonces ejecuta <em>script_a.down.fizz</em>,
+  de hecho se pude ver arriba en el archivo <code>bd/.drone.yml</code>.</p>
+<h5 id="2323-en-caso-de-rollback">2.3.2.3. En caso de Rollback</h5>
+<p>Hay despliegues que salen mal, y para dar un paso atrás, lo que yo uso es un, <code>git revert</code> el cual no
+  borra los cambios, si no que, pasa lo hay en un paso anterior y lo pasa al frente.</p>
+<pre><code class="language-r">        revert
+          <span class="hljs-operator">|</span>
+<span class="hljs-number">1</span> <span class="hljs-operator">-&gt;</span> <span class="hljs-number">2</span> <span class="hljs-operator">-&gt;</span> <span class="hljs-number">3</span> <span class="hljs-operator">-&gt;</span> <span class="hljs-number">2</span> <span class="hljs-operator">-&gt;</span> <span class="hljs-number">3</span>b <span class="hljs-operator">-&gt;</span> <span class="hljs-number">4</span>
+      <span class="hljs-punctuation">\</span>       <span class="hljs-operator">/</span>
+        <span class="hljs-operator">-</span><span class="hljs-operator">-</span><span class="hljs-operator">-</span><span class="hljs-operator">-</span><span class="hljs-operator">-</span>
+<span class="hljs-comment">#En este caso &quot;2&quot; estaba funcionando bien,</span>
+<span class="hljs-comment">#luego al desplegar &quot;3&quot; salio algo mal,</span>
+<span class="hljs-comment">#se hizo revert y se despliega de nuevo lo que hay en &quot;2&quot;,</span>
+<span class="hljs-comment">#&quot;3b&quot; representa la corrección de &quot;3&quot;,</span>
+<span class="hljs-comment">#&quot;4&quot; representaría que se regresa al flujo normal de trabajo.</span>
+</code></pre>
+<p>De esta forma queda registrado que se hizo un revert, y permitiendo ver que se hizo para corregirlo.
+  Y también re-usamos el pipeline de despliegue normal.</p>
+<p>Si esto no funciona tenemos los respaldos. pero hacer un rollback usando respaldo es una tarea mas compleja, la cual
+  solo recomendaría en casos de emergencia.</p>
+<h3 id="25-trabajos-pendientes-y-deseados">2.5. Trabajos Pendientes y Deseados</h3>
+<p>Pendientes</p>
+<ol>
+  <li>Subir o descargar respaldo en automático, ya que lo hago de forma manual.</li>
+  <li>Usar una app de android, para revisar la salud del servidor y/o cada capa, cada x tiempo.</li>
+  <li>Incluir la ejecución de test unitarios en el pipeline.</li>
+  <li>Mayores medidas de seguridad, ya que hay bots constantemente atacando mi servidor.</li>
+  <li>Autorizaciones de desarrolladores, para que no todos puedan desplegar a producción.</li>
+</ol>
+<p>Deseados</p>
+<ol>
+  <li>Uso de Kubernetes, para manejar un cluster de servidores.</li>
+  <li>Separación de codigo por módulos y/o usar git-sub-modules, para poder actualizarlos de forma automática, como lo
+    hacen las imágenes de docker o librerías de node, por ejemplo, de v1.1.^, y en automático se actualize de 1.1.4 a
+    1.1.5.</li>
+</ol>
+<h2 id="3-conclusion">3. Conclusion</h2>
+<p>Implementar GitOps es complejo, pero no necesariamente tanto (hablando de proyectos mediano-chicos), y si tomamos en
+  cuenta sus beneficios, creo vale la pena dedicarle un momento para implementarlo.</p>
+<p>Drone y Gitea, son una alternativa mas ligera a Gitlab y Jenkins, o mas independiente a Github-actions</p>
+<p>Es recomendable tener ya listo el DNS y https configurados, antes de implementar DevOps.</p>
+<p>El proveedor de VPSs <a href="https://contabo.com/">contabo.com</a> ofrece muy buen rendimiento y precio, en mi caso
+  a inicios de agosto de 2025 conseguí ina instancia Ubuntu server de 8gb dual core.</p>
+</div>

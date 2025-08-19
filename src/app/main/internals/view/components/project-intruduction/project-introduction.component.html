@@ -1,23 +1,29 @@
-<div>
+<div style="max-width: 960px; margin-left: 2rem;">
+
+  <h2 id="devops-pipeline">DevOps pipeline</h2>
+
+  <hr>
+
   <h2 id="introduction">Introduction</h2>
   <p>This is a template for future projects with an architecture in modules, mainly
-  based on the following books, ordered by priority:</p>
+    based on the following books, ordered by priority:</p>
   <ol>
-  <li>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</li>
-  <li>Learning Angular: A no-nonsense guide to building web applications with Angular by Aristeidis and Pablo</li>
-  <li>Spring in Action, 6Ed by Craig Walls</li>
-  <li>Spring Boot and Angular Hands-on full stack by Devlin Basilan and Seiji Ralph</li>
-  <li>Clean Code by Robert C. Martin</li>
-  <li>(Reading) Code That Fits in Your Head by C. Martin.</li>
-  <li>(Pending) Continuous Delivery Pipelines by Dave Farley.</li>
+    <li>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</li>
+    <li>Learning Angular: A no-nonsense guide to building web applications with Angular by Aristeidis and Pablo</li>
+    <li>Spring in Action, 6Ed by Craig Walls</li>
+    <li>Spring Boot and Angular Hands-on full stack by Devlin Basilan and Seiji Ralph</li>
+    <li>Clean Code by Robert C. Martin</li>
+    <li>(Reading) Code That Fits in Your Head by C. Martin.</li>
+    <li>(Pending) Continuous Delivery Pipelines by Dave Farley.</li>
   </ol>
   <p>The idea is to follow a specific architecture and patterns from a specific source
-  as faithfully as possible, in this case, the book <em>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</em>.
-  This way, if several people work on the same code, they won’t depend on
-  individuals who might not be available for consultation, but rather on defined
-  sources and guides, which are much more likely to remain part of the company's
-  resources. This allows new developers to integrate or replace others using the
-  same foundation.</p>
+    as faithfully as possible, in this case, the book <em>Get Your Hands Dirty on Clean Architecture by Tom
+      Hombergs</em>.
+    This way, if several people work on the same code, they won’t depend on
+    individuals who might not be available for consultation, but rather on defined
+    sources and guides, which are much more likely to remain part of the company's
+    resources. This allows new developers to integrate or replace others using the
+    same foundation.</p>
 
 
 
@@ -28,22 +34,22 @@
 
   <h2 id="devops-pipeline">DevOps pipeline</h2>
   <p>The idea is to abstract or reduce the commands to build and deploy,
-  to only the following two docker commands:</p>
+    to only the following two docker commands:</p>
   <ul>
-  <li><code>docker compose build db|back|front</code></li>
-  <li><code>docker compose up -d db|back|front</code></li>
+    <li><code>docker compose build db|back|front</code></li>
+    <li><code>docker compose up -d db|back|front</code></li>
   </ul>
   <p>These two commands are standard on those who knows docker, and from
-  just watching them, They can get an idea of how it works from behind, that
-  in resume, the <code>docker-compose.yml</code> defines how to run the containerized app,
-  and the <code>Dockerfile</code> defines how to build it and deploy it.</p>
+    just watching them, They can get an idea of how it works from behind, that
+    in resume, the <code>docker-compose.yml</code> defines how to run the containerized app,
+    and the <code>Dockerfile</code> defines how to build it and deploy it.</p>
   <p>So in theory this two commands could build and deploy any kind of
-  app, whether it uses Java, Python, GoLand, Node, Angular, React, etc.</p>
+    app, whether it uses Java, Python, GoLand, Node, Angular, React, etc.</p>
   <p>Here is a graph of the working flow, which goes from the git push to the deploy
-  of the app.</p>
+    of the app.</p>
   <p><img src="/img/blog/01_devops-pipeline.png" alt="devops pipeline flow"></p>
   <p>For the connections and HTTPS management, I'm using a reverse proxy to
-  centralize and facilitate the implementation.</p>
+    centralize and facilitate the implementation.</p>
   <p><img src="/img/blog/02_reverse-proxy-conf.png" alt="reverse-proxy-conf"></p>
 
 
@@ -56,37 +62,37 @@
 
   <h2 id="frontend-code-architecture">Frontend code architecture</h2>
   <p>The same as was described in the book <em>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</em>
-  in the chapter <em>modularity through components</em>, which here we can see the basic
-  principles.</p>
+    in the chapter <em>modularity through components</em>, which here we can see the basic
+    principles.</p>
   <p><img src="/img/blog/03_component-based_architecture.png" alt="component based architecture"></p>
   <p>Here a more specific example.</p>
   <p><img src="/img/blog/04_component_real_example.png" alt="component based architecture example"></p>
   <p>The important thing here is to always keep in mind what the modules can and
-  cannot expose. If there is a dependency between modules, it should only happen
-  through interfaces stored in another public module component space or at a
-  higher level of the module.</p>
+    cannot expose. If there is a dependency between modules, it should only happen
+    through interfaces stored in another public module component space or at a
+    higher level of the module.</p>
   <p>Because the book is based on how Java Spring works, I have made a few small
-  adjustments in this application to better align with the way Angular works.</p>
+    adjustments in this application to better align with the way Angular works.</p>
   <ul>
-  <li>
-  <p>Instead of using the package/folder name &quot;api,&quot; I use &quot;externals&quot; because
-  I believe it is more expressive for someone without context or background,
-  making the intended use of this type of architecture clearer.</p>
-  </li>
-  <li>
-  <p>The whole application works similarly to a component, but instead of calling
-  it &quot;API&quot;, I call it &quot;0commons&quot;. This serves as an intermediate layer for
-  dependencies. In other words, instead of components depending on each other,
-  they depend on 0commons, making relationships less complex and easier to
-  understand.</p>
-  </li>
+    <li>
+      <p>Instead of using the package/folder name &quot;api,&quot; I use &quot;externals&quot; because
+        I believe it is more expressive for someone without context or background,
+        making the intended use of this type of architecture clearer.</p>
+    </li>
+    <li>
+      <p>The whole application works similarly to a component, but instead of calling
+        it &quot;API&quot;, I call it &quot;0commons&quot;. This serves as an intermediate layer for
+        dependencies. In other words, instead of components depending on each other,
+        they depend on 0commons, making relationships less complex and easier to
+        understand.</p>
+    </li>
   </ul>
   <p>Here is part of the object relation diagram of this app to show a summary of the
-  organization of the architecture. Other modules should follow the same
-  structure.</p>
+    organization of the architecture. Other modules should follow the same
+    structure.</p>
   <ul>
-  <li>Note: Modules Auth and Users are finished; Products and ShoppingCar are just
-  a representation of how they would look.</li>
+    <li>Note: Modules Auth and Users are finished; Products and ShoppingCar are just
+      a representation of how they would look.</li>
   </ul>
   <p><img src="/img/blog/05_components-and-0commons-component.png" alt="component based architecture example"></p>
 
@@ -99,33 +105,35 @@
 
   <h2 id="backend-hexagonal-architecture">Backend hexagonal architecture</h2>
   <p>As I mentioned in the introduction, I'm doing my best to follow the architecture
-  defined in the first book. However, it's important to understand that there are
-  different ways to apply this architecture, mostly depending on the size of the
-  project. In my case, I’m following an approach suitable for a medium-sized
-  project. First, because time, and second, because I’m just one developer.</p>
+    defined in the first book. However, it's important to understand that there are
+    different ways to apply this architecture, mostly depending on the size of the
+    project. In my case, I’m following an approach suitable for a medium-sized
+    project. First, because time, and second, because I’m just one developer.</p>
   <p>From the perspective of entities, I’m following this diagram:</p>
   <p><img src="/img/blog/06_hexagonal_architecture_entities.png" alt="hexagonal architecture"></p>
   <p>From the perspective of artifacts, I’m following the second column of this
-  diagram, which shows different ways to apply or evolve the project artifacts:</p>
+    diagram, which shows different ways to apply or evolve the project artifacts:</p>
   <p><img src="/img/blog/07_artifacts.png" alt="artifacts"></p>
   <p>The important part here is to keep the logic and domain independent of
-  dependencies, because the core principle of hexagonal architecture is to
-  separate the layers like an onion. The center of the onion is the domain and
-  logic, which should not be aware of the existence of the outer layers.</p>
+    dependencies, because the core principle of hexagonal architecture is to
+    separate the layers like an onion. The center of the onion is the domain and
+    logic, which should not be aware of the existence of the outer layers.</p>
   <p>But theory and practice are not always the same. Here's a diagram of the actual
-  architecture of this project. It doesn’t follow the book exactly, but the
-  intention is not to be lazy or negligent. The goal is to meet deadlines and
-  requirements, given the limited resources like time and knowledge.</p>
+    architecture of this project. It doesn’t follow the book exactly, but the
+    intention is not to be lazy or negligent. The goal is to meet deadlines and
+    requirements, given the limited resources like time and knowledge.</p>
   <p>I'm also applying other well-known principles not mentioned in the main book,
-  which are in another secondary books, and I believe will help make the project
-  easier to maintain and evolve.</p>
+    which are in another secondary books, and I believe will help make the project
+    easier to maintain and evolve.</p>
   <p>Here is the point of view of artifacts.</p>
   <p><img src="/img/blog/08_my-artifacts.png" alt="my artifacts"></p>
   <p>Here is the point of view of entities.</p>
   <p><img src="/img/blog/09_my-architecture.png" alt="my hexagonal architecture"></p>
   <h2 id="todo">ToDo</h2>
   <ul class="contains-task-list">
-  <li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Use the Flyway to implement Evolutionary Database Design</li>
-  <li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> Implement rollback on the 3 layers</li>
+    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Use the Flyway to
+      implement Evolutionary Database Design</li>
+    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Implement rollback on the
+      3 layers</li>
   </ul>
 </div>

@@ -1,0 +1,480 @@
+<div style="max-width: 960px; margin-left: 2rem;">
+  <h2>Importancia de los datos estructurados y mi experiencia aplicándolos</h2>
+  <hr />
+  <ul>
+      <ul>
+        <li><a href="#" (click)="scrollTo('1-introduccion'); $event.preventDefault()">1. Introducción</a></li>
+        <li><a href="#" (click)="scrollTo('2-breve-recordatorio'); $event.preventDefault()">2. Breve Recordatorio</a>
+          <ul>
+            <li><a href="#" (click)="scrollTo('21-que-problemas-solucionan'); $event.preventDefault()">2.1. Que problemas solucionan</a></li>
+            <li><a href="#" (click)="scrollTo('22-soluciones-propuestas'); $event.preventDefault()">2.2. Soluciones propuestas</a></li>
+            <li><a href="#" (click)="scrollTo('23-cuales-son-las-ventajas-y-desventajas-de-usarlos'); $event.preventDefault()">2.3. Cuales son las ventajas y desventajas de usarlos</a>
+              <ul>
+                <li><a href="#" (click)="scrollTo('231-como-luci'); $event.preventDefault()">2.3.1 Como lucirían estas características avanzadas de la web3.0</a></li>
+              </ul>
+            </li>
+            <li><a href="#" (click)="scrollTo('24-la-historia-de-las-impresoras'); $event.preventDefault()">2.4. La historia de las impresoras</a></li>
+            <li><a href="#" (click)="scrollTo('25-preguntas-frecuentes'); $event.preventDefault()">2.5. Preguntas frecuentes</a></li>
+          </ul>
+        </li>
+        <li><a href="#" (click)="scrollTo('3-como-luciria'); $event.preventDefault()">3. Como luciría el stack HTML/CSS/JS/JSON-LD</a>
+          <ul>
+            <li><a href="#" (click)="scrollTo('311-ventajas'); $event.preventDefault()">3.1.1 Ventajas</a></li>
+            <li><a href="#" (click)="scrollTo('312-desventajas'); $event.preventDefault()">3.1.2 Desventajas</a></li>
+          </ul>
+        </li>
+        <li><a href="#" (click)="scrollTo('4-como-lucir'); $event.preventDefault()">4. Como luciría Svelte usando JSON-LD</a>
+          <ul>
+            <li><a href="#" (click)="scrollTo('41-ventajas'); $event.preventDefault()">4.1. Ventajas</a></li>
+            <li><a href="#" (click)="scrollTo('42-desventajas'); $event.preventDefault()">4.2. Desventajas</a></li>
+          </ul>
+        </li>
+        <li><a href="#" (click)="scrollTo('5-mi-experiencia'); $event.preventDefault()">5. Mi experiencia</a></li>
+        <li><a href="#" (click)="scrollTo('conclusion'); $event.preventDefault()">Conclusion</a></li>
+      </ul>
+  </ul>
+  <h2 id="1-introduccion">1. Introducción</h2>
+  <p>HTML es estructura, CSS estilos y Javascript es programación, por lo
+    que falta una parte muy importante para cualquier aplicación, y esta
+    parte son los datos, y a pesar de que ya existen los <strong>datos estructurados</strong>
+    para solucionar esta parte, y están en distintos vocabularios como RDfa,
+    micro-datos y JSON-LD, que ya han sido bien probados y usados por grandes
+    empresas, parece ser un tema poco conocido e incluso olvidando en el mundo
+    del desarrollo web, tanto por el común de sus desarrolladores como aquellos
+    que lo enseñan.</p>
+  <p>Yo he buscado sin éxito artículos que traten los datos estructurado de
+    una forma clara y practica, por lo cual tuve un mal rato entendiéndolos,
+    y ahora que los entiendo en un sentido practico, veo que es algo sencillo
+    pero es fácil complicarse.</p>
+  <p>Motivado por esto escribo este articulo, y mi intención no es es definir
+    una nueva forma de usar los datos estructurados, eso ya se invento, mis
+    intenciones son las siguientes.</p>
+  <ol>
+    <li>Exponerlo de una forma fundamental que explique como pueden ser usarlos.</li>
+    <li>Dejar claro que es mas fácil de lo que parece.</li>
+    <li>Motivar a aprenderlos incluso en un nivel principiante, para un internet un poco mejor.</li>
+    <li>Exponer mi experiencia personal usándolos en artesaniastlaxco.com.
+    </li>
+    <li>Explicar que debemos entregar documentos y luego aplicaciones, para no limitar su potencial.</li>
+    <li>Y por que no, encontrar alguien que corrija mi aproximación de usarlos.</li>
+  </ol>
+  <h2 id="2-breve-recordatorio">2. Breve Recordatorio</h2>
+  <h3 id="21-que-problemas-solucionan">2.1. Que problemas solucionan</h3>
+  <p>Timothy John Berners-Lee (invertor del www), dice que la web 2.0 (la actual)
+    esta hecha para los humanos y no para las maquinas, lo cual trae <a
+      href="https://es.wikipedia.org/wiki/Web_sem%C3%A1ntica#Retos">5 problemas</a> (amplitud, vaguedad, incertidumbre,
+    inconsistencia y engaño)
+    los cuales se tuvieron en mente para que los datos estructurados
+    solucionen estos 5 problemas.</p>
+  <p>Y lo que es peor, el SEO insuficiente ni siquiera esta mencionado en estos 5 problemas,
+    ya que esto es debido a una incompetencia técnica, es decir que, el abuso de
+    javascript en proyectos que requieren SEO, es un error que ni debería
+    de estar pasando, pero en cambio pasa.</p>
+  <p>Comúnmente las paginas web están conformadas por datos no estructurados,
+    y no estandarizados, lo que provoca que procesar los datos de una forma
+    externa, tal como lo hace el google bot u otras computadoras, sea difícil
+    o ineficiente.</p>
+  <p>Por ejemplo, si en html tenemos un párrafo o una lista, para el google bot no sera
+    mas que texto, y lo único que podrá hacer es ver palabras clave, las
+    cuales carecerán de contexto, y una forma comprobar esto es buscar en google
+    &quot;playeras <strong>sin</strong> rayas negras&quot; y nos aparecerán playeras <strong>con</strong> rayas negras.
+  </p>
+  <p>Por el lado del json a pesar de estar estructurado sale igual o peor,
+    en primera, por que comúnmente se obtiene ejecutando el javascript en el navegador
+    para que se muestre como html, por lo tanto el google bot para obtener
+    la información debe ejecutar el javascript, lo cual no siempre lo hace
+    y/o lo condiciona, porque si multiplicamos ese costo de procesamiento por
+    los millones de documentos a indexar, es un costo enorme.</p>
+  <p>Dos, aunque el html ya se muestre en el documento, para que el google
+    bot lo lea directo, carece de un estándar, es decir, hay muchas
+    maneras expresar algo.</p>
+  <p>Por ejemplo, algunos consideraran que su producto tiene color
+    mientras que otros no, y las propiedades pueden significar diferentes
+    cosas, un precio en pesos no es el mismo un precio en dólares,
+    o también el idioma, unos usaran chino y otros ingles.</p>
+  <h3 id="22-soluciones-propuestas">2.2. Soluciones propuestas</h3>
+  <p>En este articulo nos concentraremos nada mas en el problema del SEO
+    insuficiente, el cual usar datos estructurados seria uno de los pasos
+    para solucionar este problema, pero también es uno de los primeros pasos
+    para solucionar los 5 problemas mencionados que tiene la actual web 2.0.</p>
+  <p>En el 2011 nació la organización <a href="http://schema.org">schema.org</a> la cual propone varios
+    esquemas definidos en los vocabularios RDFa, JSON-LD y micro-datos,
+    los cuales actualmente ya los usan por millones de sitios entre ellos;
+    Wikipedia, Amazon, IMDB, mercado libre y etc.</p>
+  <p>Otra, es renderizar del lado del servidor, ya que el internet nació
+    siendo conjunto de documentos, y por el aumento de funcionalidades en este, la web
+    evoluciono a que estos documentos sean gestionados por aplicaciones,
+    pero parece que estos documentos fueron sustituidos por aplicaciones,
+    como por ejemplo Twitter o Facebook,
+    lo cual trae varios problemas que podríamos evitarnos, siguiendo una evolución
+    que no borre pasos anteriores.</p>
+  <p>Asi que repasando, al publicar información de carácter publico, no hay
+    que olvidar que el internet es un conjunto de documentos que son gestionados por
+    aplicaciones. Y es por esto que necesitamos que el servidor nos entregué
+    este documento, y luego ya gestionamos este documento con una aplicación.</p>
+  <h3 id="23-cuales-son-las-ventajas-y-desventajas-de-usarlos">2.3. Cuales son las ventajas y desventajas de usarlos
+  </h3>
+  <p>Las principales serian que solucionarían los 5 problemas de la web2.0 antes mencionados,
+    también estaríamos usando estructuras estandarizadas, es decir las paginas tendrían información
+    definida de la misma manera, lo cual traería las siguientes ventajas.</p>
+  <ul>
+    <li>
+      <p>Los motores de búsqueda pueden reconocer los datos estructurados sin
+        que nosotros hagamos nada, incluso mostrando nuestra información
+        directamente en los resultados del motor de búsqueda.</p>
+    </li>
+    <li>
+      <p>Nuestra pagina podría funcionar como una base de datos, para cualquier
+        otro desarrollador o aplicación, y extraer datos de forma automática.</p>
+    </li>
+    <li>
+      <p>Damos un primer paso hacia la web3.0, permitiendo características mas
+        avanzadas, ya sea implementadas por nosotros o terceros, por ejemplo, grafos de
+        conocimiento en RDF, y asi poder vincular nuestra información a otros sitios
+        de propósito mas general, como lo es <a href="https://lod-cloud.net">Linked Open Data Cloud</a>
+        y por medio de este tipo de sitios se puedan hacer consultas SPARQL con ontologías y razonadores.</p>
+    </li>
+    <li>
+      <p>Es compatible con la nueva propuesta popular de la web 3.0, de usar
+        DAPPs con blockchain.</p>
+    </li>
+    <li>
+      <p>Dejaríamos de romper el primer principio SOLID (responsabilidad única)
+        ya que actualmente, combinamos lo que es la estructura y los datos, es decir,
+        el html y los datos, lo cual a pesar de que no lo parezca complica mas
+        las cosas.</p>
+    </li>
+  </ul>
+  <p>Una de las desventajas es que tendríamos que dar los siguientes pasos
+    extra en nuestros proyectos.</p>
+  <ol>
+    <li>Consultar los lineamientos de <a href="http://schema.org">schema.org</a></li>
+    <li>Adaptar nuestros datos a estos lineamientos al mostrarlos en nuestro documento html.</li>
+  </ol>
+  <h4 id="231-como-luci">2.3.1 Como lucirían estas características avanzadas de la web3.0</h4>
+  <p><strong>Errata</strong> No soy un experto en web semántica o ciencia de datos, solo
+    lo he tocado su superficie, asi que puede que tenga mal interpretaciones,
+    me baso en mi experiencia, no en fuentes validadas.</p>
+  <p>Me parece importante mencionar que estos son temas avanzados, asi que hay que tener
+    cuidado al quererlos dominar, ya que es un tema extenso y de carácter
+    matemático, ya que incluye cosas como teoría de conjuntos, estadística, y lógica difusa,
+    por lo que recomiendo no meterse mucho en esto, al menos que quieras
+    irte a algo como ciencia de datos. Y como todo estándar no contempla
+    muchos casos específicos, y al no ser un tema muy extendido, tendrás un mal rato aplicándolos.</p>
+  <p>Pero por otro lado, se puede decir que solo es SQL, que también tiene un carácter matemático y
+    muchos no se molestan en entenderlo desde esa perspectiva, y aun asi lo manejamos, con la
+    diferencia de que en lugar de que la fuente de datos sea una programa
+    como PostgreSQL, puede ser un archivo html que contiene datos estructurados.</p>
+  <p>En este caso se ilustra como luciría la consulta SPARQL, para extraer
+    los productos que contienen la palabra &quot;trompo&quot; tanto en amazon, como
+    también en artesaniastlaxco al mismo tiempo.</p>
+  <pre><code class="language-sql"><span class="hljs-comment">-- No es una consulta real</span>
+
+<span class="hljs-comment">--Consulta</span>
+PREFIX ex: <span class="hljs-operator">&lt;</span>https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>schema.org<span class="hljs-operator">/</span>Product<span class="hljs-operator">/</span><span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">SELECT</span> ?name ?price ?source
+<span class="hljs-keyword">FROM</span> <span class="hljs-operator">&lt;</span>https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>amazon.com<span class="hljs-operator">/</span>products<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">FROM</span> <span class="hljs-operator">&lt;</span>https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>artesaniastlaxco.com<span class="hljs-operator">/</span>productos<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">WHERE</span> [
+  [
+    ?product ex:name ?name ;
+             ex:price ?price ;
+             ex:source &quot;artesaniastlaxco.com&quot; .
+    <span class="hljs-keyword">FILTER</span> (<span class="hljs-keyword">CONTAINS</span>(LCASE(?name), &quot;trompo&quot;))
+  ]
+  <span class="hljs-keyword">UNION</span>
+  [
+    ?product ex:name ?name ;
+             ex:price ?price ;
+             ex:source &quot;amazon.com&quot; .
+    <span class="hljs-keyword">FILTER</span> (<span class="hljs-keyword">CONTAINS</span>(LCASE(?name), &quot;trompo&quot;))
+  ]
+]
+
+<span class="hljs-comment">--Resultado</span>
+<span class="hljs-comment">-------------------------------------------------------------</span>
+<span class="hljs-operator">|</span> name                 <span class="hljs-operator">|</span> price  <span class="hljs-operator">|</span> source                 <span class="hljs-operator">|</span>
+<span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>
+<span class="hljs-operator">|</span> &quot;Collar con trompo&quot;  <span class="hljs-operator">|</span> <span class="hljs-number">99.99</span>  <span class="hljs-operator">|</span> &quot;amazon.com&quot;           <span class="hljs-operator">|</span>
+<span class="hljs-operator">|</span> &quot;Trompo de llavero&quot;  <span class="hljs-operator">|</span> <span class="hljs-number">30.00</span>  <span class="hljs-operator">|</span> &quot;artesaniastlaxco.com&quot; <span class="hljs-operator">|</span>
+<span class="hljs-operator">|</span> &quot;Trompo de plástico&quot; <span class="hljs-operator">|</span> <span class="hljs-number">79.99</span>  <span class="hljs-operator">|</span> &quot;amazon.com&quot;           <span class="hljs-operator">|</span>
+<span class="hljs-operator">|</span> &quot;Trompo de encino&quot;   <span class="hljs-operator">|</span> <span class="hljs-number">150.00</span> <span class="hljs-operator">|</span> &quot;artesaniastlaxco.com&quot; <span class="hljs-operator">|</span>
+<span class="hljs-comment">-------------------------------------------------------------</span>
+</code></pre>
+  <h3 id="24-la-historia-de-las-impresoras">2.4. La historia de las impresoras</h3>
+  <p>Algo que me gusta y me recordaron los datos estructurados, es que nos hace tener
+    conciencia, de que ahi afuera hay estándares y que están ahi por algo.</p>
+  <p>En los años 90s o antes, cada marca de impresoras tenia su propio
+    formato, unos eran ligeros y rápidos, otros completos y robustos, unos
+    (principalmente las marcas que crearon estos) defendían que X formato
+    era el mejor, y otros se esforzaban de mas y aprendían varios, o al menos
+    los mas populares, y por esto era un lio crear aplicaciones que fueran
+    compatibles con todas las impresoras.</p>
+  <p>Para resolver el problema se creo un estándar al cual los formatos
+    debían apegarse, y ya fuera por que les convenía o se veían obligados a hacerlo,
+    poco a poco fueron haciéndolo. Paso el tiempo y hoy por hoy, solo queda
+    el estándar, Por lo que hoy mandar a imprimir es algo fácil de lograr y que
+    quedo en segundo plano para el desarrollo de aplicaciones.</p>
+  <p>Y como desarrollador que ya tiene mas de 8 años viendo como, cada
+    mes sale X cosa que es mejor que Y cosa, y que X cosa ya se actualizo
+    y ahora es mejor que Y cosa, tengo el anhelo de poder ser componente a ojos
+    de las empresas con solo aprender los estándares, y claro que estos
+    tienen sus deficiencias, pero prefiero lidiar con las deficiencias de
+    una sola herramienta, que las ventajas y deficiencias de multiples
+    herramientas, pero esa es otra historia.</p>
+  <h3 id="25-preguntas-frecuentes">2.5. Preguntas frecuentes</h3>
+  <p>1, ¿Donde puede conseguir los esquemas?</p>
+  <ul>
+    <li>Puedes buscar todo tipo de esquemas en <a href="https://schema.org/docs/schemas.html">schema.org</a>,
+      pero igual puedes encontrarlos en <a
+        href="https://developers.google.com/search/docs/appearance/structured-data/search-gallery">google</a>
+      pero este se basa en los de <a href="http://schema.org">schema.org</a></li>
+  </ul>
+  <p>2, ¿Donde y como puedo validar mis esquemas?</p>
+  <ul>
+    <li>Yo suelo usar 2 validadores online tanto el de <a href="http://schema.org">schema.org</a> como el de google
+      <ul>
+        <li><a href="http://validator.schema.org">validator.schema.org</a></li>
+        <li><a href="http://search.google.com/test/rich-results">search.google.com/test/rich-results</a></li>
+      </ul>
+    </li>
+  </ul>
+  <p>4, ¿necesito saber de RDF, triple stores, SPARQL, OWL, etc. para usar datos estructurados?</p>
+  <ul>
+    <li>No, esos son temas mas avanzados, es como decir que necesitas saber
+      correr para luego poder caminar, primero debes saber de datos estructurados,
+      y luego ya podrías aprender estos temas.</li>
+  </ul>
+  <h2 id="3-como-luciria">3. Como luciría el stack HTML/CSS/JS/JSON-LD</h2>
+  <p>Si ya tienes experiencia en el desarrollo web ya estas
+    familiarizado con los con la mayoría del stack, y no debes de
+    asustarte, por que los datos estructurados son mas fáciles que javascript,
+    y tampoco es algo de la vieja escuela.</p>
+  <p>Las siguientes propuestas son ejemplos simplificados, para centrarnos en
+    las diferentes formas en los que podríamos usar los datos estructurados,
+    y de esa forma evitarnos el ruido de otras herramientas.</p>
+  <p>Y como veremos en la ultima sección, podemos usar los datos estructurados
+    junto con herramientas robustas y/o modernas, como en mi caso Svelte y Golang.</p>
+  <p>Abajo pongo un ejemplo muy simple de como luciría este stack, lo cual
+    podemos ver lo simple que es la idea en realidad, y que en formas de
+    trabajar mas complejas, fundamentalmente harían lo mismo.</p>
+  <pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>HTML/CSS/JS/JSON-LD<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;product-info&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;application/ld+json&quot;</span>&gt;</span><span class="language-javascript">
+  [
+    <span class="hljs-string">&quot;&#64;&quot;</span>: <span class="hljs-string">&quot;Product&quot;</span>,
+    <span class="hljs-string">&quot;identifier&quot;</span>: <span class="hljs-string">&quot;2&quot;</span>,
+    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Nombre de producto&quot;</span>,
+    <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;Descripción de producto&quot;</span>,
+    <span class="hljs-string">&quot;image&quot;</span>: [
+      <span class="hljs-string">&quot;/public/img/1.png&quot;</span>
+    ]
+  ]
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-tag">html</span> [ <span class="hljs-attribute">background</span>: <span class="hljs-number">#131516</span>; <span class="hljs-attribute">color</span>: white; ]
+  <span class="hljs-selector-tag">h3</span> [ <span class="hljs-attribute">color</span>: blue; ]
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;p-name&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;p-description&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;p-images&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript">
+  <span class="hljs-keyword">let</span> elmText = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;product-info&#x27;</span>).<span class="hljs-property">innerText</span>;
+  <span class="hljs-keyword">let</span> product = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(elmText);
+
+  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;p-name&#x27;</span>).<span class="hljs-property">innerText</span> = product.<span class="hljs-property">name</span>;
+  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;p-description&#x27;</span>).<span class="hljs-property">innerText</span> = product.<span class="hljs-property">description</span>;
+
+  <span class="hljs-keyword">let</span> pImages = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;p-images&#x27;</span>)
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> imgUrl <span class="hljs-keyword">of</span> product.<span class="hljs-property">image</span>) [
+    <span class="hljs-keyword">let</span> imgElm = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;img&quot;</span>);
+    imgElm.<span class="hljs-property">src</span> = imgUrl;
+    pImages.<span class="hljs-title function_">appendChild</span>(imgElm);
+  ]
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+  <p>Como podemos ver aquí la única parte nueva seria es el <code>application/ld+json</code>
+    en la parte del head.</p>
+  <p>Importante mencionar que no hay problema en que la interface de usuario,
+    no utilize los datos estructurados, ya que es nuestra responsabilidad que
+    estas dos partes coincidan, ya sea lo hagamos de una u otra forma.</p>
+  <h3 id="311-ventajas">3.1.1 Ventajas</h3>
+  <p>1, El crawler de google o cualquier otro bot detectara los datos estructurados,
+    sin la necesidad de ejecutar nuestro javascript, y nos dará todos los
+    beneficios mencionados.</p>
+  <p>2, Podemos separar lo que es el la parte del servidor y del cliente,
+    lo cual las aplicaciones de backend y frontend estarían mas des-acopladas.</p>
+  <p>3, El funcionamiento seria bastante parecido a lo que ya se hacen las
+    aplicaciones que usan APIs-REST, pero desde una aproximación de renderizado
+    del lado del servidor, el cual ya muchos proyectos antiguos funcionan
+    con esta aproximación.</p>
+  <h3 id="312-desventajas">3.1.2 Desventajas</h3>
+  <p>1, Es mas trabajo. Pero es un trabajo extra parecido al de usar una rest-api,
+    pero con el paso extra de consultar el <a href="http://schema.org">schema.org</a>.</p>
+  <h2 id="4-como-lucir">4. Como luciría Svelte usando JSON-LD</h2>
+  <p>La idea general es usar una SPA (como siempre), solo que esta misma SPA
+    se va a usar en diferentes documentos, y lo único que va a variar es
+    el json-ld que se tendrá en el head.</p>
+  <p>Lo cual nuestros documentos html lucirían de la siguiente forma.</p>
+  <p><img src="/img/blog/svelte_jsonld_files.png" alt="Files"></p>
+  <p>index.html</p>
+  <pre><code class="language-html"><span class="hljs-comment">&lt;!-- index.html --&gt;</span>
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;application/ld+json&quot;</span>&gt;</span><span class="language-javascript">
+    [ <span class="hljs-string">&quot;&#64;context&quot;</span>: <span class="hljs-string">&quot;https://schema.org&quot;</span>, <span class="hljs-string">&quot;&#64;type&quot;</span>: <span class="hljs-string">&quot;Restaurant&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;GreatFood&quot;</span> ]
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/src/main.ts&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+  <p>menu.html</p>
+  <pre><code class="language-html"><span class="hljs-comment">&lt;!-- menu.html --&gt;</span>
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Menu<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;application/ld+json&quot;</span>&gt;</span><span class="language-javascript">
+    [ <span class="hljs-string">&quot;&#64;context&quot;</span>:<span class="hljs-string">&quot;https://schema.org&quot;</span>, <span class="hljs-string">&quot;&#64;type&quot;</span>:<span class="hljs-string">&quot;Menu&quot;</span>,
+      <span class="hljs-string">&quot;hasMenuSection&quot;</span>:[ <span class="hljs-string">&quot;&#64;type&quot;</span>:<span class="hljs-string">&quot;MenuSection&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;Tacos&quot;</span>, ]
+    ]
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/src/main.ts&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+  <p>En tanto al código de la aplicación, seria el mismo que cualquier SPA.</p>
+  <p>App.svelte</p>
+  <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> [ <span class="hljs-title class_">Router</span>, <span class="hljs-title class_">Route</span> ] <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;svelte-navigator&quot;</span>;
+  <span class="hljs-keyword">import</span> <span class="hljs-title class_">LazyRoute</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./ui_commons/LazyRoute.svelte&quot;</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">Home</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./pages/Home.svelte&quot;</span>);
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">Menu</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./pages/Menu.svelte&quot;</span>);
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Router</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/&quot;</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/menu.html&quot;</span>&gt;</span>Menu<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">LazyRoute</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/&quot;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">[Home]</span>&gt;</span>Loading Home...<span class="hljs-tag">&lt;/<span class="hljs-name">LazyRoute</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">LazyRoute</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;menu.html&quot;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">[Menu]</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">LazyRoute</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Route</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>404<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Route</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Router</span>&gt;</span>
+</code></pre>
+  <p>Home.svelte</p>
+  <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;ts&quot;</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-keyword">import</span> <span class="hljs-title class_">Restaurant</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../model/Restaurant&quot;</span>;
+    <span class="hljs-keyword">const</span> rest = <span class="hljs-title class_">Restaurant</span>.<span class="hljs-title function_">fromJsonld</span>();
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Restaurant<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Restaurant name: [rest.name]<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span>
+</code></pre>
+  <p>Restaurant.ts y Menu.ts lucen casi igual, y en esta es donde tenemos
+    la lectura del json-ld del documento html.</p>
+  <pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Menu</span> [
+  <span class="hljs-keyword">public</span> <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;&quot;</span>;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJsonld</span>(): <span class="hljs-title class_">Menu</span> [
+    <span class="hljs-keyword">const</span> jsonld = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>((
+      <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;script[type=&quot;application/ld+json&quot;]&#x27;</span>) <span class="hljs-keyword">as</span> <span class="hljs-title class_">HTMLElement</span>)
+      .<span class="hljs-property">innerText</span>);
+    <span class="hljs-keyword">const</span> resp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Menu</span>(); <span class="hljs-comment">// new Restaurant();</span>
+    resp.<span class="hljs-property">name</span> = jsonld.<span class="hljs-property">hasMenuSection</span>.<span class="hljs-property">name</span>;
+    <span class="hljs-comment">//resp.name = jsonld.name;</span>
+    <span class="hljs-keyword">return</span> resp;
+  ]
+]
+</code></pre>
+  <p>Menu.svelte</p>
+  <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;ts&quot;</span>&gt;</span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> <span class="hljs-title class_">Menu</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../model/Menu&quot;</span>;
+  <span class="hljs-keyword">const</span> menu = <span class="hljs-title class_">Menu</span>.<span class="hljs-title function_">fromJsonld</span>();
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Menu<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Menu de: [menu.name]<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span>
+</code></pre>
+  <p>Como resultado tendríamos lo siguiente</p>
+  <p><img src="/img/blog/svelte_jsonld_result.png" alt="Svelte + JsonLD Result"></p>
+  <h3 id="41-ventajas">4.1. Ventajas</h3>
+  <p>1, Tenemos todas las ventajas de usar SPAs como lo es, desarrollo por
+    componentes, integración con typescript, lazy load, navegación sin recarga,
+    y también las de usar datos estructurados.</p>
+  <p>2, Muchos desarrolladores ya están habituados a trabajar con SPAs,
+    por lo que la adopción de datos estructurados seria mas fácil.</p>
+  <h3 id="42-desventajas">4.2. Desventajas</h3>
+  <p>1, Este tipo de herramientas no están pensadas para ser usadas como MPAs,
+    por lo que se tiene que saber un conocimiento mas avanzado de herramientas
+    como vite, rollup, etc, para generar el directorio dist de forma correcta.</p>
+  <ul>
+    <li>Una vez superado el problema de la compilación, el flujo de trabajo
+      es mismo, por lo que creo vale la pena.</li>
+  </ul>
+  <p>2, Se pierde la navegación sin recarga.</p>
+  <ol>
+    <li>En lo personal, la característica de navegación sin recarga es un lujo,
+      el cual el usuario no tiene problemas de estar sin esto.</li>
+    <li>El salto casi no se nota ya que el bundle queda guardado en el cache.</li>
+    <li>Esta recarga solo la tendríamos en rutas en las que queremos SEO
+      con datos estructurados, otras partes no seria necesario.</li>
+    <li>Se puede arreglar, usando tanto api-rest-json como también json-ld,
+      pero es un trabajo mas elaborado.</li>
+  </ol>
+  <h2 id="5-mi-experiencia">5. Mi experiencia</h2>
+  <p>A rangos generales lo que yo hago en artesaniastlaxco.com, es lo mismo
+    que explique en el punto 4.</p>
+  <p>Pero hablando mas detalladamente, en lugar de entregar una SPA entrego
+    componentes web, pero por esta aproximación no me gusto, porque las
+    mejoras de rendimiento me parecen despreciables.</p>
+  <p>Asi que lo mas seguro <strong>para el siguiente proyecto</strong> lo haga usando una
+    SPA en donde a ojos de los bots es una MPA, pero a ojos de clientes es
+    una SPA, mas parecido a como lo muestro en el punto 4.</p>
+  <p>De ahi es un proyecto normal, el cual uso un backend escrito en golang
+    el cual entrego el documento html con los datos estructurados y la
+    aplicación en forma de componentes web, dichos datos se consultan una
+    base de datos en Postgres con un modelo relacional a la medida.</p>
+  <p>Algo que me decepciono de las consultas SPARQL, es que estas son mas
+    complicadas de usar de lo que deberían (a mi parecer), ya que uno tiene que
+    indicarle si son archivos que solo contienen los datos estructurados, o
+    si están embebidos en archivos html o xml, y si están en un formato json-ld o RDFa,
+    y que sus fuentes para aprenderlo suelen ser muy académicas.</p>
+  <p>A mi me gustaría que las consultas SPARQL fueran mas parecidas a SQL,
+    donde incluso el cli de Postgres puede ser interoperable con CockroachDB,
+    donde tras bambalinas deberían de conseguir los datos de forma automática,
+    sin importar que uno esta usando json-ld, RDFa o micro-data, ya sea que
+    este contenido en un html o no.</p>
+  <h2 id="conclusion">Conclusion</h2>
+  <p>A mi parecer los datos estructurados se han satanizado, por que comúnmente
+    se asocian con la web semántica, el cual es un tema complejo e incluso experimental,
+    como también por nuevas tendencias como las de las SPAs y API-REST que
+    dejan su uso en segundo plano, pero esto no significa que sean complejos
+    o que ya no sea posible usarlos.</p>
+  <p>Lo que he aprendido de esto es que como desarrollador web, es limitarse
+    a publicar datos estructurados, y no a consultarlos, al menos que nos
+    querremos especializar en el tema.</p>
+  <p>Pero superando estas barreras, creo que cuando se trata de información
+    de carácter publico, usar datos estructurados es una obligación, para
+    mejorar el internet, ya que aunque parezca que internet no tiene problemas,
+    la verdad es que los tiene y varios, y es nuestro trabajo como desarrolladores
+    evitarlas y corregirlas.</p>
+
+
+
+</div>
