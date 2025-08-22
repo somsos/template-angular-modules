@@ -142,7 +142,13 @@
                 <p>Id: {{u.id}}</p>
                 <p>Roles: {{showRoles(u.roles)}}</p>
                 <p>Creado: {{u.createdAt | date:'yyyy/MM/dd, HH:mm'}}</p>
-                <p>Actualizado: {{!u.updatedAt ? (u.updatedAt | date:'yyyy/MM/dd, H:mm') : 'No actualizado'}}</p>
+                <p>Actualizado:
+                  @if (u.updatedAt) {
+                    {{u.updatedAt | date:'yyyy/MM/dd, HH:mm:ss'}}
+                  } @else {
+                    No actualizado
+                  }
+                </p>
               </div>
             </div>
           </div>

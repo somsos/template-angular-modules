@@ -1,18 +1,76 @@
 <div style="max-width: 960px; margin-left: 2rem;">
 
-  <h2 id="devops-pipeline">DevOps pipeline</h2>
+  <h2 id="essay-creating-a-full-project">Essay: Creating a full project</h2>
 
+  <hr />
+
+  <ul>
+    <li><a href="#source-code">Source Code</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#devops-pipeline">DevOps pipeline</a></li>
+    <li><a href="#frontend-code-architecture">Frontend code architecture</a></li>
+    <li><a href="#backend-hexagonal-architecture">Backend hexagonal architecture</a></li>
+    <li><a href="#what-this-project-does">What this project does</a>
+      <ul>
+        <li><a href="#authentication">Authentication</a></li>
+        <li><a href="#user-administration">User Administration</a></li>
+      </ul>
+    </li>
+    <li><a href="#todo">ToDo</a></li>
+  </ul>
+  <!--
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+-->
   <hr>
+  <!--
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+-->
+  <h2 id="source-code">Source Code</h2>
+  <ul>
+    <li>
+      <p>Github Code Sources</p>
+      <ul>
+        <li><a href="https://github.com/somsos/template-angular-modules">DevOps</a></li>
+        <li><a href="https://github.com/somsos/template-spring-hexagonal">Backend</a></li>
+        <li><a href="https://github.com/somsos/somsos-template51-devops">Frontend</a></li>
+      </ul>
+    </li>
+    <li>
+      <p>Project services</p>
+      <ul>
+        <li><a href="https://mariomv.duckdns.org">Main site</a></li>
+        <li><a href="https://jenkins.mariomv.duckdns.org/">Jenkins</a></li>
+        <li><a href="https://gitea.mariomv.duckdns.org/">Gitea</a></li>
+        <li><a href="https://api.mariomv.duckdns.org/swagger-ui/index.html">Swagger-ui</a></li>
+      </ul>
+    </li>
+  </ul>
+  <!--
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+-->
+  <hr>
+  <!--
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+-->
   <h2 id="introduction">Introduction</h2>
-  <p>This is a template for future projects with an architecture in modules, mainly
-    based on the following books, ordered by priority:</p>
+  <p>This project is a showcase of my abilities as a full-stack developer using, in
+    this case, Angular, Spring, and Linux/VPS, and I also pretend to use this
+    project as a quick start for future projects so I will have decisions taken as
+    what architectures, tools, and services to use.</p>
   <ol>
-    <li>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</li>
-    <li>Learning Angular: A no-nonsense guide to building web applications with Angular by Aristeidis and Pablo</li>
-    <li>Spring in Action, 6Ed by Craig Walls</li>
-    <li>Spring Boot and Angular Hands-on full stack by Devlin Basilan and Seiji Ralph</li>
-    <li>Clean Code by Robert C. Martin</li>
+    <li>Get Your Hands Dirty on Clean Architecture by Tom Hombergs.</li>
+    <li>Learning Angular: A no-nonsense guide to building web applications with Angular by Aristeidis and Pablo.</li>
+    <li>Spring in Action, 6Ed by Craig Walls.</li>
+    <li>Spring Boot and Angular Hands-on full stack by Devlin Basilan and Seiji Ralph.</li>
+    <li>Clean Code by Robert C. Martin.</li>
     <li>(Reading) Code That Fits in Your Head by C. Martin.</li>
     <li>(Pending) Continuous Delivery Pipelines by Dave Farley.</li>
   </ol>
@@ -24,14 +82,17 @@
     sources and guides, which are much more likely to remain part of the company's
     resources. This allows new developers to integrate or replace others using the
     same foundation.</p>
+  <!--
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-
-
+-->
   <hr>
+  <!--
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-
+-->
   <h2 id="devops-pipeline">DevOps pipeline</h2>
   <p>The idea is to abstract or reduce the commands to build and deploy,
     to only the following two docker commands:</p>
@@ -51,15 +112,17 @@
   <p>For the connections and HTTPS management, I'm using a reverse proxy to
     centralize and facilitate the implementation.</p>
   <p><img src="/img/blog/02_reverse-proxy-conf.png" alt="reverse-proxy-conf"></p>
+  <!--
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-
-
+-->
   <hr>
+  <!--
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-
-
+-->
   <h2 id="frontend-code-architecture">Frontend code architecture</h2>
   <p>The same as was described in the book <em>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</em>
     in the chapter <em>modularity through components</em>, which here we can see the basic
@@ -95,14 +158,17 @@
       a representation of how they would look.</li>
   </ul>
   <p><img src="/img/blog/05_components-and-0commons-component.png" alt="component based architecture example"></p>
+  <!--
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-
+-->
   <hr>
+  <!--
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-
-
+-->
   <h2 id="backend-hexagonal-architecture">Backend hexagonal architecture</h2>
   <p>As I mentioned in the introduction, I'm doing my best to follow the architecture
     defined in the first book. However, it's important to understand that there are
@@ -129,11 +195,74 @@
   <p><img src="/img/blog/08_my-artifacts.png" alt="my artifacts"></p>
   <p>Here is the point of view of entities.</p>
   <p><img src="/img/blog/09_my-architecture.png" alt="my hexagonal architecture"></p>
+  <!--
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+-->
+  <hr>
+  <!--
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+-->
+  <h2 id="what-this-project-does">What this project does</h2>
+  <h3 id="authentication">Authentication</h3>
+  <p>Register and Login guest</p>
+  <p>
+    <video src="/img/blog/12_register_and_guest_login.webm" alt="Register and guest login" controls>
+    </video>
+  </p>
+
+  <p>Login as Admin</p>
+  <p>
+    <video src="/img/blog/10_admin_login.webm" alt="Admin Login" controls>
+    </video>
+  </p>
+
+
+  <h2 id="user-administration">User Administration</h2>
+  <p>User pagination search and show/hide properties.</p>
+  <p>
+    <video src="/img/blog/11_pagination_filter_by_sub_string_in_multiple_properties_and_hide_show_properties.webm"
+      alt="Pagination filter by substring in multiple properties and hide/show properties" controls>
+    </video>
+  </p>
+
+
+
+  <p>Save User</p>
+  <p>
+    <video src="/img/blog/13_save_user_with_image.webm" alt="Save user with image" controls>
+    </video>
+  </p>
+
+  <p>User Update</p>
+  <p>
+    <video src="/img/blog/14_update_user.webm" alt="Update User" controls>
+    </video>
+  </p>
+
+  <p>Delete User</p>
+  <p>
+    <video src="/img/blog/15_delete_user.webm" alt="Delete user" controls>
+    </video>
+  </p>
+
+
   <h2 id="todo">ToDo</h2>
   <ul class="contains-task-list">
-    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Use the Flyway to
-      implement Evolutionary Database Design</li>
-    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Implement rollback on the
-      3 layers</li>
+    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Use the Flyway to implement <a href="https://martinfowler.com/articles/evodb.html">Evolutionary Database Design</a>.</li>
+    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Create a backup.</li>
+    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Implement rollback on the 3 layers
+      <ul class="contains-task-list">
+        <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> by putting a previous
+          working commit at front (<code>git cherry-pick XXX</code> or <code>git rebase -i HEAD~XXX</code>)</li>
+        <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> using a x.tar file.
+        </li>
+      </ul>
+    </li>
   </ul>
+
+
 </div>
