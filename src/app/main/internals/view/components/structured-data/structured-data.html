@@ -53,7 +53,7 @@
     <li>Exponerlo de una forma fundamental que explique como pueden ser usarlos.</li>
     <li>Dejar claro que es mas fácil de lo que parece.</li>
     <li>Motivar a aprenderlos incluso en un nivel principiante, para un internet un poco mejor.</li>
-    <li>Exponer mi experiencia personal usándolos en artesaniastlaxco.com.
+    <li>Exponer mi experiencia personal usándolos en artesaniastlaxco.duckdns.org.
     </li>
     <li>Explicar que debemos entregar documentos y luego aplicaciones, para no limitar su potencial.</li>
     <li>Y por que no, encontrar alguien que corrija mi aproximación de usarlos.</li>
@@ -174,12 +174,12 @@
 PREFIX ex: <span class="hljs-operator">&lt;</span>https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>schema.org<span class="hljs-operator">/</span>Product<span class="hljs-operator">/</span><span class="hljs-operator">&gt;</span>
 <span class="hljs-keyword">SELECT</span> ?name ?price ?source
 <span class="hljs-keyword">FROM</span> <span class="hljs-operator">&lt;</span>https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>amazon.com<span class="hljs-operator">/</span>products<span class="hljs-operator">&gt;</span>
-<span class="hljs-keyword">FROM</span> <span class="hljs-operator">&lt;</span>https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>artesaniastlaxco.com<span class="hljs-operator">/</span>productos<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">FROM</span> <span class="hljs-operator">&lt;</span>https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>artesaniastlaxco.duckdns.org<span class="hljs-operator">/</span>productos<span class="hljs-operator">&gt;</span>
 <span class="hljs-keyword">WHERE</span> [
   [
     ?product ex:name ?name ;
              ex:price ?price ;
-             ex:source &quot;artesaniastlaxco.com&quot; .
+             ex:source &quot;artesaniastlaxco.duckdns.org&quot; .
     <span class="hljs-keyword">FILTER</span> (<span class="hljs-keyword">CONTAINS</span>(LCASE(?name), &quot;trompo&quot;))
   ]
   <span class="hljs-keyword">UNION</span>
@@ -196,9 +196,9 @@ PREFIX ex: <span class="hljs-operator">&lt;</span>https:<span class="hljs-operat
 <span class="hljs-operator">|</span> name                 <span class="hljs-operator">|</span> price  <span class="hljs-operator">|</span> source                 <span class="hljs-operator">|</span>
 <span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>
 <span class="hljs-operator">|</span> &quot;Collar con trompo&quot;  <span class="hljs-operator">|</span> <span class="hljs-number">99.99</span>  <span class="hljs-operator">|</span> &quot;amazon.com&quot;           <span class="hljs-operator">|</span>
-<span class="hljs-operator">|</span> &quot;Trompo de llavero&quot;  <span class="hljs-operator">|</span> <span class="hljs-number">30.00</span>  <span class="hljs-operator">|</span> &quot;artesaniastlaxco.com&quot; <span class="hljs-operator">|</span>
+<span class="hljs-operator">|</span> &quot;Trompo de llavero&quot;  <span class="hljs-operator">|</span> <span class="hljs-number">30.00</span>  <span class="hljs-operator">|</span> &quot;artesaniastlaxco.duckdns.org&quot; <span class="hljs-operator">|</span>
 <span class="hljs-operator">|</span> &quot;Trompo de plástico&quot; <span class="hljs-operator">|</span> <span class="hljs-number">79.99</span>  <span class="hljs-operator">|</span> &quot;amazon.com&quot;           <span class="hljs-operator">|</span>
-<span class="hljs-operator">|</span> &quot;Trompo de encino&quot;   <span class="hljs-operator">|</span> <span class="hljs-number">150.00</span> <span class="hljs-operator">|</span> &quot;artesaniastlaxco.com&quot; <span class="hljs-operator">|</span>
+<span class="hljs-operator">|</span> &quot;Trompo de encino&quot;   <span class="hljs-operator">|</span> <span class="hljs-number">150.00</span> <span class="hljs-operator">|</span> &quot;artesaniastlaxco.duckdns.org&quot; <span class="hljs-operator">|</span>
 <span class="hljs-comment">-------------------------------------------------------------</span>
 </code></pre>
   <h3 id="24-la-historia-de-las-impresoras">2.4. La historia de las impresoras</h3>
@@ -438,7 +438,7 @@ PREFIX ex: <span class="hljs-operator">&lt;</span>https:<span class="hljs-operat
       pero es un trabajo mas elaborado.</li>
   </ol>
   <h2 id="5-mi-experiencia">5. Mi experiencia</h2>
-  <p>A rangos generales lo que yo hago en artesaniastlaxco.com, es lo mismo
+  <p>A rangos generales lo que yo hago en artesaniastlaxco.duckdns.org, es lo mismo
     que explique en el punto 4.</p>
   <p>Pero hablando mas detalladamente, en lugar de entregar una SPA entrego
     componentes web, pero por esta aproximación no me gusto, porque las

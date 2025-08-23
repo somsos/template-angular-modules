@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './project-introduction.component.scss'
 })
 export class ProjectIntroductionComponent {
+
+  constructor(private scroller: ViewportScroller) { }
+
+  scrollTo(anchor: string) {
+    this.scroller.scrollToAnchor(anchor);
+  }
 
 }
