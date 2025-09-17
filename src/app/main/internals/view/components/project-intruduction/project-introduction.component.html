@@ -1,42 +1,51 @@
 <div style="max-width: 960px; margin-left: 2rem;">
 
-  <h2 id="essay-creating-a-full-project">Essay: Creating a full project</h2>
-
+  <h2 id="essay-creating-a-full-project" style="font-size: xx-large;">Essay: Creating a full project</h2>
+  <!-- Table Of Contents -->
   <hr />
-
+  <h2>Table Of Contents</h2>
   <ul>
-    <li><a href="#" (click)="scrollTo('source-code'); $event.preventDefault()" >Source Code</a></li>
-    <li><a href="#" (click)="scrollTo('introduction'); $event.preventDefault()" >Introduction</a></li>
-    <li><a href="#" (click)="scrollTo('devops-pipeline'); $event.preventDefault()" >DevOps pipeline</a></li>
-    <li><a href="#" (click)="scrollTo('frontend-code-architecture'); $event.preventDefault()" >Frontend code architecture</a></li>
-    <li><a href="#" (click)="scrollTo('backend-hexagonal-architecture'); $event.preventDefault()" >Backend hexagonal architecture</a></li>
-    <li><a href="#" (click)="scrollTo('what-this-project-does'); $event.preventDefault()" >What this project does</a>
-      <ul>
-        <li><a href="#" (click)="scrollTo('authentication'); $event.preventDefault()" >Authentication</a></li>
-        <li><a href="#" (click)="scrollTo('user-administration'); $event.preventDefault()" >User Administration</a></li>
-      </ul>
-    </li>
-    <li><a href="#" (click)="scrollTo('todo'); $event.preventDefault()" >ToDo</a></li>
+    <ul>
+      <li><a href="#" (click)="scrollTo('source-code'); $event.preventDefault()">Source Code</a></li>
+      <li><a href="#" (click)="scrollTo('introduction'); $event.preventDefault()">Introduction</a></li>
+      <li><a href="#" (click)="scrollTo('devops-pipelines'); $event.preventDefault()">DevOps pipelines</a></li>
+      <li><a href="#" (click)="scrollTo('directory-structure-and-git-strategy'); $event.preventDefault()">Directory structure and Git Strategy</a></li>
+      <li><a href="#" (click)="scrollTo('proxy-dns-and-https-configuration'); $event.preventDefault()">Proxy, DNS and HTTPS configuration</a></li>
+      <li><a href="#" (click)="scrollTo('frontend-code-architecture'); $event.preventDefault()">Frontend code architecture</a></li>
+      <li><a href="#" (click)="scrollTo('backend-hexagonal-architecture'); $event.preventDefault()">Backend hexagonal architecture</a></li>
+      <li><a href="#" (click)="scrollTo('what-this-project-does'); $event.preventDefault()">What this project does</a>
+        <ul>
+          <li><a href="#" (click)="scrollTo('authentication'); $event.preventDefault()">Authentication</a></li>
+          <li><a href="#" (click)="scrollTo('user-administration'); $event.preventDefault()">User Administration</a></li>
+        </ul>
+      </li>
+      <li><a href="#" (click)="scrollTo('todo'); $event.preventDefault()">ToDo</a></li>
+    </ul>
   </ul>
-  <!--
+
+<!--
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 -->
+
   <hr>
-  <!--
+
+<!--
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 -->
+
   <h2 id="source-code">Source Code</h2>
   <ul>
     <li>
-      <p>Github Code Sources</p>
+      <p>GitHub Code Sources</p>
       <ul>
         <li><a href="https://github.com/somsos/template-angular-modules">DevOps</a></li>
         <li><a href="https://github.com/somsos/template-spring-hexagonal">Backend</a></li>
         <li><a href="https://github.com/somsos/somsos-template51-devops">Frontend</a></li>
+        <li><a href="https://github.com/somsos/template51_db">Database Migrations</a></li>
       </ul>
     </li>
     <li>
@@ -45,7 +54,7 @@
         <li><a href="https://mariomv.duckdns.org">Main site</a></li>
         <li><a href="https://jenkins.mariomv.duckdns.org/">Jenkins</a></li>
         <li><a href="https://gitea.mariomv.duckdns.org/">Gitea</a></li>
-        <li><a href="https://api.mariomv.duckdns.org/swagger-ui/index.html">Swagger-ui</a></li>
+        <li><a href="https://api.mariomv.duckdns.org/swagger-ui/index.html">swagger-ui</a></li>
       </ul>
     </li>
   </ul>
@@ -61,27 +70,23 @@
 
 -->
   <h2 id="introduction">Introduction</h2>
-  <p>This project is a showcase of my abilities as a full-stack developer using, in
-    this case, Angular, Spring, and Linux/VPS, and I also pretend to use this
-    project as a quick start for future projects so I will have decisions taken as
-    what architectures, tools, and services to use.</p>
+  <p>This project is a showcase of my abilities as a full-stack developer using, in this case, Angular, Spring, and
+    Linux/VPS, and I also intend to use this project as a quick start for future projects so I will have decisions taken
+    as what architectures, tools, and services to use.</p>
   <ol>
     <li>Get Your Hands Dirty on Clean Architecture by Tom Hombergs.</li>
     <li>Learning Angular: A no-nonsense guide to building web applications with Angular by Aristeidis and Pablo.</li>
     <li>Spring in Action, 6Ed by Craig Walls.</li>
     <li>Spring Boot and Angular Hands-on full stack by Devlin Basilan and Seiji Ralph.</li>
     <li>Clean Code by Robert C. Martin.</li>
-    <li>(Reading) Code That Fits in Your Head by C. Martin.</li>
-    <li>(Pending) Continuous Delivery Pipelines by Dave Farley.</li>
+    <li>(Reading) Continuous Delivery Pipelines by Dave Farley.</li>
+    <li>(Pending) Code That Fits in Your Head by Robert C. Martin.</li>
   </ol>
-  <p>The idea is to follow a specific architecture and patterns from a specific source
-    as faithfully as possible, in this case, the book <em>Get Your Hands Dirty on Clean Architecture by Tom
-      Hombergs</em>.
-    This way, if several people work on the same code, they won’t depend on
-    individuals who might not be available for consultation, but rather on defined
-    sources and guides, which are much more likely to remain part of the company's
-    resources. This allows new developers to integrate or replace others using the
-    same foundation.</p>
+  <p>The idea is to follow a specific architecture and patterns from a specific source as faithfully as possible, in
+    this case, the book <em>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</em>. This way, if several people
+    work on the same code, they won’t depend on individuals who might not be available for consultation, but rather on
+    defined sources and guides, which are much more likely to remain part of the company's resources. This allows new
+    developers to integrate or replace others using the same foundation.</p>
   <!--
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -93,24 +98,144 @@
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 -->
-  <h2 id="devops-pipeline">DevOps pipeline</h2>
-  <p>The idea is to abstract or reduce the commands to build and deploy,
-    to only the following two docker commands:</p>
+  <h2 id="devops-pipelines">DevOps pipelines</h2>
+  <p>The idea is to abstract or reduce the commands to build and deploy, to only the following two docker commands:</p>
   <ul>
-    <li><code>docker compose build db|back|front</code></li>
-    <li><code>docker compose up -d db|back|front</code></li>
+    <li><code>docker compose build &#123;db|back|front&#125;</code></li>
+    <li><code>docker compose up -d &#123;db|back|front&#125;</code></li>
   </ul>
-  <p>These two commands are standard on those who knows docker, and from
-    just watching them, They can get an idea of how it works from behind, that
-    in resume, the <code>docker-compose.yml</code> defines how to run the containerized app,
-    and the <code>Dockerfile</code> defines how to build it and deploy it.</p>
-  <p>So in theory this two commands could build and deploy any kind of
-    app, whether it uses Java, Python, GoLand, Node, Angular, React, etc.</p>
-  <p>Here is a graph of the working flow, which goes from the git push to the deploy
-    of the app.</p>
+  <p>Overall, the <code>docker-compose.yml</code> defines how to run the containerized app, and the
+    <code>Dockerfile</code> defines how to build it and deploy it. So in theory this two commands could pack any kind of
+    app, whether it uses Java, GoLang, Svelte, etc.</p>
+  <p>Here is a summary of my services in the <code>docker-compose.yml</code> file, to make easier and consistent the
+    build and deploy.</p>
+  <pre class="hljs"><code><div><span class="hljs-attr">services:</span>
+
+  <span class="hljs-attr">db_migrate:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./src/db_migrations</span> <span class="hljs-comment"># Dockerfile contains "cp migrationsCode" and "liquibase update"</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">db_migrate:v01</span>
+    <span class="hljs-attr">container_name:</span> <span class="hljs-string">db_migrate</span>
+    <span class="hljs-attr">entrypoint:</span> <span class="hljs-string">[</span> <span class="hljs-string">"sh"</span><span class="hljs-string">,</span> <span class="hljs-string">"./docker-entrypoint.sh"</span> <span class="hljs-string">]</span>
+    <span class="hljs-attr">depends_on:</span>
+      <span class="hljs-attr">db:</span>
+        <span class="hljs-attr">condition:</span> <span class="hljs-string">service_healthy</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_NAME=$&#123;POSTGRES_DB&#125;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_USER=$&#123;POSTGRES_USER&#125;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_PASSWORD=$&#123;DB_PASSWORD&#125;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_IP=$&#123;DB_IP&#125;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">DB_PORT=$&#123;DB_PORT&#125;</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">net51</span>
+    <span class="hljs-attr">restart:</span> <span class="hljs-string">"no"</span>
+
+
+  <span class="hljs-attr">back:</span>
+    <span class="hljs-attr">container_name:</span> <span class="hljs-string">back</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./src/back</span>   <span class="hljs-comment"># Dockerfile contains "mvn package.." and "java -jar ..."</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">back:1.0.1</span>
+    <span class="hljs-attr">expose:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">"8080"</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">VIRTUAL_HOST=mariomv.duckdns.org</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">LETSENCRYPT_HOST=mariomv.duckdns.org</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">LETSENCRYPT_EMAIL=somsos112&#64;gmail.com</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">VIRTUAL_PORT=8080</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">net51</span>
+    <span class="hljs-attr">extra_hosts:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">"mariomv.duckdns.org:host-gateway"</span> <span class="hljs-comment"># to connect to db</span>
+    <span class="hljs-attr">depends_on:</span>
+      <span class="hljs-attr">db_migrate:</span>
+        <span class="hljs-attr">condition:</span> <span class="hljs-string">service_completed_successfully</span>
+    <span class="hljs-attr">healthcheck:</span>
+      <span class="hljs-attr">test:</span> <span class="hljs-string">["CMD-SHELL",</span> <span class="hljs-string">"wget --spider -q http://localhost:8080/actuator/health &amp;&amp; echo servicesAlive"</span><span class="hljs-string">]</span>
+      <span class="hljs-attr">interval:</span> <span class="hljs-string">20s</span>
+      <span class="hljs-attr">retries:</span> <span class="hljs-number">5</span>
+
+  <span class="hljs-attr">front:</span>
+    <span class="hljs-attr">container_name:</span> <span class="hljs-string">front</span>  <span class="hljs-comment"># Dockerfile contains "ng build ..." and "nginx ..."</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">./src/front</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">front:1.0.1</span>
+    <span class="hljs-attr">expose:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">"80"</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">VIRTUAL_HOST=mariomv.duckdns.org</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">LETSENCRYPT_HOST=mariomv.duckdns.org</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">LETSENCRYPT_EMAIL=somsos112&#64;gmail.com</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">VIRTUAL_PORT=80</span>
+    <span class="hljs-attr">networks:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">net51</span>
+    <span class="hljs-attr">depends_on:</span>
+      <span class="hljs-attr">back:</span>
+        <span class="hljs-attr">condition:</span> <span class="hljs-string">service_healthy</span>
+    <span class="hljs-attr">healthcheck:</span>
+      <span class="hljs-attr">test:</span> <span class="hljs-string">["CMD-SHELL",</span> <span class="hljs-string">"wget --spider -q http://127.0.0.1 &amp;&amp; echo servicesAlive"</span><span class="hljs-string">]</span>
+      <span class="hljs-attr">interval:</span> <span class="hljs-string">20s</span>
+      <span class="hljs-attr">retries:</span> <span class="hljs-number">5</span>
+
+
+  <span class="hljs-attr">db:</span>
+    <span class="hljs-string">...</span>
+
+  <span class="hljs-attr">jenkins:</span>
+    <span class="hljs-string">...</span>
+
+  <span class="hljs-attr">gitea:</span>
+    <span class="hljs-string">...</span>
+
+  <span class="hljs-attr">reverse-proxy:</span>
+    <span class="hljs-string">...</span>
+
+  <span class="hljs-attr">acme-companion:</span>
+    <span class="hljs-string">...</span>
+
+</div></code></pre>
+  <p>Here is a graph of the working flow, which goes from the git push to the deploy of the app.</p>
   <p><img src="/img/blog/01_devops-pipeline.png" alt="devops pipeline flow"></p>
-  <p>For the connections and HTTPS management, I'm using a reverse proxy to
-    centralize and facilitate the implementation.</p>
+  <h2 id="directory-structure-and-git-strategy">Directory structure and Git Strategy</h2>
+  <p>In summary, we have 4 projects here, devops that is in a way the main project, and the sub-projects which are
+    database-migrations, backend, and frontend, each one in its own directory and repository.</p>
+  <p>The idea is that each sub-project by its own it's just able to work in developing mode, in other words just use the
+    localhost network and resources, so the sub-projects need of DevOps project to deploy on containers on a specific
+    environment/server.</p>
+  <pre class="hljs"><code><div><span class="hljs-meta">#</span><span class="bash">  .</span>
+<span class="hljs-meta">#</span><span class="bash">  |-- .env</span>
+<span class="hljs-meta">#</span><span class="bash">  |-- .git</span>
+<span class="hljs-meta">#</span><span class="bash">  |-- docker-compose.yml</span>
+<span class="hljs-meta">
+#</span><span class="bash">  |-- data/</span>
+<span class="hljs-meta">#</span><span class="bash">  |----| database/</span>
+<span class="hljs-meta">#</span><span class="bash">  |----| jenkins/</span>
+<span class="hljs-meta">#</span><span class="bash">  |----| gitea/</span>
+<span class="hljs-meta">
+#</span><span class="bash">  |-- src/</span>
+<span class="hljs-meta">#</span><span class="bash">  |----| database/</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| .git/</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| Dockerfile</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| migrations/</span>
+<span class="hljs-meta">#</span><span class="bash">  |------------| v01_01_create_xxx.deploy.sql</span>
+<span class="hljs-meta">#</span><span class="bash">  |------------| v01_01_create_xxx.rollback.sql</span>
+<span class="hljs-meta">
+#</span><span class="bash">  |----| backend/</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| .git/</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| Dockerfile</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| src/</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| pom.xml</span>
+<span class="hljs-meta">
+#</span><span class="bash">  |----| frontend/</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| .git/</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| Dockerfile</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| src/</span>
+<span class="hljs-meta">#</span><span class="bash">  |--------| package.json</span>
+</div></code></pre>
+  <p>I'm following the github flow strategy, because it fits better for the small team (just me 😟), and a continuous
+    delivery, so I just have a <code>main</code> branch, and multiple <code>f_XXXXX</code> branches (f means feature),
+    but for testing I have 2 different servers, the testing one and production one.</p>
+  <p><img src="/img/blog/16_github-flow.png" alt="16_github-flow"></p>
+  <h2 id="proxy-dns-and-https-configuration">Proxy, DNS and HTTPS configuration</h2>
+  <p>For the connections and HTTPS management, I'm using a reverse proxy and an container companion to centralize and
+    facilitate the implementation.</p>
   <p><img src="/img/blog/02_reverse-proxy-conf.png" alt="reverse-proxy-conf"></p>
   <!--
 
@@ -124,38 +249,34 @@
 
 -->
   <h2 id="frontend-code-architecture">Frontend code architecture</h2>
-  <p>The same as was described in the book <em>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</em>
-    in the chapter <em>modularity through components</em>, which here we can see the basic
-    principles.</p>
-  <p><img src="/img/blog/03_component-based_architecture.png" alt="component based architecture"></p>
-  <p>Here a more specific example.</p>
-  <p><img src="/img/blog/04_component_real_example.png" alt="component based architecture example"></p>
-  <p>The important thing here is to always keep in mind what the modules can and
-    cannot expose. If there is a dependency between modules, it should only happen
-    through interfaces stored in another public module component space or at a
+  <p>The same as was described in the book <em>Get Your Hands Dirty on Clean Architecture by Tom Hombergs</em> in the
+    chapter <em>modularity through components</em>, which here we can see the basic principles.</p>
+  <p><img src="/img/blog/03_component-based_architecture.png" alt="architecture based by components diagram"></p>
+  <p>Here is a more specific example.</p>
+  <p><img src="/img/blog/04_component_real_example.png" alt="architecture based by components diagram example"></p>
+  <p>The important thing here is to always keep in mind what the modules can and cannot expose. If there is a dependency
+    between modules, it should only happen through interfaces stored in another public module component space or at a
     higher level of the module.</p>
-  <p>Because the book is based on how Java Spring works, I have made a few small
-    adjustments in this application to better align with the way Angular works.</p>
+  <p>Because the book is based on how Java Spring works, I have made a few small adjustments in this application to
+    better align with the way Angular works.</p>
   <ul>
     <li>
-      <p>Instead of using the package/folder name &quot;api,&quot; I use &quot;externals&quot; because
-        I believe it is more expressive for someone without context or background,
-        making the intended use of this type of architecture clearer.</p>
+      <p>Instead of using the package/folder name &quot;api,&quot; I use &quot;externals&quot; because I believe it is
+        more expressive for someone without context or background, making the intended use of this type of architecture
+        clearer.</p>
     </li>
     <li>
-      <p>The whole application works similarly to a component, but instead of calling
-        it &quot;API&quot;, I call it &quot;0commons&quot;. This serves as an intermediate layer for
-        dependencies. In other words, instead of components depending on each other,
-        they depend on 0commons, making relationships less complex and easier to
+      <p>The whole application works similarly to a component, but instead of calling it &quot;API&quot;, I call it
+        &quot;0commons&quot;. This serves as an intermediate layer for dependencies. In other words, instead of
+        components depending on each other, they depend on 0commons, making relationships less complex and easier to
         understand.</p>
     </li>
   </ul>
-  <p>Here is part of the object relation diagram of this app to show a summary of the
-    organization of the architecture. Other modules should follow the same
-    structure.</p>
+  <p>Here is part of the object relation diagram of this app to show a summary of the organization of the architecture.
+    Other modules should follow the same structure.</p>
   <ul>
-    <li>Note: Modules Auth and Users are finished; Products and ShoppingCar are just
-      a representation of how they would look.</li>
+    <li>Note: Modules Auth and Users are finished; Products and ShoppingCar are just a representation of how they would
+      look.</li>
   </ul>
   <p><img src="/img/blog/05_components-and-0commons-component.png" alt="component based architecture example"></p>
   <!--
@@ -170,27 +291,23 @@
 
 -->
   <h2 id="backend-hexagonal-architecture">Backend hexagonal architecture</h2>
-  <p>As I mentioned in the introduction, I'm doing my best to follow the architecture
-    defined in the first book. However, it's important to understand that there are
-    different ways to apply this architecture, mostly depending on the size of the
-    project. In my case, I’m following an approach suitable for a medium-sized
-    project. First, because time, and second, because I’m just one developer.</p>
+  <p>As I mentioned in the introduction, I'm doing my best to follow the architecture defined in the first book.
+    However, it's important to understand that there are different ways to apply this architecture, mostly depending on
+    the size of the project. In my case, I’m following an approach suitable for a medium-sized project. First, because
+    time, and second, because I’m just one developer.</p>
   <p>From the perspective of entities, I’m following this diagram:</p>
   <p><img src="/img/blog/06_hexagonal_architecture_entities.png" alt="hexagonal architecture"></p>
-  <p>From the perspective of artifacts, I’m following the second column of this
-    diagram, which shows different ways to apply or evolve the project artifacts:</p>
+  <p>From the perspective of artifacts, I’m following the second column of this diagram, which shows different ways to
+    apply or evolve the project artifacts:</p>
   <p><img src="/img/blog/07_artifacts.png" alt="artifacts"></p>
-  <p>The important part here is to keep the logic and domain independent of
-    dependencies, because the core principle of hexagonal architecture is to
-    separate the layers like an onion. The center of the onion is the domain and
-    logic, which should not be aware of the existence of the outer layers.</p>
-  <p>But theory and practice are not always the same. Here's a diagram of the actual
-    architecture of this project. It doesn’t follow the book exactly, but the
-    intention is not to be lazy or negligent. The goal is to meet deadlines and
+  <p>The important part here is to keep the logic and domain independent of dependencies, because the core principle of
+    hexagonal architecture is to separate the layers like an onion. The center of the onion is the domain and logic,
+    which should not be aware of the existence of the outer layers.</p>
+  <p>But theory and practice are not always the same. Here's a diagram of the actual architecture of this project. It
+    doesn’t follow the book exactly, but the intention is not to be lazy or negligent. The goal is to meet deadlines and
     requirements, given the limited resources like time and knowledge.</p>
-  <p>I'm also applying other well-known principles not mentioned in the main book,
-    which are in another secondary books, and I believe will help make the project
-    easier to maintain and evolve.</p>
+  <p>I'm also applying other well-known principles not mentioned in the main book, which are in another secondary books,
+    and I believe will help make the project easier to maintain and evolve.</p>
   <p>Here is the point of view of artifacts.</p>
   <p><img src="/img/blog/08_my-artifacts.png" alt="my artifacts"></p>
   <p>Here is the point of view of entities.</p>
@@ -208,60 +325,46 @@
 -->
   <h2 id="what-this-project-does">What this project does</h2>
   <h3 id="authentication">Authentication</h3>
-  <p>Register and Login guest</p>
+  <p>Register and log in as a guest</p>
   <p>
-    <video src="/img/blog/12_register_and_guest_login.webm" alt="Register and guest login" controls>
-    </video>
+    <video controls src="/img/blog/12_register_and_guest_login.webm" alt="12_register_and_guest_login"></video>
   </p>
-
   <p>Login as Admin</p>
   <p>
-    <video src="/img/blog/10_admin_login.webm" alt="Admin Login" controls>
-    </video>
+    <video controls src="/img/blog/10_admin_login.webm" alt="10_admin_login"></video>
   </p>
-
-
-  <h2 id="user-administration">User Administration</h2>
-  <p>User pagination search and show/hide properties.</p>
+  <h3 id="user-administration">User Administration</h3>
+  <p>User pagination, search, and show/hide properties.</p>
   <p>
-    <video src="/img/blog/11_pagination_filter_by_sub_string_in_multiple_properties_and_hide_show_properties.webm"
-      alt="Pagination filter by substring in multiple properties and hide/show properties" controls>
-    </video>
+      <video controls src="/img/blog/11_pagination_filter_by_sub_string_in_multiple_properties_and_hide_show_properties.webm" alt="Register and guest login"></video>
   </p>
-
-
-
-  <p>Save User</p>
+  <p>Save user</p>
   <p>
-    <video src="/img/blog/13_save_user_with_image.webm" alt="Save user with image" controls>
-    </video>
+    <video controls src="/img/blog/13_save_user_with_image.webm" alt="13_save_user_with_image"></video>
   </p>
-
-  <p>User Update</p>
+  <p>Update user</p>
   <p>
-    <video src="/img/blog/14_update_user.webm" alt="Update User" controls>
-    </video>
+    <video controls src="/img/blog/14_update_user.webm" alt="Update User"></video>
   </p>
-
   <p>Delete User</p>
   <p>
-    <video src="/img/blog/15_delete_user.webm" alt="Delete user" controls>
-    </video>
+    <video controls src="/img/blog/15_delete_user.webm" alt="Delete user"></video>
   </p>
+  <!--
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
+-->
+  <hr>
+  <!--
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+-->
   <h2 id="todo">ToDo</h2>
-  <ul class="contains-task-list">
-    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Use the Flyway to implement <a href="https://martinfowler.com/articles/evodb.html">Evolutionary Database Design</a>.</li>
-    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Create a backup.</li>
-    <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> Implement rollback on the 3 layers
-      <ul class="contains-task-list">
-        <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> by putting a previous
-          working commit at front (<code>git cherry-pick XXX</code> or <code>git rebase -i HEAD~XXX</code>)</li>
-        <li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> using a x.tar file.
-        </li>
-      </ul>
-    </li>
+  <ul>
+    <li><input type="checkbox" id="checkbox0"><label for="checkbox0">Create backups pipelines.</label></li>
+    <li><input type="checkbox" id="checkbox1"><label for="checkbox1">Implement a panic rollback by using backups</label></li>
   </ul>
 
 
